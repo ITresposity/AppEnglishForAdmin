@@ -5,6 +5,7 @@ module com.englishforadmin {
     requires org.controlsfx.controls;
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
+    requires MaterialFX;
 
     opens com.englishforadmin to javafx.fxml;
     exports com.englishforadmin;
