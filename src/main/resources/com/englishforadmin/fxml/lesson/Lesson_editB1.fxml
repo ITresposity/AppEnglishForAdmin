@@ -16,7 +16,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="899.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="640.0" prefWidth="899.0"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+fx:controller="com.englishforadmin.controller.Lesson_editB1Controller">
    <children>
       <ImageView fitHeight="640.0" fitWidth="914.0" layoutX="-1.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
          <Image url="@../../assets/wallpaper_content.png" />
@@ -28,51 +31,54 @@
                   <ImageView fitHeight="103.0" fitWidth="906.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="false" smooth="false">
                      <Image url="@../../assets/wallpaper_header.png" />
                   </ImageView>
-                  <MFXButton id="btnAvatar" layoutX="40.0" layoutY="15.0" prefHeight="60.0" prefWidth="195.0" style="-fx-background-radius: 80; -fx-background-color: #8FC6C3; -fx-border-color: black; -fx-border-width: 2px; -fx-border-radius: 80;" text="User : Tham" textFill="WHITE">
+                  <MFXButton fx:id="btnUserInformation" layoutX="40.0" layoutY="15.0" prefHeight="60.0"
+                             prefWidth="195.0" style="-fx-background-radius: 80; -fx-background-color: #8FC6C3; -fx-border-color: black; -fx-border-width: 2px; -fx-border-radius: 80;" text="User : Tham"
+                             textFill="WHITE"
+                     onAction="#ProfileUserScreen">
                      <font>
                         <Font name="Arial Bold" size="16.0" />
                      </font></MFXButton>
 
-                  <ImageView id="imgAvatar" fitHeight="103.0" fitWidth="94.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgAvatar" fitHeight="103.0" fitWidth="94.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="true">
                      <Image url="@../../assets/avatar.png" />
                   </ImageView>
-                  <MFXButton id="btnGrammar" layoutX="246.0" layoutY="44.0" prefHeight="37.0" prefWidth="128.0" style="-fx-background-color: 'transparent';" text="Grammar">
+                  <MFXButton layoutX="246.0" layoutY="44.0" prefHeight="37.0" prefWidth="128.0" style="-fx-background-color: 'transparent';" text="Grammar">
                      <font>
                         <Font name="Arial Bold" size="19.0" />
                      </font>
                   </MFXButton>
-                  <MFXButton id="btnListening" layoutX="398.0" layoutY="44.0" prefHeight="37.0" prefWidth="128.0" style="-fx-background-color: 'transparent';" text="Listening">
+                  <MFXButton layoutX="398.0" layoutY="44.0" prefHeight="37.0" prefWidth="128.0" style="-fx-background-color: 'transparent';" text="Listening">
                      <font>
                         <Font name="Arial Bold" size="19.0" />
                      </font>
                   </MFXButton>
-                  <MFXButton id="btnSpeaking" layoutX="557.0" layoutY="44.0" prefHeight="37.0" prefWidth="128.0" style="-fx-background-color: 'transparent';" text="Speaking">
+                  <MFXButton layoutX="557.0" layoutY="44.0" prefHeight="37.0" prefWidth="128.0" style="-fx-background-color: 'transparent';" text="Speaking">
                      <font>
                         <Font name="Arial Bold" size="19.0" />
                      </font>
                   </MFXButton>
-                  <MFXButton id="btnVolcabulary" layoutX="709.0" layoutY="44.0" prefHeight="41.0" prefWidth="142.0" style="-fx-background-color: 'transparent';" text="Volcabulary">
+                  <MFXButton layoutX="709.0" layoutY="44.0" prefHeight="41.0" prefWidth="142.0" style="-fx-background-color: 'transparent';" text="Volcabulary">
                      <font>
                         <Font name="Arial Bold" size="19.0" />
                      </font>
                   </MFXButton>
                   <HBox layoutX="772.0" prefHeight="41.0" prefWidth="128.0" style="-fx-background-color: #8FC6C3;" visible="false">
                      <children>
-                        <Button id="btnMinimise" mnemonicParsing="false" prefHeight="34.0" prefWidth="26.0" style="-fx-background-color: 'transparent';">
+                        <Button fx:id="btnMinimise" mnemonicParsing="false" prefHeight="34.0" prefWidth="26.0" style="-fx-background-color: 'transparent';">
                            <graphic>
                               <ImageView fitHeight="5.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <Image url="@../../assets/icon_minimise.png" />
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button id="btnMaximise" mnemonicParsing="false" prefHeight="34.0" prefWidth="40.0" style="-fx-background-color: 'transparent';">
+                        <Button fx:id="btnMaximise" mnemonicParsing="false" prefHeight="34.0" prefWidth="40.0" style="-fx-background-color: 'transparent';">
                            <graphic>
                               <ImageView fitHeight="19.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <Image url="@../../assets/icon_maximise.png" />
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button id="btnExit" mnemonicParsing="false" prefHeight="34.0" prefWidth="40.0" style="-fx-background-color: 'transparent';">
+                        <Button fx:id="btnExit" mnemonicParsing="false" prefHeight="34.0" prefWidth="40.0" style="-fx-background-color: 'transparent';">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                  <Image url="@../../assets/icon_exitwin.png" />
@@ -88,41 +94,19 @@
                   <Pane prefHeight="543.0" prefWidth="205.0">
                      <children>
                         <Pane layoutX="-3.0" layoutY="-4.0" prefHeight="550.0" prefWidth="152.0" style="-fx-background-color: #8FC6C3;">
-                           <children>
-                              <MFXButton id="btnQuanLyBaiHoc" alignment="CENTER" contentDisplay="CENTER" layoutX="-51.0" layoutY="29.0" prefHeight="47.0" prefWidth="237.0" style="-fx-background-color: #D9D9D9; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text=" Quản lý bài học " textAlignment="CENTER">
-                                 <font>
-                                    <Font name="Arial Bold" size="16.0" />
-                                 </font>
-                              </MFXButton>
-                              <MFXButton id="btnQuanLyKhoTu" layoutX="-51.0" layoutY="119.0" prefHeight="47.0" prefWidth="237.0" style="-fx-background-color: #D9D9D9; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Quản lý kho từ">
-                                 <font>
-                                    <Font name="Arial Bold" size="16.0" />
-                                 </font>
-                              </MFXButton>
-                              <MFXButton id="btnQuanLyQuiz" layoutX="-51.0" layoutY="211.0" prefHeight="47.0" prefWidth="237.0" style="-fx-background-color: #D9D9D9; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Quản lý Quiz">
-                                 <font>
-                                    <Font name="System Bold" size="16.0" />
-                                 </font>
-                              </MFXButton>
-                              <MFXButton id="btnDangXuat" layoutX="-51.0" layoutY="310.0" prefHeight="47.0" prefWidth="237.0" style="-fx-background-color: #FF8A54; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Đăng xuất">
-                                 <font>
-                                    <Font name="Arial Bold" size="16.0" />
-                                 </font>
-                              </MFXButton>
-                           </children>
                            <effect>
                               <Blend />
                            </effect>
                         </Pane>
                      </children>
                   </Pane>
-                  <Pane id="pnMain" prefHeight="543.0" prefWidth="715.0">
+                  <Pane fx:id="pnMain" prefHeight="543.0" prefWidth="715.0">
                      <children>
-                        <Pane id="pnNewLesson" layoutX="7.0" layoutY="37.0" prefHeight="426.0" prefWidth="690.0" style="-fx-background-color: #D9D9D9; -fx-border-color: black;">
+                        <Pane fx:id="pnNewLesson" layoutX="7.0" layoutY="37.0" prefHeight="426.0" prefWidth="690.0" style="-fx-background-color: #D9D9D9; -fx-border-color: black;">
                            <children>
                               <VBox layoutX="8.0" layoutY="9.0" prefHeight="408.0" prefWidth="674.0">
                                  <children>
-                                    <Pane id="pnTitleNewLesson" prefHeight="45.0" prefWidth="674.0" style="-fx-border-color: black;">
+                                    <Pane fx:id="pnTitleNewLesson" prefHeight="45.0" prefWidth="674.0" style="-fx-border-color: black;">
                                        <children>
                                           <Label layoutX="249.0" layoutY="5.0" text="Điều chỉnh bài học ">
                                              <font>
@@ -131,7 +115,7 @@
                                           </Label>
                                        </children>
                                     </Pane>
-                                    <Pane id="pnLessonContent" prefHeight="294.0" prefWidth="674.0" style="-fx-border-color: black;">
+                                    <Pane fx:id="pnLessonContent" prefHeight="294.0" prefWidth="674.0" style="-fx-border-color: black;">
                                        <children>
                                           <Label layoutX="25.0" layoutY="27.0" text="Tên bài học ">
                                              <font>
@@ -148,15 +132,15 @@
                                                 <Font size="17.0" />
                                              </font>
                                           </Label>
-                                          <TextField id="txtTenBaiHoc" layoutX="153.0" layoutY="23.0" prefHeight="34.0" prefWidth="484.0" style="-fx-background-radius: 50; -fx-border-color: black; -fx-border-radius: 50;" />
+                                          <TextField fx:id="txtNameLesson" layoutX="153.0" layoutY="23.0" prefHeight="34.0" prefWidth="484.0" style="-fx-background-radius: 50; -fx-border-color: black; -fx-border-radius: 50;" />
                                           <Region layoutX="153.0" layoutY="66.0" prefHeight="142.0" prefWidth="484.0" style="-fx-border-color: black; -fx-border-radius: 15; -fx-background-color: white; -fx-background-radius: 15;" />
-                                          <TextArea id="txtMoTa" layoutX="163.0" layoutY="68.0" prefHeight="135.0" prefWidth="467.0" style="-fx-background-color: white; -fx-border-color: white; -fx-background-radius: 15; -fx-border-radius: 15;" />
-                                          <MFXRadioButton id="rdbMoBaiHoc" layoutX="180.0" layoutY="226.0" text="Mở bài học">
+                                          <TextArea fx:id="txtareaDescription" layoutX="163.0" layoutY="68.0" prefHeight="135.0" prefWidth="467.0" style="-fx-background-color: white; -fx-border-color: white; -fx-background-radius: 15; -fx-border-radius: 15;" />
+                                          <MFXRadioButton fx:id="rdbOpenLesson" layoutX="180.0" layoutY="226.0" text="Mở bài học">
                                              <font>
                                                 <Font name="Arial" size="16.0" />
                                              </font>
                                           </MFXRadioButton>
-                                          <MFXRadioButton id="rdbKhoaBaiHoc" layoutX="409.0" layoutY="227.0" text="Khóa bài học">
+                                          <MFXRadioButton fx:id="rdbLockLesson" layoutX="409.0" layoutY="227.0" text="Khóa bài học">
                                              <font>
                                                 <Font name="Arial" size="16.0" />
                                              </font>
@@ -165,12 +149,20 @@
                                     </Pane>
                                     <Pane prefHeight="82.0" prefWidth="674.0" style="-fx-border-color: black; -fx-background-color: #A968ED;">
                                        <children>
-                                          <MFXButton id="btnHuyBaiHoc" alignment="CENTER" contentDisplay="CENTER" layoutX="378.0" layoutY="19.0" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #FCA4C7; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Hủy" textAlignment="CENTER">
+                                          <MFXButton fx:id="btnCancel" alignment="CENTER" contentDisplay="CENTER"
+                                                     layoutX="378.0" layoutY="19.0" prefHeight="41.0"
+                                                     prefWidth="123.0" style="-fx-background-color: #FCA4C7; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Hủy"
+                                                     textAlignment="CENTER"
+                                                   onAction="#CancelLesson_editB1">
                                              <font>
                                                 <Font name="Arial Bold" size="16.0" />
                                              </font>
                                           </MFXButton>
-                                          <MFXButton id="btnTiepTheo" alignment="CENTER" contentDisplay="CENTER" layoutX="522.0" layoutY="19.0" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #80CD7B; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Tiếp theo" textAlignment="CENTER">
+                                          <MFXButton fx:id="btnNext" alignment="CENTER" contentDisplay="CENTER"
+                                                     layoutX="522.0" layoutY="19.0" prefHeight="41.0" prefWidth="123.0"
+                                                     style="-fx-background-color: #80CD7B; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Tiếp theo"
+                                                     textAlignment="CENTER"
+                                                   onAction="#Lesson_editB2Screen">
                                              <font>
                                                 <Font name="Arial Bold" size="16.0" />
                                              </font>
