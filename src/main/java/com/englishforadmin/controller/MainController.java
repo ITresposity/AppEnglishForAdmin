@@ -217,7 +217,7 @@ public class MainController implements Initializable
             List<Lesson> lessons = lessonDAOimpl.getAllLessons();
             ObservableList<Lesson> lessonObservableList = FXCollections.observableArrayList(lessons);
 
-            System.out.println(lessonObservableList);
+            //System.out.println(lessonObservableList);
             tableViewLesson.setItems(lessonObservableList);
         } catch (SQLException e) {
             System.out.println("Không thể tải danh sách bài học: " + e.getMessage());
@@ -226,7 +226,6 @@ public class MainController implements Initializable
     // Phương thức để xử lý sự kiện Modify
     private void modifyLesson(Lesson lesson) {
         Lesson Modifylesson = lessonDAOimpl.getLessonById( lesson.getIdLesson());
-
         StateManager.setCurrentLesson(Modifylesson);
         EditLessonScreen();
 
@@ -235,9 +234,8 @@ public class MainController implements Initializable
 
     // Phương thức để xử lý sự kiện Delete
     private void deleteLesson(Lesson lesson) {
-
-
         // Logic để xóa bài học
+
 
 
 
