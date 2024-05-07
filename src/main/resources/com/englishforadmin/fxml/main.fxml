@@ -120,14 +120,14 @@
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </MFXButton>
-                        <TableView fx:id="tableViewLesson" layoutX="3.0" layoutY="14.0" prefHeight="443.0" prefWidth="688.0" style="-fx-background-color: lightgrey;">
+                        <TableView fx:id="tableViewLesson" layoutX="3.0" layoutY="14.0" prefHeight="443.0" prefWidth="683.0" style="-fx-border-color: black; fx-font-size: 23;">
                           <columns>
-                            <TableColumn prefWidth="63.200016021728516" text="No" />
-                            <TableColumn prefWidth="203.1999969482422" text="Name" />
-                              <TableColumn prefWidth="84.79998779296875" text="status" />
-                              <TableColumn prefWidth="120.79998779296875" text="Create date" />
-                              <TableColumn prefWidth="110.39996337890625" text="Modify" />
-                              <TableColumn prefWidth="104.00006103515625" text="Delete" />
+                             <TableColumn fx:id="columnIDLesson" prefWidth="68.79999089241028" text="ID" visible="false" />
+                            <TableColumn fx:id="columnSerialLesson" prefWidth="68.79999089241028" style="-fx-font-family: &quot;Arial&quot;; -fx-font-size: 16; -fx-background-color: #CEB5E8;" text="No" />
+                            <TableColumn fx:id="columnNameLesson" prefWidth="242.40000915527344" style="-fx-font-family: &quot;Arial&quot;; -fx-font-size: 16;" text="Name" />
+                              <TableColumn fx:id="columnStatus" prefWidth="125.5999755859375" style="-fx-font-family: &quot;Arial&quot;; -fx-font-size: 16;" text="Status" />
+                              <TableColumn fx:id="columnModifyButton" prefWidth="131.199951171875" style="-fx-font-family: &quot;Arial&quot;; -fx-font-size: 16;" text="Modify" />
+                              <TableColumn fx:id="columnDeleteButton" prefWidth="115.20001220703125" style="-fx-font-family: &quot;Arial&quot;; -fx-font-size: 16;" text="Delete" />
                           </columns>
                         </TableView>
                      </children>

@@ -9,9 +9,18 @@ public class Lesson {
     private LessonStatus status;
     private int serial;
     public enum LessonStatus {
-        LOCK,
-        UNLOCK,
-        HIDDEN
+        lock,
+        unlock,
+        hidden
+    }
+    public Lesson() {
+    }
+    public Lesson(String idLesson, String name, String description, LessonStatus status, int serial) {
+        this.idLesson = idLesson;
+        this.name = name;
+        this.description = description;
+        this.status = status;
+        this.serial = serial;
     }
 
     public String getIdLesson() {
