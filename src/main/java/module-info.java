@@ -11,4 +11,6 @@ module com.englishforadmin {
     exports com.englishforadmin;
     exports com.englishforadmin.controller;
     opens com.englishforadmin.controller to javafx.fxml;
+    opens model to javafx.base;
+
 }

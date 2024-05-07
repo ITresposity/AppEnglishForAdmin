@@ -1,5 +1,6 @@
 package com.englishforadmin.controller;
 
+import com.englishforadmin.StateManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import com.englishforadmin.MainApplication;
@@ -15,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import model.Lesson;
 
 import java.io.IOException;
 
@@ -98,6 +100,14 @@ public class Lesson_editB1Controller {
 
     @FXML
     public void initialize() {
+        // Load dữ liệu từ đối tượng Lesson đã chọn
+        Lesson lesson = StateManager.getCurrentLesson();
+        if (lesson != null) {
+            txtNameLesson.setText(lesson.getName());
+            txtareaDescription.setText(lesson.getDescription());
+        }
+
+
 
     }
 

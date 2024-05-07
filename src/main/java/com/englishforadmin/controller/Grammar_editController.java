@@ -14,7 +14,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.awt.event.MouseEvent;
+
 import java.io.IOException;
 
 public class Grammar_editController {

@@ -32,6 +32,10 @@ public class MainApplication extends Application {
     public static void loadForm(String fxmlDirectory, String fxmlFile) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/com/englishforadmin/fxml" + fxmlDirectory + "/" + fxmlFile));
         Scene scene = new Scene(fxmlLoader.load(), 900, 640);
+
+        scene.getStylesheets().add(MainApplication.class.getResource("/meta-style.css").toExternalForm());
+
+
         MainApplication.setPreviousScene(mainStage.getScene()); // Cập nhật scene trước đó
         if (mainStage != null) {
             mainStage.setScene(scene);
