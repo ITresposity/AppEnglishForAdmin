@@ -8,9 +8,11 @@ public class Quiz {
     private QuizStatus status;
 
     public enum QuizStatus {
-        LOCK,
-        UNLOCK,
-        HIDDEN
+
+        lock,
+        unlock,
+        hidden
+
     }
 
     public String getIdQuiz() {

@@ -1,5 +1,6 @@
 package com.englishforadmin.controller;
 import com.englishforadmin.MainApplication;
+import com.englishforadmin.StateManager;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXRadioButton;
 import javafx.event.ActionEvent;
@@ -8,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import model.Quiz;
 
 import java.io.IOException;
 
@@ -114,6 +116,13 @@ public class Quiz_editQuizController {
     //
     @FXML
     public void initialize() {
+        Quiz quiz = StateManager.getCurrentQuiz();
+        if ( quiz != null)
+        {
+            txtOrderQuiz.setText(quiz.getIdQuiz());
+            txtOrderQuiz.setEditable(false);
+            txtTitleQuiz.setText(quiz.getTitle());
+        }
 
     }
 }

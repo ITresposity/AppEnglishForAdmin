@@ -3,6 +3,7 @@ package com.englishforadmin.daoimpl;
 import com.englishforadmin.dao.LessonDAO;
 import com.englishforadmin.myconnection.MySQLconnection;
 import model.Lesson;
+import model.Quiz;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -65,14 +66,15 @@ public class LessonDAOimpl implements LessonDAO {
             }
 
             // Đóng các tài nguyên
-            resultSet.close();
-            statement.close();
-            connection.close();
+            //resultSet.close();
+            //tatement.close();
+            //connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         return lesson;
     }
+
 
 }
