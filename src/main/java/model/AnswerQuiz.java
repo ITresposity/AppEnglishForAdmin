@@ -6,6 +6,13 @@ public class AnswerQuiz {
     private boolean isCorrect;
     private String idQuestionQuiz;
 
+    public AnswerQuiz(String idAnswerQuiz, String content, boolean isCorrect, String questionQuizID) {
+        this.idAnswerQuiz = idAnswerQuiz;
+        this.content = content;
+        this.isCorrect = isCorrect;
+        this.idQuestionQuiz = questionQuizID;
+    }
+
     public String getIdAnswerQuiz() {
         return idAnswerQuiz;
     }

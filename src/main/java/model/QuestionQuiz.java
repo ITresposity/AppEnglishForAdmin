@@ -9,6 +9,21 @@ public class QuestionQuiz {
     private byte[] image;
     private String idQuiz;
     private List<AnswerQuiz> lstAnswers;
+
+    public QuestionQuiz(String idQuestionQuiz, String content, int serial, byte[] image, String quizID, List<AnswerQuiz> lstAnswers) {
+        super();
+        this.idQuestionQuiz = idQuestionQuiz;
+        this.content = content;
+        this.serial = serial;
+        this.image = image;
+        this.idQuiz = quizID;
+        this.lstAnswers = lstAnswers;
+    }
+
+    public QuestionQuiz() {
+
+    }
+
     public String getIdQuestionQuiz() {
         return idQuestionQuiz;
     }
