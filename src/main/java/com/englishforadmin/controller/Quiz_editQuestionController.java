@@ -1,6 +1,7 @@
 package com.englishforadmin.controller;
 
 import com.englishforadmin.MainApplication;
+import com.englishforadmin.StateManager;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,8 +14,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import model.AnswerQuiz;
+import model.QuestionQuiz;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Arrays;
 
 
 public class Quiz_editQuestionController {
@@ -108,10 +113,22 @@ public class Quiz_editQuestionController {
             e.printStackTrace();
         }
     }
-    //
+    // update Question quiz
+    QuestionQuiz question = StateManager.getCurrentQuestion();
+
+
     @FXML
     public void initialize() {
-
+        if ( question != null ) {
+            txtareaContent.setText(question.getContent());
+            lblQuizQuestioNumber.setText(String.valueOf(question.getSerial()));
+            lblImageSource.setText(Arrays.toString(question.getImage()));
+        }
+        else
+        {
+            System.out.println("Dữ liệu gặp lỗi ");
+        }
     }
+
 
 }

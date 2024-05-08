@@ -63,5 +63,8 @@ public class QuizDAOimpl implements QuizDAO {
         return quiz;
     }
 
+    @Override
+    public void updateQuiz(Quiz quiz) {
 
+    }
 }

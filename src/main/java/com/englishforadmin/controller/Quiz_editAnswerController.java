@@ -1,6 +1,7 @@
 package com.englishforadmin.controller;
 
 import com.englishforadmin.MainApplication;
+import com.englishforadmin.StateManager;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXRadioButton;
 import javafx.event.ActionEvent;
@@ -8,33 +9,34 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import model.AnswerQuiz;
+import model.QuestionQuiz;
 
 import java.io.IOException;
+import java.util.List;
 
 public class Quiz_editAnswerController {
 
     @FXML
+    private ToggleGroup IsCorrectGroupAnswer1;
+
+    @FXML
+    private ToggleGroup IsCorrectGroupAnswer2;
+
+    @FXML
+    private ToggleGroup IsCorrectGroupAnswer3;
+
+    @FXML
+    private ToggleGroup IsCorrectGroupAnswer4;
+
+    @FXML
     private MFXButton btnCancelEditQuizAnswer;
-
-    @FXML
-    private MFXButton btnChooseImg01;
-
-    @FXML
-    private MFXButton btnChooseImg02;
-
-    @FXML
-    private MFXButton btnChooseImg03;
-
-    @FXML
-    private MFXButton btnChooseImg04;
 
     @FXML
     private Button btnExit;
@@ -64,34 +66,10 @@ public class Quiz_editAnswerController {
     private ImageView imgAvatar;
 
     @FXML
-    private Label lblImageSource03;
-
-    @FXML
-    private Label lblImageSource04;
-
-    @FXML
     private Label lblQuestionNumber;
 
     @FXML
-    private Label lblSourceImg01;
-
-    @FXML
-    private Label lblSourceImg02;
-
-    @FXML
     private Pane pnEditLesson;
-
-    @FXML
-    private Pane pnImageSource;
-
-    @FXML
-    private Pane pnImageSource04;
-
-    @FXML
-    private Pane pnImageSource1;
-
-    @FXML
-    private Pane pnImageSource11;
 
     @FXML
     private Pane pnLessonContent;
@@ -103,34 +81,27 @@ public class Quiz_editAnswerController {
     private Pane pnTitleEditLessonAnswer;
 
     @FXML
-    private MFXRadioButton rdb01_No;
+    private RadioButton rdb01_No;
 
     @FXML
-    private MFXRadioButton rdb01_No1;
+    private RadioButton rdb01_Yes;
+    @FXML
+    private RadioButton rdb02_No;
 
     @FXML
-    private MFXRadioButton rdb01_Yes;
+    private RadioButton rdb02_Yes;
 
     @FXML
-    private MFXRadioButton rdb01_Yes1;
+    private RadioButton rdb03_No;
 
     @FXML
-    private MFXRadioButton rdb02_No;
+    private RadioButton rdb03_Yes;
 
     @FXML
-    private MFXRadioButton rdb02_Yes;
+    private RadioButton rdb04_No;
 
     @FXML
-    private MFXRadioButton rdb03_No;
-
-    @FXML
-    private MFXRadioButton rdb03_Yes;
-
-    @FXML
-    private MFXRadioButton rdb04_No;
-
-    @FXML
-    private MFXRadioButton rdb04_Yes;
+    private RadioButton rdb04_Yes;
 
     @FXML
     private AnchorPane scrollpanelMain;
@@ -149,8 +120,7 @@ public class Quiz_editAnswerController {
 
     // fixing
     @FXML
-    void SubmitQuizAnswer_edit(ActionEvent event ) throws IOException
-    {
+    void SubmitQuizAnswer_edit(ActionEvent event) throws IOException {
         try {
             MainApplication.loadForm("/quiz", "Quiz_editQuiz.fxml");
         } catch (IOException e) {
@@ -159,8 +129,7 @@ public class Quiz_editAnswerController {
     }
 
     @FXML
-    void CancelQuizAnswer_edit(ActionEvent event ) throws IOException
-    {
+    void CancelQuizAnswer_edit(ActionEvent event) throws IOException {
         //  // hủy hẳn luôn : -> Quiz_newQuiz
         try {
             MainApplication.loadForm("/quiz", "Quiz_editQuiz.fxml");
@@ -171,8 +140,7 @@ public class Quiz_editAnswerController {
 
     // after all:
     @FXML
-    void ProfileUserScreen(ActionEvent event ) throws IOException
-    {
+    void ProfileUserScreen(ActionEvent event) throws IOException {
         try {
             MainApplication.loadForm("/", ".fxml");
         } catch (IOException e) {
@@ -180,9 +148,62 @@ public class Quiz_editAnswerController {
         }
     }
     //
+
+    // ----------------------------main function -----------------------------------------------------------------
+
     @FXML
     public void initialize() {
 
+        rdb01_Yes.setToggleGroup(IsCorrectGroupAnswer1);
+        rdb01_No.setToggleGroup(IsCorrectGroupAnswer1);
+
+        rdb02_Yes.setToggleGroup(IsCorrectGroupAnswer2);
+        rdb02_No.setToggleGroup(IsCorrectGroupAnswer2);
+
+        rdb03_Yes.setToggleGroup(IsCorrectGroupAnswer3);
+        rdb03_No.setToggleGroup(IsCorrectGroupAnswer3);
+
+        rdb04_Yes.setToggleGroup(IsCorrectGroupAnswer4);
+        rdb04_No.setToggleGroup(IsCorrectGroupAnswer4);
+        displayQuestionAndAnswers();
+
+
+
+    }
+
+
+    private void displayQuestionAndAnswers() {
+        QuestionQuiz question = StateManager.getCurrentQuestion();
+        if (question != null) {
+            List<AnswerQuiz> answerList = question.getLstAnswers();
+            if (answerList != null && !answerList.isEmpty()) {
+                lblQuestionNumber.setText(String.valueOf(question.getSerial()));
+                txtareaAnswer01.setText(answerList.get(0).getContent());
+                txtareaAnswer02.setText(answerList.get(1).getContent());
+                txtareaAnswer03.setText(answerList.get(2).getContent());
+                txtareaAnswer04.setText(answerList.get(3).getContent());
+
+                // Xử lý giá trị của RadioButton dựa trên đối tượng AnswerQuiz
+                handleRadioButtonValues(answerList);
+            }
+        }
+    }
+
+    private void handleRadioButtonValues(List<AnswerQuiz> answerList) {
+        setSelectedRadioButton(IsCorrectGroupAnswer1, answerList.get(0).isCorrect());
+        setSelectedRadioButton(IsCorrectGroupAnswer2, answerList.get(1).isCorrect());
+        setSelectedRadioButton(IsCorrectGroupAnswer3, answerList.get(2).isCorrect());
+        setSelectedRadioButton(IsCorrectGroupAnswer4, answerList.get(3).isCorrect());
+    }
+
+    private void setSelectedRadioButton(ToggleGroup toggleGroup, boolean isCorrect) {
+        RadioButton selectedRadioButton = null;
+        if (isCorrect) {
+            selectedRadioButton = (RadioButton) toggleGroup.getToggles().get(0);
+        } else {
+            selectedRadioButton = (RadioButton) toggleGroup.getToggles().get(1);
+        }
+        selectedRadioButton.setSelected(true);
     }
 
 }
