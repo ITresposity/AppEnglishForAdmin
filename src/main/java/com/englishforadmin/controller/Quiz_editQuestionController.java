@@ -129,6 +129,4 @@ public class Quiz_editQuestionController {
             System.out.println("Dữ liệu gặp lỗi ");
         }
     }
-
-
 }

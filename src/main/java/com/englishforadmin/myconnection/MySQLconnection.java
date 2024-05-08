@@ -8,7 +8,6 @@ public class MySQLconnection {
     private static Connection con = null;
 
     private MySQLconnection() {
-        // Không cho phép tạo đối tượng MySQLconnection
     }
 
     public static Connection getConnection() {
