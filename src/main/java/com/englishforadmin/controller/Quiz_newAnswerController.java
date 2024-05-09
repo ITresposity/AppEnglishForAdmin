@@ -5,9 +5,11 @@ import com.englishforadmin.NavigationManager;
 import com.englishforadmin.StateManager;
 import com.englishforadmin.dao.AnswerQuizDAO;
 import com.englishforadmin.daoimpl.AnswerQuizDAOimpl;
+import com.englishforadmin.myconnection.MySQLconnection;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -22,11 +24,14 @@ import model.QuestionQuiz;
 
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class Quiz_newAnswerController {
+public class Quiz_newAnswerController  implements Initializable {
+    public AnchorPane rootPane;
     @FXML
     private ToggleGroup IsCorrectGroupAnswer1;
 
@@ -212,11 +217,6 @@ public class Quiz_newAnswerController {
     //____________________________ main fucntion ------------------------------------
 
     private AnswerQuizDAOimpl answerQuizDAOimpl;
-    private Connection connection;
-    public Quiz_newAnswerController() {
-        this.answerQuizDAOimpl = new AnswerQuizDAOimpl(connection);
-    }
-
     @FXML
     void SubmitQuizAnswer_new(ActionEvent event) throws IOException {
             String questionQuizID =  StateManager.getQuestionID();
@@ -253,7 +253,8 @@ public class Quiz_newAnswerController {
     }
 
     @FXML
-    public void initialize() {
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        answerQuizDAOimpl = new AnswerQuizDAOimpl(MySQLconnection.getConnection());
         rdb01_Yes.setToggleGroup(IsCorrectGroupAnswer1);
         rdb01_No.setToggleGroup(IsCorrectGroupAnswer1);
 
@@ -267,6 +268,5 @@ public class Quiz_newAnswerController {
         rdb04_No.setToggleGroup(IsCorrectGroupAnswer4);
 
     }
-
 
 }

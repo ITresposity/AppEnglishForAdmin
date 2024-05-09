@@ -56,12 +56,9 @@ public class AnswerQuizDAOimpl implements AnswerQuizDAO {
     public boolean addNewAnswer(String content, boolean isCorrect, String idQuestionQuiz) {
         String idAnswerQuiz = generateUniqueAnswerId();
 
-        // Chuyển đổi giá trị char
-        String idAnswerQuizChar = convertToChar(idAnswerQuiz);
-
         String sql = "INSERT INTO answerquiz (IdAnswerQuiz, Content, IsCorrect, IdQuestionQuiz) VALUES (?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, idAnswerQuizChar);
+            statement.setString(1, idAnswerQuiz);  // Use idAnswerQuiz directly
             statement.setString(2, content);
             statement.setBoolean(3, isCorrect);
             statement.setString(4, idQuestionQuiz);
