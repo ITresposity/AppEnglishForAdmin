@@ -3,7 +3,6 @@ package com.englishforadmin.daoimpl;
 import com.englishforadmin.dao.LessonDAO;
 import com.englishforadmin.myconnection.MySQLconnection;
 import model.Lesson;
-import model.Quiz;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,10 +13,15 @@ public class LessonDAOimpl implements LessonDAO {
     private final static String INSERT_LESSON_QUERY =
             "INSERT INTO LESSON (Name, Description, Status, Serial)" +
                     "VALUES (?,?,?,?)";
-    private final static String SELECT_LASTEST_LESSON_QUERY =
+    private final static String SELECT_LATEST_SERIAL_LESSON_QUERY =
             "SELECT MAX(Serial) AS MaxSerial FROM LESSON;\n";
     private final static String SELECT_SERIAL_LESSON_QUERY =
             "SELECT Serial FROM LESSON WHERE Serial = ?;";
+    private final static String SELECT_LATEST_ID_LESSON_QUERY =
+            "SELECT IdLesson\n" +
+                    "FROM LESSON\n" +
+                    "ORDER BY IdLesson DESC\n" +
+                    "LIMIT 1;";
 
     public LessonDAOimpl(Connection connection) {
         this.connection = connection;
@@ -110,7 +114,7 @@ public class LessonDAOimpl implements LessonDAO {
         Connection connection = MySQLconnection.getConnection();
         int serial = 1;
         if (connection != null) {
-            try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_LASTEST_LESSON_QUERY)) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_LATEST_SERIAL_LESSON_QUERY)) {
                 ResultSet resultSet = preparedStatement.executeQuery();
                 if(resultSet.next()){
                     serial = resultSet.getInt("MaxSerial");
@@ -138,5 +142,23 @@ public class LessonDAOimpl implements LessonDAO {
             }
         }
         return false;
+    }
+
+    public String getLastestId(){
+        Connection connection = MySQLconnection.getConnection();
+        String id = "";
+        if (connection != null) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_LATEST_ID_LESSON_QUERY)) {
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if(resultSet.next()){
+                    id = resultSet.getString("IdLesson");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        if (id.isEmpty())
+            id = "Less000001";
+        return id;
     }
 }

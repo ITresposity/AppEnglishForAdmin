@@ -1,5 +1,6 @@
 package com.englishforadmin.controller;
 import com.englishforadmin.MainApplication;
+import com.englishforadmin.StateManager;
 import com.englishforadmin.daoimpl.LessonDAOimpl;
 import com.englishforadmin.feature.MessageBox;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -142,6 +143,9 @@ public class Lesson_newB1Controller {
         lesson.setDescription(description);
         lesson.setStatus(rdbOpenLesson.isSelected() ? Lesson.LessonStatus.unlock : Lesson.LessonStatus.lock);
         lesson.setSerial(Integer.parseInt(txtSerial.getText().trim()));
-        return lessonDAO.insert(lesson);
+        boolean result = lessonDAO.insert(lesson);
+        lesson.setIdLesson(lessonDAO.getLastestId());
+        StateManager.setCurrentLesson(lesson);
+        return result;
     }
 }
