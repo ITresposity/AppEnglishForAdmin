@@ -1,21 +1,35 @@
 package com.englishforadmin.controller;
 import com.englishforadmin.MainApplication;
+import com.englishforadmin.StateManager;
+import com.englishforadmin.daoimpl.GrammarDAO;
+import com.englishforadmin.daoimpl.GrammarPartDAO;
+import com.englishforadmin.daoimpl.LessonPartDAO;
+import com.englishforadmin.feature.MessageBox;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import model.Grammar;
+import model.GrammarPart;
+import model.LessonPart;
 
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Base64;
 
 public class Grammar_newController {
     @FXML
@@ -78,16 +92,28 @@ public class Grammar_newController {
     @FXML
     private TextArea txtareaTitle;
 
+    byte[] imgData;
+    GrammarDAO grammarDAO;
     // fixing
     @FXML
     void SubmitGrammar_new(ActionEvent event ) throws IOException
     {
-        // nhảy lại form trước
-        // load lại list grammar + số lượng grammar
-        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene previousScene = MainApplication.getPreviousScene();
-        if (previousScene != null) {
-            currentStage.setScene(previousScene);
+
+        if(checkMissData()){
+            MessageBox.show("Lỗi","Hãy điền đầy đủ thông tin trước khi tiếp tục", Alert.AlertType.ERROR);
+            return;
+        }
+        if(addNewGrammar()){
+            // nhảy lại form trước
+            // load lại list grammar + số lượng grammar
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene previousScene = MainApplication.getPreviousScene();
+            if (previousScene != null) {
+                currentStage.setScene(previousScene);
+            }
+        } else {
+            MessageBox.show("Lỗi","Thêm ngữ pháp không thành công", Alert.AlertType.ERROR);
+            return;
         }
     }
 
@@ -117,7 +143,57 @@ public class Grammar_newController {
     //
     @FXML
     public void initialize() {
+        grammarDAO = new GrammarDAO();
+        btnChooseImg.setOnAction(event1 -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Select Image File");
+            File selectedFile = fileChooser.showOpenDialog((Stage) ((Node) event1.getSource()).getScene().getWindow());
 
+            if (selectedFile != null) {
+                try {
+                    imgData = convertImageToBase64(selectedFile);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
+    private boolean checkMissData(){
+        return txtareaTitle.getText().isEmpty() || txtareaContent.getText().isEmpty()
+                || txtareaRule.getText().isEmpty() || txtareaExample.getText().isEmpty();
+    }
+
+    private byte[] convertImageToBase64(File file) throws IOException {
+        try (InputStream inputStream = new FileInputStream(file)) {
+            return inputStream.readAllBytes();
+        }
+    }
+
+    private boolean addNewGrammar(){
+        Grammar grammar = new Grammar();
+        grammar.setTitle(txtareaTitle.getText());
+        grammar.setContent(txtareaContent.getText());
+        grammar.setExample(txtareaExample.getText());
+        grammar.setRule(txtareaRule.getText());
+        grammar.setImage(imgData);
+        if(!grammarDAO.insert(grammar)){
+            return false;
+        }
+
+        grammar.setIdGrammar(grammarDAO.getLastestId());
+        LessonPart lessonPart = new LessonPart();
+        lessonPart.setIdLesson(StateManager.getCurrentLesson().getIdLesson());
+        lessonPart.setType(LessonPart.LessonPartType.GRAMMAR);
+        LessonPartDAO lessonPartDAO = new LessonPartDAO();
+        if(!lessonPartDAO.insert(lessonPart)){
+            return false;
+        }
+
+        GrammarPart part = new GrammarPart();
+        part.setIdGrammar(grammar.getIdGrammar());
+        part.setIdLessonPart(lessonPartDAO.getLastestId());
+        GrammarPartDAO dao = new GrammarPartDAO();
+        return dao.insert(part);
+    }
 }

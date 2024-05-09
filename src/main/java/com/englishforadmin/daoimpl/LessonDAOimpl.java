@@ -3,7 +3,6 @@ package com.englishforadmin.daoimpl;
 import com.englishforadmin.dao.LessonDAO;
 import com.englishforadmin.myconnection.MySQLconnection;
 import model.Lesson;
-import model.Quiz;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,11 +10,23 @@ import java.util.List;
 
 public class LessonDAOimpl implements LessonDAO {
     private Connection connection ;
+    private final static String INSERT_LESSON_QUERY =
+            "INSERT INTO LESSON (Name, Description, Status, Serial)" +
+                    "VALUES (?,?,?,?)";
+    private final static String SELECT_LATEST_SERIAL_LESSON_QUERY =
+            "SELECT MAX(Serial) AS MaxSerial FROM LESSON;\n";
+    private final static String SELECT_SERIAL_LESSON_QUERY =
+            "SELECT Serial FROM LESSON WHERE Serial = ?;";
+    private final static String SELECT_LATEST_ID_LESSON_QUERY =
+            "SELECT IdLesson\n" +
+                    "FROM LESSON\n" +
+                    "ORDER BY IdLesson DESC\n" +
+                    "LIMIT 1;";
 
     public LessonDAOimpl(Connection connection) {
         this.connection = connection;
      }
-
+    public LessonDAOimpl(){}
 
     @Override
     public List<Lesson> getAllLessons() throws SQLException {
@@ -76,5 +87,78 @@ public class LessonDAOimpl implements LessonDAO {
         return lesson;
     }
 
+    public boolean insert(Lesson entity){
+        Connection connection = MySQLconnection.getConnection();
+        if (connection != null) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_LESSON_QUERY)) {
+                preparedStatement.setString(1, entity.getName());
+                preparedStatement.setString(2, entity.getDescription());
+                preparedStatement.setString(3, entity.getStatus().toString().toLowerCase());
+                preparedStatement.setInt(4, entity.getSerial());
+                int rowsAffected = preparedStatement.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("Insertion successful.");
+                    return true;
+                } else {
+                    System.out.println("Insertion failed.");
+                    return false;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
 
+    public int getLastestSerial(){
+        Connection connection = MySQLconnection.getConnection();
+        int serial = 1;
+        if (connection != null) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_LATEST_SERIAL_LESSON_QUERY)) {
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if(resultSet.next()){
+                    serial = resultSet.getInt("MaxSerial");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return serial;
+    }
+
+    public boolean checkDuplicateSerial(int serial){
+        Connection connection = MySQLconnection.getConnection();
+        if (connection != null) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_SERIAL_LESSON_QUERY)) {
+                preparedStatement.setInt(1, serial);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if(resultSet.next()){
+                    return true;
+                }else {
+                    return false;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    public String getLastestId(){
+        Connection connection = MySQLconnection.getConnection();
+        String id = "";
+        if (connection != null) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_LATEST_ID_LESSON_QUERY)) {
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if(resultSet.next()){
+                    id = resultSet.getString("IdLesson");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        if (id.isEmpty())
+            id = "Less000001";
+        return id;
+    }
 }
