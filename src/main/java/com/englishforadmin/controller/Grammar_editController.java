@@ -1,5 +1,7 @@
 package com.englishforadmin.controller;
 import com.englishforadmin.MainApplication;
+import com.englishforadmin.StateManager;
+import com.englishforadmin.daoimpl.GrammarDAO;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,11 +14,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
-
+import model.Grammar;
+import model.Lesson;
 
 
 import java.io.IOException;
+import java.util.List;
 
 public class Grammar_editController {
     @FXML
@@ -78,8 +81,8 @@ public class Grammar_editController {
 
     @FXML
     private TextArea txtareaTitle;
-
-
+    @FXML
+    private GridPane gridpnGrammar;
     // fixing
     @FXML
     void SubmitGrammar_edit(ActionEvent event ) throws IOException
@@ -115,11 +118,52 @@ public class Grammar_editController {
         }
     }
     //
+    List<Grammar> lstGrammar;
+    GrammarDAO grammarDAO;
+    Grammar curGrammar;
+    Lesson lesson;
+    byte[] dataImage;
     @FXML
     public void initialize() {
-
+        lesson = StateManager.getCurrentLesson();
+        grammarDAO = new GrammarDAO();
+        lstGrammar = grammarDAO.selectBySql(GrammarDAO.SELECT_ALL_GRAMMAR_IN_LESSON_QUERY, lesson.getIdLesson());
     }
 
+    private void loadGridPane(){
+        gridpnGrammar.getChildren().clear();
+        if(lstGrammar.isEmpty())
+            return;
+        int numGrammar = lstGrammar.size();
+        int maxColumns = 2;
+        int rowCount = (int) Math.ceil((double) numGrammar / maxColumns);
+        int index = 0;
+        for (int row = 0; row < rowCount; row++) {
+            for (int col = 0; col < maxColumns; col++) {
+                if (index < numGrammar) {
+                    MFXButton button = new MFXButton(String.valueOf(index));
+                    int currentIndex = index;
+                    button.setOnAction(e -> {
+                        loadDataToFeild(currentIndex);
+                    });
 
+                    GridPane.setRowIndex(button, row);
+                    GridPane.setColumnIndex(button, col);
 
+                    gridpnGrammar.getChildren().add(button);
+                    index++;
+                }
+            }
+        }
+    }
+
+    private void loadDataToFeild(int index){
+        curGrammar = lstGrammar.get(index);
+
+        txtareaTitle.setText(curGrammar.getTitle());
+        txtareaContent.setText(curGrammar.getContent());
+        txtareaRuleGrammar.setText(curGrammar.getRule());
+        txtareaExampleGrammar.setText(curGrammar.getExample());
+        dataImage = curGrammar.getImage();
+    }
 }
