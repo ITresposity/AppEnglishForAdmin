@@ -4,6 +4,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.Image?>
@@ -14,11 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
-            minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0"
-            prefWidth="899.0" xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.englishforadmin.controller.Store_listController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="899.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.englishforadmin.controller.Store_listController">
    <children>
       <ImageView fitHeight="640.0" fitWidth="914.0" layoutX="-1.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
          <Image url="@../../assets/wallpaper_content.png" />
@@ -30,11 +28,7 @@
                   <ImageView fitHeight="103.0" fitWidth="906.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="false" smooth="false">
                      <Image url="@../../assets/wallpaper_header.png" />
                   </ImageView>
-                  <MFXButton fx:id="btnUserInformation" layoutX="40.0"
-                             layoutY="15.0" prefHeight="60.0" prefWidth="195.0"
-                             style="-fx-background-radius: 80; -fx-background-color: #8FC6C3; -fx-border-color: black; -fx-border-width: 2px; -fx-border-radius: 80;"
-                             text="User : Tham" textFill="WHITE"
-                              onAction="#ProfileUserScreen">
+                  <MFXButton fx:id="btnUserInformation" layoutX="40.0" layoutY="15.0" onAction="#ProfileUserScreen" prefHeight="60.0" prefWidth="195.0" style="-fx-background-radius: 80; -fx-background-color: #8FC6C3; -fx-border-color: black; -fx-border-width: 2px; -fx-border-radius: 80;" text="User : Tham" textFill="WHITE">
                      <font>
                         <Font name="Arial Bold" size="16.0" />
                      </font></MFXButton>
@@ -75,30 +69,17 @@
                      <children>
                         <Pane layoutX="-3.0" layoutY="-4.0" prefHeight="550.0" prefWidth="152.0" style="-fx-background-color: #8FC6C3;">
                            <children>
-                              <MFXButton fx:id="btnManageLesson" alignment="CENTER" contentDisplay="CENTER"
-                                         layoutX="-51.0" layoutY="29.0" prefHeight="47.0"
-                                         prefWidth="237.0"
-                                         style="-fx-background-color: #D9D9D9; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text=" Quản lý bài học "
-                                         textAlignment="CENTER"
-                                          onAction="#ManageLessonScreen">
+                              <MFXButton fx:id="btnManageLesson" alignment="CENTER" contentDisplay="CENTER" layoutX="-51.0" layoutY="29.0" onAction="#ManageLessonScreen" prefHeight="47.0" prefWidth="237.0" style="-fx-background-color: #D9D9D9; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text=" Quản lý bài học " textAlignment="CENTER">
                                  <font>
                                     <Font name="Arial Bold" size="16.0" />
                                  </font>
                               </MFXButton>
-                              <MFXButton fx:id="btnManageVolcabularyStore" layoutX="-51.0"
-                                         layoutY="119.0" prefHeight="47.0" prefWidth="237.0"
-                                         style="-fx-background-color: #D9D9D9; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);"
-                                         text="Quản lý kho từ"
-                                          onAction="#ManageStoreVocabularyScreen">
+                              <MFXButton fx:id="btnManageVolcabularyStore" layoutX="-51.0" layoutY="119.0" onAction="#ManageStoreVocabularyScreen" prefHeight="47.0" prefWidth="237.0" style="-fx-background-color: #D9D9D9; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Quản lý kho từ">
                                  <font>
                                     <Font name="Arial Bold" size="16.0" />
                                  </font>
                               </MFXButton>
-                              <MFXButton fx:id="btnManageQuiz" layoutX="-51.0"
-                                         layoutY="211.0" prefHeight="47.0" prefWidth="237.0"
-                                         style="-fx-background-color: #D9D9D9; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);"
-                                         text="Quản lý Quiz"
-                                          onAction="#ManageQuizScreen">
+                              <MFXButton fx:id="btnManageQuiz" layoutX="-51.0" layoutY="211.0" onAction="#ManageQuizScreen" prefHeight="47.0" prefWidth="237.0" style="-fx-background-color: #D9D9D9; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Quản lý Quiz">
                                  <font>
                                     <Font name="System Bold" size="16.0" />
                                  </font>
@@ -117,10 +98,7 @@
                   </Pane>
                   <Pane fx:id="pnMain" prefHeight="543.0" prefWidth="715.0">
                      <children>
-                        <MFXButton fx:id="btnAddNewVolcabulary" layoutX="478.0" layoutY="465.0"
-                                   prefHeight="47.0" prefWidth="212.0" style="-fx-border-width: 1px; -fx-background-color: #FCA4C7; -fx-border-color: black; -fx-border-width: 2px;"
-                                   text="Thêm mới từ vựng "
-                                    onAction="#AddNewVolcabularyScreen">
+                        <MFXButton fx:id="btnAddNewVolcabulary" layoutX="478.0" layoutY="465.0" onAction="#AddNewVolcabularyScreen" prefHeight="47.0" prefWidth="212.0" style="-fx-border-width: 1px; -fx-background-color: #FCA4C7; -fx-border-color: black; -fx-border-width: 2px;" text="Thêm mới từ vựng ">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
@@ -144,6 +122,16 @@
                               </Pane>
                            </content>
                         </ScrollPane>
+                        <TableView fx:id="tableViewVocabulary" layoutX="26.0" layoutY="75.0" prefHeight="365.0" prefWidth="657.0" style="-fx-border-color: black; fx-font-size: 23;">
+                           <columns>
+                              <TableColumn fx:id="columnIDVocabulary" prefWidth="80.80000591278076" style="-fx-font-family: &quot;Arial&quot;; -fx-font-size: 14; -fx-background-color: #CEB5E8;" text="ID" />
+                              <TableColumn fx:id="columnWordVocabulary" prefWidth="138.0" style="-fx-font-family: &quot;Arial&quot;; -fx-font-size: 16;" text="Word" />
+                              <TableColumn fx:id="columnMeanVocabulary" prefWidth="108.0" style="-fx-font-family: &quot;Arial&quot;; -fx-font-size: 16;" text="Mean" />
+                              <TableColumn fx:id="columnPhoneticVocabulary" prefWidth="139.0" style="-fx-font-family: &quot;Arial&quot;; -fx-font-size: 16;" text="Phonetic" />
+                              <TableColumn fx:id="columnModifyButton" prefWidth="95.0" style="-fx-font-family: &quot;Arial&quot;; -fx-font-size: 16;" text="Modify" />
+                              <TableColumn fx:id="columnDeleteButton" prefWidth="89.0" style="-fx-font-family: &quot;Arial&quot;; -fx-font-size: 16;" text="Delete" />
+                           </columns>
+                        </TableView>
                      </children>
                   </Pane>
                </children>

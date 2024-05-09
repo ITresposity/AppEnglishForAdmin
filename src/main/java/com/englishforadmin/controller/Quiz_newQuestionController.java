@@ -86,9 +86,7 @@ public class Quiz_newQuestionController {
 
     // fixing
     @FXML
-    void Quiz_newAnswerScreen(ActionEvent event ) throws IOException {
-
-
+    void Quiz_newAnswerScreen(ActionEvent event) throws IOException {
 
 
         NavigationManager navigationManager = NavigationManager.getInstance();
@@ -101,9 +99,9 @@ public class Quiz_newQuestionController {
             e.printStackTrace();
         }
     }
+
     @FXML
-    void CancelQuiz_newQuestion(ActionEvent event ) throws IOException
-    {
+    void CancelQuiz_newQuestion(ActionEvent event) throws IOException {
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene previousScene = MainApplication.getPreviousScene();
         if (previousScene != null) {
@@ -115,8 +113,7 @@ public class Quiz_newQuestionController {
 
     // after all:
     @FXML
-    void ProfileUserScreen(ActionEvent event ) throws IOException
-    {
+    void ProfileUserScreen(ActionEvent event) throws IOException {
         try {
             MainApplication.loadForm("/", ".fxml");
         } catch (IOException e) {
@@ -130,7 +127,7 @@ public class Quiz_newQuestionController {
     @FXML
     private ImageView imgView;
     private QuestionQuizDAOimpl questionQuizDAOimpl;
-    private byte[] image ;
+    private byte[] image;
 
     // choose image
     @FXML
@@ -159,6 +156,7 @@ public class Quiz_newQuestionController {
         }
 
     }
+
     private void showAlert(String title, String content, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -166,19 +164,18 @@ public class Quiz_newQuestionController {
         alert.setContentText(content);
         alert.showAndWait();
     }
+
     @FXML
     void newQuestionButton(ActionEvent event) {
         String content = txtareaContent.getText();
         int questionNumber = Integer.parseInt(lblQuizQuestioNumber.getText());
         byte[] imageData = image;
         String quizID = StateManager.getCurrentQuiz().getIdQuiz();
-        String questionID =  questionQuizDAOimpl.createQuestion(content, questionNumber, quizID, imageData);
+        String questionID = questionQuizDAOimpl.createQuestion(content, questionNumber, quizID, imageData);
         StateManager.setQuestionID(questionID);
         System.out.println(questionID);
 
     }
-
-
 
 
     @FXML
