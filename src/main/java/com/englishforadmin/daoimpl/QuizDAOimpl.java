@@ -64,7 +64,27 @@ public class QuizDAOimpl implements QuizDAO {
     }
 
     @Override
-    public void updateQuiz(Quiz quiz) {
+    public boolean updateQuiz(Quiz quiz) {
+        Connection connection = MySQLconnection.getConnection();
+        boolean result = false;
 
+        try {
+            String sql = "UPDATE quiz SET Title = ?, Status = ? WHERE IdQuiz = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.setString(1, quiz.getTitle());
+            statement.setString(2, quiz.getStatus().toString().toLowerCase());
+            statement.setString(3, quiz.getIdQuiz());
+
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                result = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
+
 }

@@ -19,6 +19,10 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 public class Quiz_newQuestionController {
+
+
+    @FXML
+    private MFXButton btnSubmitNewQuestion;
     @FXML
     private MFXButton btnCancelNewQuizQuestion;
 
@@ -91,11 +95,19 @@ public class Quiz_newQuestionController {
     @FXML
     void CancelQuiz_newQuestion(ActionEvent event ) throws IOException
     {
-        try {
-            MainApplication.loadForm("/quiz", "Quiz_list.fxml");
-        } catch (IOException e) {
-            e.printStackTrace();
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene previousScene = MainApplication.getPreviousScene();
+        if (previousScene != null) {
+            currentStage.setScene(previousScene);
         }
+
+    }
+
+    @FXML
+    void SubmitQuiz_newQuestion(ActionEvent event ) throws IOException
+    {
+        // submit new question
+
 
     }
 

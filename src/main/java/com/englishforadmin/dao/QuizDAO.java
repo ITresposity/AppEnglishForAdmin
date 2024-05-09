@@ -12,7 +12,7 @@ public interface QuizDAO {
 
     //void addQuiz(Quiz quiz);
 
-    void updateQuiz(Quiz quiz);
+    boolean updateQuiz(Quiz quiz);
 
     //void deleteQuiz(int quizId);
 }
