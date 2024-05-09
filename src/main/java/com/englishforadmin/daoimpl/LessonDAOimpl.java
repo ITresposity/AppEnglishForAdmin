@@ -134,12 +134,6 @@ public class LessonDAOimpl implements LessonDAO {
             } catch (SQLException e) {
                 e.printStackTrace();
                 return false;
-            } finally {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
             }
         }
         return false;

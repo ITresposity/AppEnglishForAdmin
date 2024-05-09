@@ -22,6 +22,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.Grammar;
 import model.GrammarPart;
+import model.Lesson;
 import model.LessonPart;
 
 import java.awt.event.MouseEvent;
@@ -30,6 +31,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
+import java.util.List;
 
 public class Grammar_newController {
     @FXML
@@ -94,6 +96,9 @@ public class Grammar_newController {
 
     byte[] imgData;
     GrammarDAO grammarDAO;
+    List<Grammar> lstGrammar;
+    Lesson lesson;
+    Grammar curGrammar;
     // fixing
     @FXML
     void SubmitGrammar_new(ActionEvent event ) throws IOException
@@ -143,7 +148,10 @@ public class Grammar_newController {
     //
     @FXML
     public void initialize() {
+        lesson = StateManager.getCurrentLesson();
         grammarDAO = new GrammarDAO();
+        lstGrammar = grammarDAO.selectBySql(GrammarDAO.SELECT_ALL_GRAMMAR_IN_LESSON_QUERY, lesson.getIdLesson());
+        loadGridPane();
         btnChooseImg.setOnAction(event1 -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Select Image File");
@@ -157,6 +165,33 @@ public class Grammar_newController {
                 }
             }
         });
+    }
+
+    private void loadGridPane(){
+        gridpnGrammar.getChildren().clear();
+        if(lstGrammar.isEmpty())
+            return;
+        int numGrammar = lstGrammar.size();
+        int maxColumns = 2;
+        int rowCount = (int) Math.ceil((double) numGrammar / maxColumns);
+        int index = 0;
+        for (int row = 0; row < rowCount; row++) {
+            for (int col = 0; col < maxColumns; col++) {
+                if (index < numGrammar) {
+                    Grammar grammar = lstGrammar.get(index);
+                    MFXButton button = new MFXButton(String.valueOf(index));
+                    button.setOnAction(e -> {
+
+                    });
+
+                    GridPane.setRowIndex(button, row);
+                    GridPane.setColumnIndex(button, col);
+
+                    gridpnGrammar.getChildren().add(button);
+                    index++;
+                }
+            }
+        }
     }
 
     private boolean checkMissData(){
