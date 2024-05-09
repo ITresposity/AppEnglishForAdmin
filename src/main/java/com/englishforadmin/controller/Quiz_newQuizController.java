@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -61,13 +62,13 @@ public class Quiz_newQuizController {
     private Pane pnMain;
 
     @FXML
-    private MFXRadioButton rdbHiddenQuiz;
+    private RadioButton rdbHiddenQuiz;
 
     @FXML
-    private MFXRadioButton rdbLockQuiz;
+    private RadioButton rdbLockQuiz;
 
     @FXML
-    private MFXRadioButton rdbOpenQuiz;
+    private RadioButton rdbOpenQuiz;
 
     @FXML
     private TextField txtOrder;
