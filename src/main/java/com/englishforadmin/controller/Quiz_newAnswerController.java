@@ -1,7 +1,6 @@
 package com.englishforadmin.controller;
 import com.englishforadmin.MainApplication;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXRadioButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -9,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -101,34 +101,34 @@ public class Quiz_newAnswerController {
     private Pane pnTitleNewLesson;
 
     @FXML
-    private MFXRadioButton rdb01_No;
+    private RadioButton rdb01_No;
 
     @FXML
-    private MFXRadioButton rdb01_No1;
+    private RadioButton rdb01_No1;
 
     @FXML
-    private MFXRadioButton rdb01_Yes;
+    private RadioButton rdb01_Yes;
 
     @FXML
-    private MFXRadioButton rdb01_Yes1;
+    private RadioButton rdb01_Yes1;
 
     @FXML
-    private MFXRadioButton rdb02_No;
+    private RadioButton rdb02_No;
 
     @FXML
-    private MFXRadioButton rdb02_Yes;
+    private RadioButton rdb02_Yes;
 
     @FXML
-    private MFXRadioButton rdb03_No;
+    private RadioButton rdb03_No;
 
     @FXML
-    private MFXRadioButton rdb03_Yes;
+    private RadioButton rdb03_Yes;
 
     @FXML
-    private MFXRadioButton rdb04_No;
+    private RadioButton rdb04_No;
 
     @FXML
-    private MFXRadioButton rdb04_Yes;
+    private RadioButton rdb04_Yes;
 
     @FXML
     private AnchorPane scrollpanelMain;

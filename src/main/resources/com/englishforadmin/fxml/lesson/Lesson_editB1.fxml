@@ -16,10 +16,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.RadioButton?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
             minWidth="-Infinity" prefHeight="640.0" prefWidth="899.0"
             xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-fx:controller="com.englishforadmin.controller.Lesson_editB1Controller">
+            fx:controller="com.englishforadmin.controller.Lesson_editB1Controller">
    <children>
       <ImageView fitHeight="640.0" fitWidth="914.0" layoutX="-1.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
          <Image url="@../../assets/wallpaper_content.png" />
@@ -135,16 +136,16 @@ fx:controller="com.englishforadmin.controller.Lesson_editB1Controller">
                                           <TextField fx:id="txtNameLesson" layoutX="153.0" layoutY="23.0" prefHeight="34.0" prefWidth="484.0" style="-fx-background-radius: 50; -fx-border-color: black; -fx-border-radius: 50;" />
                                           <Region layoutX="153.0" layoutY="66.0" prefHeight="142.0" prefWidth="484.0" style="-fx-border-color: black; -fx-border-radius: 15; -fx-background-color: white; -fx-background-radius: 15;" />
                                           <TextArea fx:id="txtareaDescription" layoutX="163.0" layoutY="68.0" prefHeight="135.0" prefWidth="467.0" style="-fx-background-color: white; -fx-border-color: white; -fx-background-radius: 15; -fx-border-radius: 15;" />
-                                          <MFXRadioButton fx:id="rdbOpenLesson" layoutX="180.0" layoutY="226.0" text="Mở bài học">
+                                          <RadioButton fx:id="rdbOpenLesson" layoutX="180.0" layoutY="226.0" text="Mở bài học">
                                              <font>
                                                 <Font name="Arial" size="16.0" />
                                              </font>
-                                          </MFXRadioButton>
-                                          <MFXRadioButton fx:id="rdbLockLesson" layoutX="409.0" layoutY="227.0" text="Khóa bài học">
+                                          </RadioButton>
+                                          <RadioButton fx:id="rdbLockLesson" layoutX="409.0" layoutY="227.0" text="Khóa bài học">
                                              <font>
                                                 <Font name="Arial" size="16.0" />
                                              </font>
-                                          </MFXRadioButton>
+                                          </RadioButton>
                                        </children>
                                     </Pane>
                                     <Pane prefHeight="82.0" prefWidth="674.0" style="-fx-border-color: black; -fx-background-color: #A968ED;">
