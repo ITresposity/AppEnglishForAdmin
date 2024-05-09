@@ -107,7 +107,7 @@
                                                 <Font size="16.0" />
                                             </font>
                                         </Label>
-                                        <RadioButton fx:id="rdbBlockQuiz" layoutX="165.0" layoutY="180.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="123.0" text="Lock">
+                                        <RadioButton fx:id="rdbBlockQuiz" layoutX="110.0" layoutY="180.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="123.0" text="Lock">
                                             <font>
                                                 <Font size="19.0" />
                                             </font>
@@ -129,11 +129,17 @@
                                                 </MFXButton>
                                             </children>
                                         </Pane>
-                                        <RadioButton fx:id="rdbOpenQuiz" layoutX="314.0" layoutY="180.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="123.0" text="Open" toggleGroup="$radioGroupQuiz">
+                                        <RadioButton fx:id="rdbOpenQuiz" layoutX="225.0" layoutY="180.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="123.0" text="Unlock" toggleGroup="$radioGroupQuiz">
                                             <font>
                                                 <Font size="19.0" />
                                             </font>
+
                                         </RadioButton>
+                              <RadioButton fx:id="rbdHidden" layoutX="336.0" layoutY="180.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="170.0" text="Hidden" toggleGroup="$radioGroupQuiz">
+                                 <font>
+                                    <Font size="19.0" />
+                                 </font>
+                              </RadioButton>
                                     </children>
                                 </Pane>
                                 <Pane layoutX="529.0" layoutY="13.0" prefHeight="482.0" prefWidth="172.0" style="-fx-background-color: #C2B3D7; -fx-border-color: black;">

@@ -4,6 +4,7 @@ import com.englishforadmin.MainApplication;
 import com.englishforadmin.StateManager;
 import com.englishforadmin.dao.QuestionQuizDAO;
 import com.englishforadmin.daoimpl.QuestionQuizDAOimpl;
+import com.englishforadmin.daoimpl.QuizDAOimpl;
 import com.englishforadmin.myconnection.MySQLconnection;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXRadioButton;
@@ -31,6 +32,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Quiz_editQuizController {
+
     @FXML
     private MFXButton btnAvatar;
 
@@ -76,6 +78,9 @@ public class Quiz_editQuizController {
     @FXML
     private TextField txtTitleQuiz;
 
+    @FXML
+    private RadioButton rbdHidden;
+
 
     @FXML
     void editQuestionScreen(ActionEvent event) throws IOException {
@@ -95,17 +100,18 @@ public class Quiz_editQuizController {
             e.printStackTrace();
         }
     }
-
-
-    @FXML
-    void SubmitQuiz_edit(ActionEvent event) throws IOException {
-        // load quiz list  + add/edit quiz
-        try {
-            MainApplication.loadForm("/quiz", "Quiz_list.fxml");
-        } catch (IOException e) {
-            e.printStackTrace();
+    private Quiz.QuizStatus getSelectedStatus() {
+        if (rdbOpenQuiz.isSelected()) {
+            return Quiz.QuizStatus.unlock;
+        } else if (rdbBlockQuiz.isSelected()) {
+            return Quiz.QuizStatus.lock;
+        } else if (rbdHidden.isSelected()) {
+            return Quiz.QuizStatus.hidden;
         }
+        // Thêm xử lý nếu không có lựa chọn nào được chọn
+        return null;
     }
+
 
     @FXML
     void CancelQuiz_edit(ActionEvent event) throws IOException {
@@ -139,6 +145,32 @@ public class Quiz_editQuizController {
     private QuestionQuizDAOimpl questionQuizDAOimpl;
     Quiz quiz = StateManager.getCurrentQuiz();
 
+    private QuizDAOimpl quizDAOimpl;
+
+    @FXML
+    void SubmitQuiz_edit(ActionEvent event) throws IOException {
+        // load quiz list  +  submit add/edit quiz : quiz.getID = > statemanager,getcurrentQuiz
+
+        String title = txtTitleQuiz.getText();
+        Quiz.QuizStatus status = getSelectedStatus();
+
+        quiz.setTitle(title);
+        quiz.setStatus(status);
+
+        boolean success =  quizDAOimpl.updateQuiz(quiz);
+
+        if (success) {
+
+
+            try {
+                MainApplication.loadForm("/quiz", "Quiz_list.fxml");
+            } catch (IOException e) {
+                //e.printStackTrace();
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
     @FXML
     private void handleButtonActionEditQuestion(QuestionQuiz question) {
         StateManager.setCurrentQuestion(question);
@@ -147,19 +179,6 @@ public class Quiz_editQuizController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-    @FXML
-    private void EditQuiz(Quiz quizEdit)
-    {
-        quizEdit = quiz;
-        if ( quiz != null )
-        {
-            String titleQuiz = txtTitleQuiz.getText();
-        }
-
-
-
-
     }
 
 
@@ -170,7 +189,9 @@ public class Quiz_editQuizController {
             String quizID = quiz.getIdQuiz();
             rdbOpenQuiz.setToggleGroup(radioGroupQuiz);
             rdbBlockQuiz.setToggleGroup(radioGroupQuiz);
+            rbdHidden.setToggleGroup(radioGroupQuiz);
 
+            quizDAOimpl = new QuizDAOimpl(MySQLconnection.getConnection());
             questionQuizDAOimpl = new QuestionQuizDAOimpl(MySQLconnection.getConnection());
 
             List<QuestionQuiz> questionQuizzes;
