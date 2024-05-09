@@ -78,10 +78,10 @@ public class Lesson_newB1Controller {
     @FXML
     void Lesson_newB2Screen(ActionEvent event ) throws IOException
     {
-        if(checkMissData()){
+        if(isMissData()){
             MessageBox.show("Lỗi","Hãy điền đầy đủ thông tin trước khi tiếp tục", Alert.AlertType.ERROR);
             return;
-        }else if(checkDuplicateSerial(Integer.parseInt(txtSerial.getText().trim()))){
+        }else if(isDuplicateSerial(Integer.parseInt(txtSerial.getText().trim()))){
             MessageBox.show("Lỗi","Số thứ tự bài học này đã tồn tại", Alert.AlertType.ERROR);
             return;
         }
@@ -127,11 +127,11 @@ public class Lesson_newB1Controller {
         rdbOpenLesson.setSelected(true);
     }
 
-    private boolean checkMissData(){
-        return txtNameLesson.getText().isEmpty() || txtareaDescription.getText().isEmpty();
+    private boolean isMissData(){
+        return txtNameLesson.getText().isEmpty() || txtareaDescription.getText().isEmpty() || txtSerial.getText().isEmpty();
     }
 
-    private boolean checkDuplicateSerial(int serial){
+    private boolean isDuplicateSerial(int serial){
         return lessonDAO.checkDuplicateSerial(serial);
     }
 

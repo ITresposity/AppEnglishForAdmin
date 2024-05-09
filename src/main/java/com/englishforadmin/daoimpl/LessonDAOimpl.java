@@ -22,7 +22,10 @@ public class LessonDAOimpl implements LessonDAO {
                     "FROM LESSON\n" +
                     "ORDER BY IdLesson DESC\n" +
                     "LIMIT 1;";
-
+    private final static String UPDATE_LESSON_QUERY =
+            "UPDATE LESSON\n" +
+            "SET Name = ?, Description = ?, Status = ?, Serial = ?\n" +
+            "WHERE IdLesson = ?;";
     public LessonDAOimpl(Connection connection) {
         this.connection = connection;
      }
@@ -105,6 +108,38 @@ public class LessonDAOimpl implements LessonDAO {
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    public boolean update(Lesson entity){
+        Connection connection = MySQLconnection.getConnection();
+        if (connection != null) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_LESSON_QUERY)) {
+                preparedStatement.setString(1, entity.getName());
+                preparedStatement.setString(2, entity.getDescription());
+                preparedStatement.setString(3, entity.getStatus().toString().toLowerCase());
+                preparedStatement.setInt(4, entity.getSerial());
+                preparedStatement.setString(5, entity.getIdLesson());
+
+                int rowsAffected = preparedStatement.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("Update successful.");
+                    return true;
+                } else {
+                    System.out.println("Update failed.");
+                    return false;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            } finally {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
         return false;
