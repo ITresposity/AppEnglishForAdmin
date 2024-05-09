@@ -118,7 +118,7 @@
                                           </MFXButton>
                                           <Pane fx:id="pnImageSource" layoutX="332.0" layoutY="65.0" prefHeight="34.0" prefWidth="319.0" style="-fx-background-color: #F9AE81; -fx-border-color: black;">
                                              <children>
-                                                <Label fx:id="lblImageSource" layoutX="6.0" layoutY="9.0" prefHeight="17.0" prefWidth="68.0" text="Source :">
+                                                <Label fx:id="lblImageSource" layoutX="6.0" layoutY="9.0" prefHeight="17.0" prefWidth="309.0" text="Source :">
                                                    <font>
                                                       <Font name="Arial" size="14.0" />
                                                    </font>

@@ -1,22 +1,32 @@
 package com.englishforadmin.controller;
 
+import com.englishforadmin.DataManager;
 import com.englishforadmin.MainApplication;
+import com.englishforadmin.StateManager;
+import com.englishforadmin.daoimpl.QuestionQuizDAOimpl;
+import com.englishforadmin.myconnection.MySQLconnection;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import model.QuestionQuiz;
 
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.sql.Connection;
 
 public class Quiz_newQuestionController {
 
@@ -41,11 +51,6 @@ public class Quiz_newQuestionController {
     @FXML
     private MFXButton btnNext;
 
-    @FXML
-    private MFXButton btnQuizQuestion01;
-
-    @FXML
-    private MFXButton btnQuizQuestion02;
 
     @FXML
     private MFXButton btnUserInformation;
@@ -75,9 +80,6 @@ public class Quiz_newQuestionController {
     private Pane pnQuizContent;
 
     @FXML
-    private Pane pnTitleNewLesson;
-
-    @FXML
     private TextArea txtareaContent;
 
     // fixing
@@ -103,13 +105,6 @@ public class Quiz_newQuestionController {
 
     }
 
-    @FXML
-    void SubmitQuiz_newQuestion(ActionEvent event ) throws IOException
-    {
-        // submit new question
-
-
-    }
 
     // after all:
     @FXML
@@ -122,8 +117,63 @@ public class Quiz_newQuestionController {
         }
     }
     //
+    //-------------------------------------main function -------------------------------------------------
+
+
+
+    private QuestionQuizDAOimpl questionQuizDAOimpl;
+    private byte[] image ;
+
+    // choose image
+    @FXML
+    void chooseImageAction(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Chọn ảnh");
+        byte[] imageData = new byte[0];
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Ảnh", "*.png", "*.jpg", "*.gif")
+        );
+
+        File selectedFile = fileChooser.showOpenDialog(btnChooseImgQuiz.getScene().getWindow());
+        if (selectedFile != null) {
+            try {
+
+                imageData = Files.readAllBytes(selectedFile.toPath());
+                lblImageSource.setText(selectedFile.getName());
+                image = imageData;
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                showAlert("Error", "Failed to choose image ", Alert.AlertType.ERROR);
+            }
+        }
+
+    }
+    private void showAlert(String title, String content, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+    @FXML
+    void newQuestionButton(ActionEvent event) {
+        String content = txtareaContent.getText();
+        int questionNumber = Integer.parseInt(lblQuizQuestioNumber.getText());
+        byte[] imageData = image;
+        String quizID = StateManager.getCurrentQuiz().getIdQuiz();
+        questionQuizDAOimpl.createQuestion(content, questionNumber, quizID, imageData);
+    }
+
+
+
+
     @FXML
     public void initialize() {
+        questionQuizDAOimpl = new QuestionQuizDAOimpl(MySQLconnection.getConnection());
+        String quizQuestionNumber = DataManager.getInstance().getQuizQuestionNumber();
+        lblQuizQuestioNumber.setText(quizQuestionNumber);
 
     }
 }

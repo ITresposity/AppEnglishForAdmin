@@ -1,5 +1,6 @@
 package com.englishforadmin.controller;
 
+import com.englishforadmin.DataManager;
 import com.englishforadmin.MainApplication;
 import com.englishforadmin.StateManager;
 import com.englishforadmin.dao.QuestionQuizDAO;
@@ -14,10 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.FlowPane;
@@ -94,12 +92,14 @@ public class Quiz_editQuizController {
 
     @FXML
     void AddNewQuestionScreen(ActionEvent event) throws IOException {
+
         try {
             MainApplication.loadForm("/quiz", "Quiz_newQuestion.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     private Quiz.QuizStatus getSelectedStatus() {
         if (rdbOpenQuiz.isSelected()) {
             return Quiz.QuizStatus.unlock;
@@ -145,6 +145,7 @@ public class Quiz_editQuizController {
     private QuestionQuizDAOimpl questionQuizDAOimpl;
     Quiz quiz = StateManager.getCurrentQuiz();
 
+    int lastQuestionNumber;
     private QuizDAOimpl quizDAOimpl;
 
     @FXML
@@ -157,7 +158,7 @@ public class Quiz_editQuizController {
         quiz.setTitle(title);
         quiz.setStatus(status);
 
-        boolean success =  quizDAOimpl.updateQuiz(quiz);
+        boolean success = quizDAOimpl.updateQuiz(quiz);
 
         if (success) {
 
@@ -181,15 +182,53 @@ public class Quiz_editQuizController {
         }
     }
 
+    public void setToggleGroupQuizStatus() {
+        rdbOpenQuiz.setToggleGroup(radioGroupQuiz);
+        rdbBlockQuiz.setToggleGroup(radioGroupQuiz);
+        rbdHidden.setToggleGroup(radioGroupQuiz);
+    }
 
+    public void createGridpaneQuestionByQuizID(List<QuestionQuiz> questionQuizzes) {
+        int numberOfQuestions = questionQuizzes.size();
+        for (int i = 0; i < numberOfQuestions; i++) {
+            // giữ giá trị của question
+            final QuestionQuiz question = questionQuizzes.get(i);
+            // cập nhật serial trùng với gridpaneQuestionQuiz
+            question.setSerial(i + 1);
+            Button button = new Button(" " + (i + 1) + " ");
+            GridPane.setMargin(button, new Insets(15));
+            button.setOnAction(event -> handleButtonActionEditQuestion(question));
+            gridPaneQuestionQuiz.getChildren().add(button);
+        }
+
+    }
+    private void updateQuestionSerial(List<QuestionQuiz> questionList) {
+        if (questionList != null) {
+            for (int i = 0; i < questionList.size(); i++) {
+                QuestionQuiz question = questionList.get(i);
+                question.setSerial(i +1 );
+                try {
+                    questionQuizDAOimpl.updateQuestionQuiz(question);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    showAlert("Error", "Failed to update question serial", Alert.AlertType.ERROR);
+                }
+            }
+        }
+    }
+    private void showAlert(String title, String content, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
     @FXML
     public void initialize() {
 
         if (quiz != null) {
             String quizID = quiz.getIdQuiz();
-            rdbOpenQuiz.setToggleGroup(radioGroupQuiz);
-            rdbBlockQuiz.setToggleGroup(radioGroupQuiz);
-            rbdHidden.setToggleGroup(radioGroupQuiz);
+            setToggleGroupQuizStatus();
 
             quizDAOimpl = new QuizDAOimpl(MySQLconnection.getConnection());
             questionQuizDAOimpl = new QuestionQuizDAOimpl(MySQLconnection.getConnection());
@@ -209,14 +248,13 @@ public class Quiz_editQuizController {
             gridPaneQuestionQuiz.setPadding(new Insets(10));
             gridPaneQuestionQuiz.setPrefWrapLength(prefWrapLength);
 
-            for (int i = 0; i < numberOfQuestions; i++) {
-                final QuestionQuiz question = questionQuizzes.get(i); // Sử dụng final để giữ giá trị của question
-                Button button = new Button(" " + (i + 1) + " ");
-                GridPane.setMargin(button, new Insets(15));
-                button.setOnAction(event -> handleButtonActionEditQuestion(question));
-                gridPaneQuestionQuiz.getChildren().add(button);
-            }
+            // set Question number for new question interface
+            lastQuestionNumber = numberOfQuestions + 1;
+            DataManager.getInstance().setQuizQuestionNumber(String.valueOf(lastQuestionNumber));
 
+            createGridpaneQuestionByQuizID(questionQuizzes);
+
+            updateQuestionSerial(questionQuizzes);
 
             txtOrderQuiz.setText(quiz.getIdQuiz());
             txtOrderQuiz.setEditable(false);
@@ -226,11 +264,12 @@ public class Quiz_editQuizController {
                 rdbOpenQuiz.setSelected(true);
             } else if (quiz.getStatus() == Quiz.QuizStatus.lock) {
                 rdbBlockQuiz.setSelected(true);
+            } else {
+                rbdHidden.setSelected(true);
             }
-
-
         }
     }
+
     private double calculatePrefWrapLength() {
         int numberOfColumns = 2;
         double columnWidth = 100;

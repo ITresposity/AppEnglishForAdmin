@@ -9,8 +9,17 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface QuestionQuizDAO {
-    List<QuestionQuiz>  getAllQuestionByQuizID(String quizID) throws SQLException;
+    List<QuestionQuiz> getAllQuestionByQuizID(String quizID) throws SQLException;
+
     boolean updateQuestionQuiz(QuestionQuiz questionQuiz) throws SQLException;
+
+    String generateUniqueQuestionId();
+
+    void createQuestion(String content, int serial, String idQuiz, byte[] imageData);
+
+    String convertToChar(String input);
+
+    String convertToString(String input);
 
 
 }
