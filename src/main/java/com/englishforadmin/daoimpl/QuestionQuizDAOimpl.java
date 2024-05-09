@@ -7,6 +7,8 @@ import model.QuestionQuiz;
 import model.Quiz;
 
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -62,6 +64,56 @@ public class QuestionQuizDAOimpl implements QuestionQuizDAO {
             int rowsUpdated = statement.executeUpdate();
             return rowsUpdated > 0;
         }
+    }
+
+    @Override
+    public String generateUniqueQuestionId() {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HHmmssSSS");
+        String timestamp = now.format(formatter);
+        String idQuestionQuiz = "Q" + timestamp.substring(0, 9);
+        return idQuestionQuiz;
+    }
+
+
+    @Override
+    public void createQuestion(String content, int serial, String idQuiz, byte[] imageData) {
+        String idQuestionQuiz = generateUniqueQuestionId();
+
+        // Chuyển đổi giá trị char
+        String idQuestionQuizChar = convertToChar(idQuestionQuiz);
+
+        String sql = "INSERT INTO questionquiz (IdQuestionQuiz, Content, Serial, IdQuiz, Image) VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, idQuestionQuizChar);
+            statement.setString(2, content);
+            statement.setInt(3, serial);
+            statement.setString(4, idQuiz);
+            statement.setBytes(5, imageData);
+
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("A new question was inserted successfully!");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public String convertToChar(String input) {
+
+        char[] charArray = new char[10];
+        char[] inputChars = input.toCharArray();
+        int length = Math.min(inputChars.length, charArray.length);
+        System.arraycopy(inputChars, 0, charArray, 0, length);
+        return new String(charArray);
+    }
+    @Override
+    public String convertToString(String input) {
+        // Chuyển đổi mảng char thành String
+        return new String(input);
     }
 
 }

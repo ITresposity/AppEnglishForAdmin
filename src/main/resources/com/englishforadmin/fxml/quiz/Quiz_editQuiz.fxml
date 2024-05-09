@@ -161,11 +161,6 @@
                                                         </FlowPane>
                                                     </content>
                                                 </ScrollPane>
-                                                <MFXButton fx:id="btnEditQuestionQuiz" alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="309.0" onAction="#editQuestionScreen" prefHeight="41.0" prefWidth="128.0" style="-fx-background-color: #FCA4C7; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 5);" text="Điều chỉnh " textAlignment="CENTER">
-                                                    <font>
-                                                        <Font name="Arial Bold" size="16.0" />
-                                                    </font>
-                                                </MFXButton>
                                             </children>
                                         </Pane>
                                     </children>

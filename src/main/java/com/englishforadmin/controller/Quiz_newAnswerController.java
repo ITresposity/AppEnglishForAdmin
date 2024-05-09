@@ -150,6 +150,7 @@ public class Quiz_newAnswerController {
     @FXML
     void SubmitQuizAnswer_new(ActionEvent event ) throws IOException
     {
+
         try {
             MainApplication.loadForm("/quiz", "Quiz_newQuiz.fxml");
         } catch (IOException e) {

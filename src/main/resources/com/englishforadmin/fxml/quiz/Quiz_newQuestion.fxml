@@ -111,14 +111,14 @@
                                                 <Font size="17.0" />
                                              </font>
                                           </Label>
-                                          <MFXButton fx:id="btnChooseImgQuiz" alignment="CENTER" contentDisplay="CENTER" layoutX="400.0" layoutY="17.0" prefHeight="34.0" prefWidth="251.0" style="-fx-background-color: #F9AE81; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 5);" text="Chọn hình ảnh" textAlignment="CENTER">
+                                          <MFXButton fx:id="btnChooseImgQuiz" alignment="CENTER" contentDisplay="CENTER" layoutX="400.0" layoutY="17.0" onAction="#chooseImageAction" prefHeight="34.0" prefWidth="251.0" style="-fx-background-color: #F9AE81; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 5);" text="Chọn hình ảnh" textAlignment="CENTER">
                                              <font>
                                                 <Font name="Arial Bold" size="15.0" />
                                              </font>
                                           </MFXButton>
                                           <Pane fx:id="pnImageSource" layoutX="332.0" layoutY="65.0" prefHeight="34.0" prefWidth="319.0" style="-fx-background-color: #F9AE81; -fx-border-color: black;">
                                              <children>
-                                                <Label fx:id="lblImageSource" layoutX="6.0" layoutY="9.0" prefHeight="17.0" prefWidth="68.0" text="Source :">
+                                                <Label fx:id="lblImageSource" layoutX="6.0" layoutY="9.0" prefHeight="17.0" prefWidth="310.0" text="Source :">
                                                    <font>
                                                       <Font name="Arial" size="14.0" />
                                                    </font>
@@ -134,12 +134,17 @@
                                                 <Font name="Arial Bold" size="16.0" />
                                              </font>
                                           </MFXButton>
-                                          <MFXButton  fx:id="btnNext" alignment="CENTER" contentDisplay="CENTER" layoutX="548.0" layoutY="17.0" onAction="#Quiz_newAnswerScreen" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #80CD7B; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Tiếp theo" textAlignment="CENTER">
+                                          <MFXButton fx:id="btnNext" alignment="CENTER" contentDisplay="CENTER" layoutX="548.0" layoutY="17.0" onAction="#Quiz_newAnswerScreen" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #80CD7B; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Tiếp theo" textAlignment="CENTER">
                                              <font>
                                                 <Font name="Arial Bold" size="16.0" />
                                              </font>
                                           </MFXButton>
-                                          <MFXButton fx:id="btnSubmitNewQuestion" alignment="CENTER" contentDisplay="CENTER" layoutX="387.0" layoutY="17.0" onAction="#Quiz_newAnswerScreen" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #F9AE81; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Tạo mới" textAlignment="CENTER">
+                                          <MFXButton fx:id="btnSubmitNewQuestion" alignment="CENTER" contentDisplay="CENTER"
+                                                     layoutX="387.0" layoutY="17.0" onAction="#newQuestionButton"
+                                                     prefHeight="41.0" prefWidth="123.0"
+                                                     style="-fx-background-color: #F9AE81; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);"
+                                                     text="Tạo mới" textAlignment="CENTER"
+                                          >
                                              <font>
                                                 <Font name="Arial Bold" size="16.0" />
                                              </font>
