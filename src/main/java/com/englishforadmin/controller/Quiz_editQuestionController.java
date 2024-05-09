@@ -23,6 +23,7 @@ import java.util.Arrays;
 
 
 public class Quiz_editQuestionController {
+    public ImageView imgView;
     @FXML
     private MFXButton btnCancelEditQuizQuestion;
 
@@ -123,6 +124,7 @@ public class Quiz_editQuestionController {
             txtareaContent.setText(question.getContent());
             lblQuizQuestioNumber.setText(String.valueOf(question.getSerial()));
             lblImageSource.setText(Arrays.toString(question.getImage()));
+
         }
         else
         {
