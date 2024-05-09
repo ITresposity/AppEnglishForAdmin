@@ -2,6 +2,8 @@ package com.englishforadmin.controller;
 import com.englishforadmin.MainApplication;
 import com.englishforadmin.StateManager;
 import com.englishforadmin.daoimpl.GrammarDAO;
+import com.englishforadmin.daoimpl.GrammarPartDAO;
+import com.englishforadmin.daoimpl.LessonPartDAO;
 import com.englishforadmin.feature.MessageBox;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
@@ -20,6 +22,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.Grammar;
 import model.GrammarPart;
+import model.LessonPart;
 
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -95,31 +98,22 @@ public class Grammar_newController {
     @FXML
     void SubmitGrammar_new(ActionEvent event ) throws IOException
     {
-        btnChooseImg.setOnAction(event1 -> {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Select Image File");
-            File selectedFile = fileChooser.showOpenDialog((Stage) ((Node) event.getSource()).getScene().getWindow());
 
-            if (selectedFile != null) {
-                try {
-                    imgData = convertImageToBase64(selectedFile);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
         if(checkMissData()){
             MessageBox.show("Lỗi","Hãy điền đầy đủ thông tin trước khi tiếp tục", Alert.AlertType.ERROR);
             return;
         }
-        addNewGrammar();
-
-        // nhảy lại form trước
-        // load lại list grammar + số lượng grammar
-        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene previousScene = MainApplication.getPreviousScene();
-        if (previousScene != null) {
-            currentStage.setScene(previousScene);
+        if(addNewGrammar()){
+            // nhảy lại form trước
+            // load lại list grammar + số lượng grammar
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene previousScene = MainApplication.getPreviousScene();
+            if (previousScene != null) {
+                currentStage.setScene(previousScene);
+            }
+        } else {
+            MessageBox.show("Lỗi","Thêm ngữ pháp không thành công", Alert.AlertType.ERROR);
+            return;
         }
     }
 
@@ -150,6 +144,19 @@ public class Grammar_newController {
     @FXML
     public void initialize() {
         grammarDAO = new GrammarDAO();
+        btnChooseImg.setOnAction(event1 -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Select Image File");
+            File selectedFile = fileChooser.showOpenDialog((Stage) ((Node) event1.getSource()).getScene().getWindow());
+
+            if (selectedFile != null) {
+                try {
+                    imgData = convertImageToBase64(selectedFile);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     private boolean checkMissData(){
@@ -170,11 +177,23 @@ public class Grammar_newController {
         grammar.setExample(txtareaExample.getText());
         grammar.setRule(txtareaRule.getText());
         grammar.setImage(imgData);
-        grammarDAO.insert(grammar);
+        if(!grammarDAO.insert(grammar)){
+            return false;
+        }
+
         grammar.setIdGrammar(grammarDAO.getLastestId());
+        LessonPart lessonPart = new LessonPart();
+        lessonPart.setIdLesson(StateManager.getCurrentLesson().getIdLesson());
+        lessonPart.setType(LessonPart.LessonPartType.GRAMMAR);
+        LessonPartDAO lessonPartDAO = new LessonPartDAO();
+        if(!lessonPartDAO.insert(lessonPart)){
+            return false;
+        }
+
         GrammarPart part = new GrammarPart();
         part.setIdGrammar(grammar.getIdGrammar());
-
-        return true;
+        part.setIdLessonPart(lessonPartDAO.getLastestId());
+        GrammarPartDAO dao = new GrammarPartDAO();
+        return dao.insert(part);
     }
 }

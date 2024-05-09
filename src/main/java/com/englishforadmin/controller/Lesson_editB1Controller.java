@@ -103,9 +103,6 @@ public class Lesson_editB1Controller {
             txtNameLesson.setText(lesson.getName());
             txtareaDescription.setText(lesson.getDescription());
         }
-
-
-
     }
 
 }
