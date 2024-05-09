@@ -1,24 +1,43 @@
 package com.englishforadmin.controller;
+
 import com.englishforadmin.MainApplication;
+import com.englishforadmin.NavigationManager;
+import com.englishforadmin.StateManager;
+import com.englishforadmin.dao.AnswerQuizDAO;
+import com.englishforadmin.daoimpl.AnswerQuizDAOimpl;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import model.AnswerQuiz;
+import model.QuestionQuiz;
 
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+
 public class Quiz_newAnswerController {
+    @FXML
+    private ToggleGroup IsCorrectGroupAnswer1;
+
+    @FXML
+    private ToggleGroup IsCorrectGroupAnswer2;
+
+    @FXML
+    private ToggleGroup IsCorrectGroupAnswer3;
+
+    @FXML
+    private ToggleGroup IsCorrectGroupAnswer4;
     @FXML
     private MFXButton btnCancelNewQuiz;
 
@@ -147,42 +166,105 @@ public class Quiz_newAnswerController {
 
 
     // fixing
-    @FXML
-    void SubmitQuizAnswer_new(ActionEvent event ) throws IOException
-    {
 
-        try {
-            MainApplication.loadForm("/quiz", "Quiz_newQuiz.fxml");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private String previousPage;
+
+    // Setter cho previousPage
+    public void setPreviousPage(String page) {
+        this.previousPage = page;
     }
 
-    @FXML
-    void CancelQuizAnswer_new(ActionEvent event ) throws IOException
-    {
-        // hủy hẳn luôn : -> Quiz_newQuiz
-        try {
-            MainApplication.loadForm("/quiz", "Quiz_newQuiz.fxml");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
+    @FXML
+    void CancelQuizAnswer(ActionEvent event) throws IOException {
+        Scene previousScene = MainApplication.getPreviousScene();
+        if (previousScene != null) {
+            String previousFXML = previousScene.getRoot().getId();
+            if (previousFXML != null) {
+                if (previousFXML.equals("Quiz_newQuestion")) {
+                    try {
+                        MainApplication.loadForm("/quiz", "Quiz_newQuiz.fxml");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    try {
+                        MainApplication.loadForm("/quiz", "Quiz_editQuiz.fxml");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
     }
 
     // after all:
     @FXML
-    void ProfileUserScreen(ActionEvent event ) throws IOException
-    {
+    void ProfileUserScreen(ActionEvent event) throws IOException {
         try {
             MainApplication.loadForm("/", ".fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     //
+    //____________________________ main fucntion ------------------------------------
+
+    private AnswerQuizDAOimpl answerQuizDAOimpl;
+    private Connection connection;
+    public Quiz_newAnswerController() {
+        this.answerQuizDAOimpl = new AnswerQuizDAOimpl(connection);
+    }
+
+    @FXML
+    void SubmitQuizAnswer_new(ActionEvent event) throws IOException {
+            String questionQuizID =  StateManager.getQuestionID();
+            addNewAnswerByQuestionID(txtareaAnswer01.getText(), rdb01_Yes.isSelected(), questionQuizID);
+            addNewAnswerByQuestionID(txtareaAnswer02.getText(), rdb02_Yes.isSelected(), questionQuizID);
+            addNewAnswerByQuestionID(txtareaAnswer03.getText(), rdb03_Yes.isSelected(), questionQuizID);
+            addNewAnswerByQuestionID(txtareaAnswer04.getText(), rdb04_Yes.isSelected(), questionQuizID);
+
+
+        NavigationManager navigationManager = NavigationManager.getInstance();
+        Scene previousScene = navigationManager.getPreviousScene(); // Lấy scene trước đó
+        if (previousScene != null && previousScene.getRoot().getId() != null) {
+            if (previousScene.getRoot().getId().equals("Quiz_editQuiz")) {
+                navigationManager.loadForm("/quiz", "Quiz_editQuiz.fxml");
+            } else if (previousScene.getRoot().getId().equals("Quiz_newQuiz")) {
+                navigationManager.loadForm("/quiz", "Quiz_newQuiz.fxml");
+            } else {
+                System.out.println("Cannot determine previous page.");
+                System.out.println(previousScene.getRoot().getId());
+            }
+        } else {
+            System.out.println("Root ID is null.");
+        }
+    }
+
+    @FXML
+    private void addNewAnswerByQuestionID(String content, boolean isCorrect, String questionQuizID) {
+        boolean success = answerQuizDAOimpl.addNewAnswer(content, isCorrect, questionQuizID);
+        if (success) {
+            System.out.println("Answer added successfully: ");
+        } else {
+            System.out.println("Failed to add answer: ");
+        }
+    }
+
     @FXML
     public void initialize() {
+        rdb01_Yes.setToggleGroup(IsCorrectGroupAnswer1);
+        rdb01_No.setToggleGroup(IsCorrectGroupAnswer1);
+
+        rdb02_Yes.setToggleGroup(IsCorrectGroupAnswer2);
+        rdb02_No.setToggleGroup(IsCorrectGroupAnswer2);
+
+        rdb03_Yes.setToggleGroup(IsCorrectGroupAnswer3);
+        rdb03_No.setToggleGroup(IsCorrectGroupAnswer3);
+
+        rdb04_Yes.setToggleGroup(IsCorrectGroupAnswer4);
+        rdb04_No.setToggleGroup(IsCorrectGroupAnswer4);
 
     }
 

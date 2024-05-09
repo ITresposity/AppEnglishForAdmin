@@ -2,6 +2,7 @@ package com.englishforadmin.controller;
 
 import com.englishforadmin.DataManager;
 import com.englishforadmin.MainApplication;
+import com.englishforadmin.NavigationManager;
 import com.englishforadmin.StateManager;
 import com.englishforadmin.daoimpl.QuestionQuizDAOimpl;
 import com.englishforadmin.myconnection.MySQLconnection;
@@ -15,6 +16,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -84,16 +86,21 @@ public class Quiz_newQuestionController {
 
     // fixing
     @FXML
-    void Quiz_newAnswerScreen(ActionEvent event ) throws IOException
-    {
+    void Quiz_newAnswerScreen(ActionEvent event ) throws IOException {
+
+
+
+
+        NavigationManager navigationManager = NavigationManager.getInstance();
+        Scene previousScene = MainApplication.getPreviousScene();
+        System.out.println(previousScene.getRoot().getId());
+        navigationManager.setPreviousScene(previousScene);
         try {
-            MainApplication.loadForm("/quiz", "Quiz_newAnswer.fxml");
+            navigationManager.loadForm("/quiz", "Quiz_newAnswer.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
     @FXML
     void CancelQuiz_newQuestion(ActionEvent event ) throws IOException
     {
@@ -120,7 +127,8 @@ public class Quiz_newQuestionController {
     //-------------------------------------main function -------------------------------------------------
 
 
-
+    @FXML
+    private ImageView imgView;
     private QuestionQuizDAOimpl questionQuizDAOimpl;
     private byte[] image ;
 
@@ -141,7 +149,8 @@ public class Quiz_newQuestionController {
                 imageData = Files.readAllBytes(selectedFile.toPath());
                 lblImageSource.setText(selectedFile.getName());
                 image = imageData;
-
+                Image imageView = new Image(selectedFile.toURI().toString());
+                imgView.setImage(imageView);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -163,7 +172,10 @@ public class Quiz_newQuestionController {
         int questionNumber = Integer.parseInt(lblQuizQuestioNumber.getText());
         byte[] imageData = image;
         String quizID = StateManager.getCurrentQuiz().getIdQuiz();
-        questionQuizDAOimpl.createQuestion(content, questionNumber, quizID, imageData);
+        String questionID =  questionQuizDAOimpl.createQuestion(content, questionNumber, quizID, imageData);
+        StateManager.setQuestionID(questionID);
+        System.out.println(questionID);
+
     }
 
 
@@ -174,6 +186,7 @@ public class Quiz_newQuestionController {
         questionQuizDAOimpl = new QuestionQuizDAOimpl(MySQLconnection.getConnection());
         String quizQuestionNumber = DataManager.getInstance().getQuizQuestionNumber();
         lblQuizQuestioNumber.setText(quizQuestionNumber);
+
 
     }
 }

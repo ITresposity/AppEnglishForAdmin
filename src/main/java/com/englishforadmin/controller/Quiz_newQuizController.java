@@ -1,5 +1,6 @@
 package com.englishforadmin.controller;
 import com.englishforadmin.MainApplication;
+import com.englishforadmin.NavigationManager;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXRadioButton;
 import javafx.event.ActionEvent;
@@ -90,14 +91,18 @@ public class Quiz_newQuizController {
     @FXML
     void AddNewQuestionScreen(ActionEvent event ) throws IOException
     {
+        NavigationManager navigationManager = NavigationManager.getInstance();
+        Node sourceNode = (Node) event.getSource();
+        Scene currentScene = sourceNode.getScene();
+        navigationManager.setPreviousScene(currentScene);
+
+        System.out.println(currentScene.getRoot().getId());
         try {
             MainApplication.loadForm("/quiz", "Quiz_newQuestion.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-
     @FXML
     void SubmitQuiz_new(ActionEvent event ) throws IOException
     {

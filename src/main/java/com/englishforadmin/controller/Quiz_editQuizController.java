@@ -2,6 +2,7 @@ package com.englishforadmin.controller;
 
 import com.englishforadmin.DataManager;
 import com.englishforadmin.MainApplication;
+import com.englishforadmin.NavigationManager;
 import com.englishforadmin.StateManager;
 import com.englishforadmin.dao.QuestionQuizDAO;
 import com.englishforadmin.daoimpl.QuestionQuizDAOimpl;
@@ -14,7 +15,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
@@ -92,7 +95,10 @@ public class Quiz_editQuizController {
 
     @FXML
     void AddNewQuestionScreen(ActionEvent event) throws IOException {
-
+        NavigationManager navigationManager = NavigationManager.getInstance();
+        navigationManager.setPreviousScene(((Node) event.getSource()).getScene());
+        Scene previousScene = navigationManager.getPreviousScene();
+        System.out.println(previousScene.getRoot().getId());
         try {
             MainApplication.loadForm("/quiz", "Quiz_newQuestion.fxml");
         } catch (IOException e) {

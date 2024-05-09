@@ -69,7 +69,7 @@ public class QuestionQuizDAOimpl implements QuestionQuizDAO {
     @Override
     public String generateUniqueQuestionId() {
         LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HHmmssSSS");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
         String timestamp = now.format(formatter);
         String idQuestionQuiz = "Q" + timestamp.substring(0, 9);
         return idQuestionQuiz;
@@ -77,7 +77,7 @@ public class QuestionQuizDAOimpl implements QuestionQuizDAO {
 
 
     @Override
-    public void createQuestion(String content, int serial, String idQuiz, byte[] imageData) {
+    public String  createQuestion(String content, int serial, String idQuiz, byte[] imageData) {
         String idQuestionQuiz = generateUniqueQuestionId();
 
         // Chuyển đổi giá trị char
@@ -98,6 +98,7 @@ public class QuestionQuizDAOimpl implements QuestionQuizDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return idQuestionQuizChar;
     }
 
 

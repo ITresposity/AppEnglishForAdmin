@@ -9,6 +9,16 @@ public class StateManager {
     private static Quiz currentQuiz;
     private static QuestionQuiz currentQuestion;
 
+    private static String questionID;
+
+    public static String getQuestionID() {
+        return questionID;
+    }
+
+    public static void setQuestionID(String questionID) {
+        StateManager.questionID = questionID;
+    }
+
     public static void setCurrentLesson(Lesson lesson) {
         currentLesson = lesson;
     }
