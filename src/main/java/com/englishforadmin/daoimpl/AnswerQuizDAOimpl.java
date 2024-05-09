@@ -7,7 +7,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class AnswerQuizDAOimpl implements AnswerQuizDAO {
@@ -40,5 +43,45 @@ public class AnswerQuizDAOimpl implements AnswerQuizDAO {
 
         return answers;
     }
+    @Override
+    public String generateUniqueAnswerId() {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HHmmssSSS");
+        String timestamp = now.format(formatter);
+        String idAnswerQuiz = "A" + timestamp.substring(0, 9);
+        return idAnswerQuiz;
+    }
 
+    @Override
+    public boolean addNewAnswer(String content, boolean isCorrect, String idQuestionQuiz) {
+        String idAnswerQuiz = generateUniqueAnswerId();
+
+        // Chuyển đổi giá trị char
+        String idAnswerQuizChar = convertToChar(idAnswerQuiz);
+
+        String sql = "INSERT INTO answerquiz (IdAnswerQuiz, Content, IsCorrect, IdQuestionQuiz) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, idAnswerQuizChar);
+            statement.setString(2, content);
+            statement.setBoolean(3, isCorrect);
+            statement.setString(4, idQuestionQuiz);
+
+            int rowsInserted = statement.executeUpdate();
+            return rowsInserted > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    @Override
+    public String convertToChar(String input) {
+        char[] charArray = new char[10];
+        Arrays.fill(charArray, 'A');
+        char[] inputChars = input.toCharArray();
+        int length = Math.min(inputChars.length, charArray.length);
+        System.arraycopy(inputChars, 0, charArray, 0, length);
+        return new String(charArray);
+    }
 }

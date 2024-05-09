@@ -15,7 +15,7 @@ public interface QuestionQuizDAO {
 
     String generateUniqueQuestionId();
 
-    void createQuestion(String content, int serial, String idQuiz, byte[] imageData);
+    String createQuestion(String content, int serial, String idQuiz, byte[] imageData);
 
     String convertToChar(String input);
 

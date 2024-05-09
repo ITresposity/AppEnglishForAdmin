@@ -1,9 +1,10 @@
 package com.englishforadmin;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
 
 import java.io.IOException;
 
@@ -23,6 +24,8 @@ public class MainApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        NavigationManager navigationManager = NavigationManager.getInstance();
+        navigationManager.setMainStage(stage);
         mainStage = stage;
         loadForm("", "main.fxml");
         mainStage.setTitle("English application management for administrator");
@@ -44,6 +47,7 @@ public class MainApplication extends Application {
         }
 
     }
+
 
     public static void main(String[] args) {
         launch(args);
