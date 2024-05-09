@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -17,7 +18,9 @@ import javafx.stage.Stage;
 import model.AnswerQuiz;
 import model.QuestionQuiz;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.Arrays;
 
@@ -83,8 +86,7 @@ public class Quiz_editQuestionController {
 
     // fixing
     @FXML
-    void Quiz_editAnswerScreen(ActionEvent event ) throws IOException
-    {
+    void Quiz_editAnswerScreen(ActionEvent event) throws IOException {
         // next
         try {
             MainApplication.loadForm("/quiz", "Quiz_editAnswer.fxml");
@@ -94,8 +96,7 @@ public class Quiz_editQuestionController {
     }
 
     @FXML
-    void CancelQuizAnswer_edit(ActionEvent event ) throws IOException
-    {
+    void CancelQuizAnswer_edit(ActionEvent event) throws IOException {
         // nhảy lại form trước
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene previousScene = MainApplication.getPreviousScene();
@@ -106,29 +107,29 @@ public class Quiz_editQuestionController {
 
     // after all:
     @FXML
-    void ProfileUserScreen(ActionEvent event ) throws IOException
-    {
+    void ProfileUserScreen(ActionEvent event) throws IOException {
         try {
             MainApplication.loadForm("/", ".fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     // update Question quiz
     QuestionQuiz question = StateManager.getCurrentQuestion();
 
 
     @FXML
     public void initialize() {
-        if ( question != null ) {
+        if (question != null) {
             txtareaContent.setText(question.getContent());
             lblQuizQuestioNumber.setText(String.valueOf(question.getSerial()));
             lblImageSource.setText(Arrays.toString(question.getImage()));
-
-        }
-        else
-        {
-            System.out.println("Dữ liệu gặp lỗi ");
+            InputStream is = new ByteArrayInputStream(question.getImage());
+            Image image = new Image(is);
+            imgView.setImage(image);
+        } else {
+            System.out.println("Dữ liệu gặp lỗi");
         }
     }
 }
