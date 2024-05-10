@@ -58,7 +58,7 @@ public class SpeakingDAO {
     public boolean update(Speaking entity){
         Connection connection = MySQLconnection.getConnection();
         if (connection != null) {
-            try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_SPEAKING_QUERY)) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SPEAKING_QUERY)) {
                 preparedStatement.setString(1, entity.getTitle());
                 preparedStatement.setString(2, entity.getContent());
                 preparedStatement.setBytes(3, entity.getExample());
