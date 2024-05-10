@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.Blob;
 import java.util.List;
 
 public class Vocabulary {
@@ -66,4 +67,6 @@ public class Vocabulary {
     public void setSynonyms(List<Vocabulary> synonyms) {
         Synonyms = synonyms;
     }
+
+
 }

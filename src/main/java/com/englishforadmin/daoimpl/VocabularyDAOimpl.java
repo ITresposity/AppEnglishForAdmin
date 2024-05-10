@@ -4,10 +4,7 @@ import com.englishforadmin.dao.VocabularyDAO;
 import model.Quiz;
 import model.Vocabulary;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +33,32 @@ public class VocabularyDAOimpl implements VocabularyDAO {
                 }
             }
             return vocabulary;
+        } catch (SQLException ex) {
+            // In ra lỗi và throw lại exception
+            ex.printStackTrace();
+            throw ex;
+        }
+    }
+
+    @Override
+    public Vocabulary getVocabularyById(String vocabularyID) throws SQLException {
+        String query = "SELECT IdVocabulary, Word, Mean, Image, Phonetic FROM vocabulary WHERE IdVocabulary = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, vocabularyID);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    Vocabulary vocabulary = new Vocabulary();
+                    vocabulary.setIdVocabulary(resultSet.getString("IdVocabulary"));
+                    vocabulary.setWord(resultSet.getString("Word"));
+                    vocabulary.setMean(resultSet.getString("Mean"));
+                    vocabulary.setImage(resultSet.getBytes("Image"));
+                    vocabulary.setPhonetic(resultSet.getString("Phonetic"));
+                    return vocabulary;
+                } else {
+                    // Không tìm thấy từ vựng có id tương ứng
+                    return null;
+                }
+            }
         } catch (SQLException ex) {
             // In ra lỗi và throw lại exception
             ex.printStackTrace();

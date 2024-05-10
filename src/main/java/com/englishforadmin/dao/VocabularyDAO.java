@@ -9,7 +9,7 @@ import java.util.List;
 public interface VocabularyDAO {
     List<Vocabulary> getAllVocabularys() throws SQLException;
 
-    //Vocabulary getVocabularyById(String VocabularyID);
+    Vocabulary getVocabularyById(String VocabularyID) throws SQLException ;
 
     //void addQuiz(Quiz quiz);
 

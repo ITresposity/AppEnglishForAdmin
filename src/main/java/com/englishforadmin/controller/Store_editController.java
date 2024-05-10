@@ -1,6 +1,9 @@
 package com.englishforadmin.controller;
 
 import com.englishforadmin.MainApplication;
+import com.englishforadmin.StateManager;
+import com.englishforadmin.daoimpl.VocabularyDAOimpl;
+import com.englishforadmin.myconnection.MySQLconnection;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,13 +13,22 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import model.Quiz;
+import model.Vocabulary;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.sql.SQLException;
 
 public class Store_editController {
+    @FXML
+    public ImageView ImgViewVocabulary;
+    public TextField txtword;
     @FXML
     private MFXButton btnCancelEditVolcabulary;
 
@@ -74,8 +86,7 @@ public class Store_editController {
 
     // fixing
     @FXML
-    void SubmitStoreVolcabulary_edit(ActionEvent event ) throws IOException
-    {
+    void SubmitStoreVolcabulary_edit(ActionEvent event) throws IOException {
         // nhảy lại form trước
         // load lại list StoreVolcabulary ( nội dung vừa edit StoreVolcabulary )
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -86,8 +97,7 @@ public class Store_editController {
     }
 
     @FXML
-    void CancelStoreVolcabulary_edit(ActionEvent event ) throws IOException
-    {
+    void CancelStoreVolcabulary_edit(ActionEvent event) throws IOException {
         // nhảy lại form trước
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene previousScene = MainApplication.getPreviousScene();
@@ -98,8 +108,7 @@ public class Store_editController {
 
     // after all:
     @FXML
-    void ProfileUserScreen(ActionEvent event ) throws IOException
-    {
+    void ProfileUserScreen(ActionEvent event) throws IOException {
         try {
             MainApplication.loadForm("/", ".fxml");
         } catch (IOException e) {
@@ -107,10 +116,39 @@ public class Store_editController {
         }
     }
     //
-    @FXML
-    public void initialize() {
+    //-------------------- main function ----------------------------------\
 
+    Quiz quiz = StateManager.getCurrentQuiz();
+    Vocabulary currentVocabulary = StateManager.getCurrentVocabulary();
+
+    VocabularyDAOimpl vocabularyDAOimpl;
+    private byte[] image;
+
+
+
+    @FXML
+    public void initialize() throws SQLException {
+        Vocabulary currentVocabulary = StateManager.getCurrentVocabulary();
+        if (currentVocabulary != null) {
+            vocabularyDAOimpl = new VocabularyDAOimpl(MySQLconnection.getConnection());
+            String currentVocabularyID = currentVocabulary.getIdVocabulary();
+            currentVocabulary = vocabularyDAOimpl.getVocabularyById(currentVocabularyID);
+            txtword.setText(currentVocabulary.getWord());
+            txtPhonetic.setText(currentVocabulary.getPhonetic());
+            txtMoTa.setText(currentVocabulary.getMean());
+
+            byte[] imageData = currentVocabulary.getImage();
+            if (imageData != null) {
+                InputStream is = new ByteArrayInputStream(imageData);
+                Image image = new Image(is);
+                ImgViewVocabulary.setImage(image);
+            } else {
+                // Nếu hình ảnh là null - gán một hình ảnh mặc định hoặc không làm gì cả
+            }
+        }
     }
 
 
 }
+
+
