@@ -40,14 +40,66 @@ public class VocabularyDAO{
                     "SELECT V.IdVocabulary, V.Word, V.Mean, V.Image, V.Phonetic " +
                     "FROM VOCABULARY V " +
                     "INNER JOIN SYNONYMS S ON V.IdVocabulary = S.IdSynonyms " +
-                    "WHERE S.IdSynonyms = ?;"
-            ;
+                    "WHERE S.IdSynonyms = ?;";
+    private final static String INSERT_VOCABULARY_QUERY =
+            "INSERT INTO VOCABULARY (Word, Mean, Phonetic, Image) " +
+            "VALUES (?,?,?,?)";
+    private final static String UPDATE_VOCABULARY_QUERY =
+            "UPDATE VOCABULARY \n" +
+            "SET Word = ?, Mean = ?, Phonetic = ?, Image = ?\n" +
+            "WHERE IdVocabulary = ?;";
+    private final static String SELECT_LATEST_ID_VOCABULARY_QUERY =
+            "SELECT IdVocabulary\n" +
+                    "FROM VOCABULARY\n" +
+                    "ORDER BY IdVocabulary DESC\n" +
+                    "LIMIT 1;";
     public boolean insert(Vocabulary entity){
+        Connection connection = MySQLconnection.getConnection();
+        if (connection != null) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_VOCABULARY_QUERY)) {
+                preparedStatement.setString(1, entity.getWord());
+                preparedStatement.setString(2, entity.getMean());
+                preparedStatement.setString(3, entity.getPhonetic());
+                preparedStatement.setBytes(4, entity.getImage());
+
+                int rowsAffected = preparedStatement.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("Insertion successful.");
+                    return true;
+                } else {
+                    System.out.println("Insertion failed.");
+                    return false;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
         return false;
     }
 
-    public void update(Vocabulary entity){
+    public boolean update(Vocabulary entity){
+        Connection connection = MySQLconnection.getConnection();
+        if (connection != null) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_VOCABULARY_QUERY)) {
+                preparedStatement.setString(1, entity.getWord());
+                preparedStatement.setString(2, entity.getMean());
+                preparedStatement.setString(3, entity.getPhonetic());
+                preparedStatement.setBytes(4, entity.getImage());
+                preparedStatement.setString(5, entity.getIdVocabulary());
 
+                int rowsAffected = preparedStatement.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("Update successful.");
+                    return true;
+                } else {
+                    System.out.println("Update failed.");
+                    return false;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
     }
 
     public void delete(String id){
@@ -103,5 +155,22 @@ public class VocabularyDAO{
             }
         }
         return lstVocabulary;
+    }
+    public String getLastestId(){
+        Connection connection = MySQLconnection.getConnection();
+        String id = "";
+        if (connection != null) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_LATEST_ID_VOCABULARY_QUERY)) {
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if(resultSet.next()){
+                    id = resultSet.getString("IdVocabulary");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        if (id.isEmpty())
+            id = "V000000001";
+        return id;
     }
 }
