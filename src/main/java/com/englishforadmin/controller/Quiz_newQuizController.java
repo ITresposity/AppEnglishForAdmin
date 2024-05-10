@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -169,6 +170,9 @@ public class Quiz_newQuizController {
 
         // Kiểm tra xem việc thêm mới bài kiểm tra có thành công hay không
         if (success) {
+            // Hiển thị hộp thoại thông báo thành công
+            showAlert("Success", "Quiz added successfully!", Alert.AlertType.INFORMATION);
+
             // Nếu thành công, chuyển hướng về giao diện danh sách bài kiểm tra
             try {
                 MainApplication.loadForm("/quiz", "Quiz_list.fxml");
@@ -178,6 +182,15 @@ public class Quiz_newQuizController {
         } else {
             System.out.println("Failed to add new quiz! ");
         }
+    }
+
+    // Hàm để hiển thị hộp thoại thông báo
+    private void showAlert(String title, String message, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     @FXML
