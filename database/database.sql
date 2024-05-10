@@ -567,10 +567,25 @@ ALTER TABLE `englishforkids`.`questionquiz`
             REFERENCES `englishforkids`.`quiz` (`IdQuiz`)
             ON UPDATE CASCADE;
 ALTER TABLE `englishforkids`.`quizpart`
-DROP
-FOREIGN KEY `quizpart_ibfk_2`;
+DROP FOREIGN KEY `fk_lessonpart_id`;
 ALTER TABLE `englishforkids`.`quizpart`
-    ADD CONSTRAINT `quizpart_ibfk_2`
-        FOREIGN KEY (`IdQuiz`)
-            REFERENCES `englishforkids`.`quiz` (`IdQuiz`)
+    ADD CONSTRAINT `fk_lessonpart_id`
+        FOREIGN KEY (`IdLessonPart`)
+            REFERENCES `englishforkids`.`lessonpart` (`IdLessonPart`)
+            ON DELETE RESTRICT
+            ON UPDATE CASCADE;
+ALTER TABLE `englishforkids`.`quizpart`
+DROP FOREIGN KEY `quizpart_ibfk_1`;
+ALTER TABLE `englishforkids`.`quizpart`
+    ADD CONSTRAINT `quizpart_ibfk_1`
+        FOREIGN KEY (`IdLessonPart`)
+            REFERENCES `englishforkids`.`lessonpart` (`IdLessonPart`)
+            ON UPDATE CASCADE;
+ALTER TABLE `englishforkids`.`answerquiz`
+DROP FOREIGN KEY `answerquiz_ibfk_1`;
+ALTER TABLE `englishforkids`.`answerquiz`
+    ADD CONSTRAINT `answerquiz_ibfk_1`
+        FOREIGN KEY (`IdQuestionQuiz`)
+            REFERENCES `englishforkids`.`questionquiz` (`IdQuestionQuiz`)
+            ON DELETE RESTRICT
             ON UPDATE CASCADE;
