@@ -140,7 +140,7 @@
                                  <children>
                                     <Pane fx:id="pnTitleNewLesson" prefHeight="45.0" prefWidth="674.0" style="-fx-border-color: black;">
                                        <children>
-                                          <Label layoutX="249.0" layoutY="5.0" text="Tạo mới Grammar ">
+                                          <Label layoutX="249.0" layoutY="5.0" text="Add new Grammar ">
                                              <font>
                                                 <Font name="System Bold" size="19.0" />
                                              </font>
@@ -168,7 +168,7 @@
                                                 <Font size="17.0" />
                                              </font>
                                           </Label>
-                                          <MFXButton fx:id="btnChooseImg" alignment="CENTER" contentDisplay="CENTER" layoutX="428.0" layoutY="7.0" prefHeight="34.0" prefWidth="251.0" style="-fx-background-color: #F9AE81; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 5);" text="Chọn hình ảnh" textAlignment="CENTER">
+                                          <MFXButton fx:id="btnChooseImg" alignment="CENTER" contentDisplay="CENTER" layoutX="428.0" layoutY="7.0" prefHeight="34.0" prefWidth="251.0" style="-fx-background-color: #F9AE81; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 5);" text="choose image" textAlignment="CENTER">
                                              <font>
                                                 <Font name="Arial Bold" size="15.0" />
                                              </font>
@@ -200,12 +200,12 @@
                                     </Pane>
                                     <Pane prefHeight="74.0" prefWidth="674.0" style="-fx-border-color: black; -fx-background-color: #A968ED;">
                                        <children>
-                                          <MFXButton fx:id="btnCancelNewGrammar" alignment="CENTER" contentDisplay="CENTER" layoutX="404.0" layoutY="17.0" onAction="#CancelGrammar_new" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #FCA4C7; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Hủy" textAlignment="CENTER">
+                                          <MFXButton fx:id="btnCancelNewGrammar" alignment="CENTER" contentDisplay="CENTER" layoutX="404.0" layoutY="17.0" onAction="#CancelGrammar_new" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #FCA4C7; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="cancel" textAlignment="CENTER">
                                              <font>
                                                 <Font name="Arial Bold" size="16.0" />
                                              </font>
                                           </MFXButton>
-                                          <MFXButton fx:id="btnSubmitNewGrammar" alignment="CENTER" contentDisplay="CENTER" layoutX="548.0" layoutY="17.0" onAction="#SubmitGrammar_new" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #80CD7B; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Tạo mới" textAlignment="CENTER">
+                                          <MFXButton fx:id="btnSubmitNewGrammar" alignment="CENTER" contentDisplay="CENTER" layoutX="548.0" layoutY="17.0" onAction="#SubmitGrammar_new" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #80CD7B; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="add new" textAlignment="CENTER">
                                              <font>
                                                 <Font name="Arial Bold" size="16.0" />
                                              </font>

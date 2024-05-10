@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXRadioButton?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -16,9 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.ToggleGroup?>
-<AnchorPane fx:id="rootPane" id="Quiz_newAnswer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="899.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.englishforadmin.controller.Quiz_newAnswerController">
+<AnchorPane id="Quiz_newAnswer" fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="899.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.englishforadmin.controller.Quiz_newAnswerController">
    <children>
       <ImageView fitHeight="640.0" fitWidth="914.0" layoutX="-1.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
          <Image url="@../../assets/wallpaper_content.png" />
@@ -84,7 +83,7 @@
                                  <children>
                                     <Pane fx:id="pnTitleNewLesson" prefHeight="45.0" prefWidth="674.0" style="-fx-border-color: black;">
                                        <children>
-                                          <Label layoutX="249.0" layoutY="5.0" text="Tạo mới đáp án Quiz">
+                                          <Label layoutX="249.0" layoutY="5.0" text="Add new Answer Quiz">
                                              <font>
                                                 <Font name="System Bold" size="19.0" />
                                              </font>
@@ -234,12 +233,12 @@
                                     </Pane>
                                     <Pane prefHeight="78.0" prefWidth="706.0" style="-fx-border-color: black; -fx-background-color: #97DFFC;">
                                        <children>
-                                          <MFXButton fx:id="btnCancelNewQuiz" alignment="CENTER" contentDisplay="CENTER" layoutX="404.0" layoutY="17.0" onAction="#CancelQuizAnswer" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #FCA4C7; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Hủy" textAlignment="CENTER">
+                                          <MFXButton fx:id="btnCancelNewQuiz" alignment="CENTER" contentDisplay="CENTER" layoutX="404.0" layoutY="17.0" onAction="#CancelQuizAnswer" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #FCA4C7; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="cancel" textAlignment="CENTER">
                                              <font>
                                                 <Font name="Arial Bold" size="16.0" />
                                              </font>
                                           </MFXButton>
-                                          <MFXButton fx:id="btnSubmitNewQuiz" alignment="CENTER" contentDisplay="CENTER" layoutX="548.0" layoutY="17.0" onAction="#SubmitQuizAnswer_new" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #80CD7B; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Tạo mới" textAlignment="CENTER">
+                                          <MFXButton fx:id="btnSubmitNewQuiz" alignment="CENTER" contentDisplay="CENTER" layoutX="548.0" layoutY="17.0" onAction="#SubmitQuizAnswer_new" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #80CD7B; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Add new" textAlignment="CENTER">
                                              <font>
                                                 <Font name="Arial Bold" size="16.0" />
                                              </font>
