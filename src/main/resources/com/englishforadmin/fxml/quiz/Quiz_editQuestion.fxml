@@ -111,7 +111,8 @@
                                                 <Font size="17.0" />
                                              </font>
                                           </Label>
-                                          <MFXButton fx:id="btnChooseImgQuiz" alignment="CENTER" contentDisplay="CENTER" layoutX="400.0" layoutY="17.0" prefHeight="34.0" prefWidth="251.0" style="-fx-background-color: #F9AE81; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 5);" text="Chọn hình ảnh" textAlignment="CENTER">
+                                          <MFXButton fx:id="btnChooseImgQuiz" alignment="CENTER" contentDisplay="CENTER" layoutX="400.0" layoutY="17.0" prefHeight="34.0" prefWidth="251.0" style="-fx-background-color: #F9AE81; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 5);" text="Chọn hình ảnh" textAlignment="CENTER"
+                                          onAction="#chooseImageAction">
                                              <font>
                                                 <Font name="Arial Bold" size="15.0" />
                                              </font>
