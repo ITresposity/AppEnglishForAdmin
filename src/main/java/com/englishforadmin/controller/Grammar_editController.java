@@ -104,14 +104,7 @@ public class Grammar_editController {
             return;
         }
         if(isUpdateData()){
-            Grammar grammar = new Grammar();
-            grammar.setIdGrammar(curGrammar.getIdGrammar());
-            grammar.setTitle(txtareaTitle.getText());
-            grammar.setImage(dataImage);
-            grammar.setRule(txtareaRuleGrammar.getText());
-            grammar.setContent(txtareaContent.getText());
-            grammar.setExample(txtareaExampleGrammar.getText());
-            if (!grammarDAO.update(grammar)){
+            if (!updateGrammar()){
                 MessageBox.show("Lỗi","Cập nhật ngữ pháp thất bại", Alert.AlertType.ERROR);
                 return;
             }
@@ -156,11 +149,15 @@ public class Grammar_editController {
         btnChooseImage_grammar.setOnAction(event1 -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Select Image File");
+            List<String> imageExtensions = Arrays.asList("*.jpg", "*.jpeg", "*.png", "*.gif");
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image Files", imageExtensions);
+            fileChooser.getExtensionFilters().add(extFilter);
             File selectedFile = fileChooser.showOpenDialog((Stage) ((Node) event1.getSource()).getScene().getWindow());
 
             if (selectedFile != null) {
                 try {
                     dataImage = convertImageToBase64(selectedFile);
+                    lblSrc.setText(Arrays.toString(Base64.getDecoder().decode(dataImage)));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -228,11 +225,22 @@ public class Grammar_editController {
                 || !curGrammar.getExample().equals(txtareaExampleGrammar.getText())
                 || !Arrays.equals(curGrammar.getImage(), dataImage);
     }
+    private boolean updateGrammar(){
+        Grammar grammar = new Grammar();
+        grammar.setIdGrammar(curGrammar.getIdGrammar());
+        grammar.setTitle(txtareaTitle.getText());
+        grammar.setImage(dataImage);
+        grammar.setRule(txtareaRuleGrammar.getText());
+        grammar.setContent(txtareaContent.getText());
+        grammar.setExample(txtareaExampleGrammar.getText());
+        return grammarDAO.update(grammar);
+    }
     private void clearField(){
         txtareaTitle.setText("");
         txtareaContent.setText("");
         txtareaRuleGrammar.setText("");
         txtareaExampleGrammar.setText("");
+        lblSrc.setText("");
         dataImage = null;
     }
 }

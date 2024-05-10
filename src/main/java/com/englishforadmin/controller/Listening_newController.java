@@ -1,13 +1,14 @@
 package com.englishforadmin.controller;
 import com.englishforadmin.MainApplication;
 import com.englishforadmin.StateManager;
-import com.englishforadmin.daoimpl.GrammarDAO;
-import com.englishforadmin.daoimpl.ListeningDAO;
+import com.englishforadmin.daoimpl.*;
+import com.englishforadmin.feature.MessageBox;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -16,8 +17,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import model.Lesson;
-import model.Listening;
+import model.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -92,12 +92,16 @@ public class Listening_newController {
     @FXML
     void SubmitListening_new(ActionEvent event ) throws IOException
     {
-        // nhảy lại form trước
-        // load lại list listening ( nội dung vừa edit listening )
-        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene previousScene = MainApplication.getPreviousScene();
-        if (previousScene != null) {
-            currentStage.setScene(previousScene);
+        if(isMissData()){
+            MessageBox.show("Lỗi","Hãy điền đầy đủ thông tin trước khi tiếp tục", Alert.AlertType.ERROR);
+            return;
+        }
+        if(addNewListening()){
+            loadData();
+            clearField();
+            MessageBox.show("Thành công","Thêm bài nghe thành công", Alert.AlertType.CONFIRMATION);
+        }else {
+            MessageBox.show("Lỗi","Thêm bài nghe không thành công", Alert.AlertType.ERROR);
         }
     }
 
@@ -135,11 +139,15 @@ public class Listening_newController {
         loadData();
         btnChooseVideoListening.setOnAction(event -> {
             FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Select MP3 File");
+            fileChooser.setTitle("Select File Video");
+            List<String> videoExtensions = Arrays.asList("*.mp4", "*.avi", "*.mkv", "*.mov", "*.wmv");
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Video Files", videoExtensions);
+            fileChooser.getExtensionFilters().add(extFilter);
             File selectedFile = fileChooser.showOpenDialog((Stage) ((Node) event.getSource()).getScene().getWindow());
             if (selectedFile != null) {
                 try {
                     dataVideo = convertVideoToBase64(selectedFile);
+                    lblSrc.setText(Arrays.toString(Base64.getDecoder().decode(dataVideo)));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -194,5 +202,44 @@ public class Listening_newController {
     private byte[] convertVideoToBase64(File file) throws IOException {
         byte[] fileContent = Files.readAllBytes(file.toPath());
         return Base64.getEncoder().encode(fileContent);
+    }
+
+    private boolean isMissData(){
+        return txtareaTitleListening.getText().isEmpty()
+                || txtareaDescription.getText().isEmpty()
+                || txtareaScript.getText().isEmpty()
+                || lblSrc.getText().isEmpty();
+    }
+    private boolean addNewListening(){
+        Listening listening = new Listening();
+        listening.setTitle(txtareaTitleListening.getText());
+        listening.setScript(txtareaScript.getText());
+        listening.setDescription(txtareaDescription.getText());
+        listening.setVideo(dataVideo);
+        if (!listeningDAO.insert(listening)){
+            return false;
+        }
+
+        listening.setIdListening(listeningDAO.getLastestId());
+        LessonPart lessonPart = new LessonPart();
+        lessonPart.setIdLesson(StateManager.getCurrentLesson().getIdLesson());
+        lessonPart.setType(LessonPart.LessonPartType.LISTENING);
+        LessonPartDAO lessonPartDAO = new LessonPartDAO();
+        if (!lessonPartDAO.insert(lessonPart)){
+            return false;
+        }
+
+        ListeningPart part = new ListeningPart();
+        part.setIdListening(listening.getIdListening());
+        part.setIdLessonPart(lessonPartDAO.getLastestId());
+        ListeningPartDAO dao = new ListeningPartDAO();
+        return dao.insert(part);
+    }
+    private void clearField(){
+        txtareaTitleListening.setText("");
+        txtareaDescription.setText("");
+        txtareaScript.setText("");
+        lblSrc.setText("");
+        dataVideo = null;
     }
 }
