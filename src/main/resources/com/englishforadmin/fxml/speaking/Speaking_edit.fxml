@@ -181,8 +181,25 @@
                                                 <Font size="17.0" />
                                              </font>
                                           </Label>
-                                          <Region layoutX="17.0" layoutY="251.0" prefHeight="116.0" prefWidth="666.0" style="-fx-border-color: black; -fx-border-radius: 15; -fx-background-color: white; -fx-background-radius: 15;" />
-                                          <TextArea fx:id="txtExample" layoutX="25.0" layoutY="254.0" prefHeight="110.0" prefWidth="656.0" style="-fx-background-color: white; -fx-border-color: white; -fx-background-radius: 15; -fx-border-radius: 15;" />
+                                          <MFXButton fx:id="btnChooseFile" alignment="CENTER" contentDisplay="CENTER" layoutX="38.0" layoutY="263.0" prefHeight="34.0" prefWidth="251.0" style="-fx-background-color: #F9AE81; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 5);" text="Choose image" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="Arial Bold" size="15.0" />
+                                             </font>
+                                          </MFXButton>
+                                          <Pane fx:id="pnImageSource" layoutX="38.0" layoutY="319.0" prefHeight="34.0" prefWidth="319.0" style="-fx-background-color: #F9AE81; -fx-border-color: black;">
+                                             <children>
+                                                <Label fx:id="lblImageSource" layoutX="6.0" layoutY="9.0" prefHeight="17.0" prefWidth="68.0" text="Source :">
+                                                   <font>
+                                                      <Font name="Arial" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="lblSrc" layoutX="78.0" layoutY="6.0" maxWidth="230.0" prefHeight="20.0" prefWidth="230.0">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </Pane>
                                        </children>
                                     </Pane>
                                     <Pane prefHeight="74.0" prefWidth="674.0" style="-fx-border-color: black; -fx-background-color: #A968ED;">
