@@ -156,11 +156,15 @@ public class Grammar_editController {
         btnChooseImage_grammar.setOnAction(event1 -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Select Image File");
+            List<String> imageExtensions = Arrays.asList("*.jpg", "*.jpeg", "*.png", "*.gif");
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image Files", imageExtensions);
+            fileChooser.getExtensionFilters().add(extFilter);
             File selectedFile = fileChooser.showOpenDialog((Stage) ((Node) event1.getSource()).getScene().getWindow());
 
             if (selectedFile != null) {
                 try {
                     dataImage = convertImageToBase64(selectedFile);
+                    lblSrc.setText(Arrays.toString(Base64.getDecoder().decode(dataImage)));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -233,6 +237,7 @@ public class Grammar_editController {
         txtareaContent.setText("");
         txtareaRuleGrammar.setText("");
         txtareaExampleGrammar.setText("");
+        lblSrc.setText("");
         dataImage = null;
     }
 }

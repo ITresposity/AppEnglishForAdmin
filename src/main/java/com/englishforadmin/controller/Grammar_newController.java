@@ -113,9 +113,9 @@ public class Grammar_newController {
         if(addNewGrammar()){
             loadData();
             clearField();
+            MessageBox.show("Thành công","Thêm ngữ pháp thành công", Alert.AlertType.CONFIRMATION);
         } else {
             MessageBox.show("Lỗi","Thêm ngữ pháp không thành công", Alert.AlertType.ERROR);
-            return;
         }
     }
 
@@ -151,11 +151,15 @@ public class Grammar_newController {
         btnChooseImg.setOnAction(event1 -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Select Image File");
+            List<String> imageExtensions = Arrays.asList("*.jpg", "*.jpeg", "*.png", "*.gif");
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image Files", imageExtensions);
+            fileChooser.getExtensionFilters().add(extFilter);
             File selectedFile = fileChooser.showOpenDialog((Stage) ((Node) event1.getSource()).getScene().getWindow());
 
             if (selectedFile != null) {
                 try {
                     dataImage = convertImageToBase64(selectedFile);
+                    lblSrc.setText(Arrays.toString(Base64.getDecoder().decode(dataImage)));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -248,6 +252,7 @@ public class Grammar_newController {
         txtareaContent.setText("");
         txtareaRule.setText("");
         txtareaExample.setText("");
+        lblSrc.setText("");
         dataImage = null;
     }
 }
