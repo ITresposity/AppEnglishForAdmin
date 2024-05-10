@@ -10,6 +10,7 @@ public interface AnswerQuizDAO {
     boolean addNewAnswer(String content, boolean isCorrect, String idQuestionQuiz) throws SQLException;
     String convertToChar(String input);
     String generateUniqueAnswerId();
+    boolean editAnswer(String idAnswerQuiz, String content, boolean isCorrect, String idQuestionQuiz);
 
 
 }
