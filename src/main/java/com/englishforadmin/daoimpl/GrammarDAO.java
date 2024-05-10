@@ -22,6 +22,10 @@ public class GrammarDAO{
     private static final String INSERT_GRAMMAR_QUERY =
             "INSERT INTO GRAMMAR (Title, Content, Rule, Image, Example) " +
                     "VALUES (?,?,?,?,?);";
+    private static final String UPDATE_GRAMMAR_QUERY =
+            "UPDATE GRAMMAR \n" +
+            "SET Title = ?, Content = ?, Rule = ?, Image = ?, Example = ?\n" +
+            "WHERE IdGrammar = ?;";
     private final static String SELECT_LATEST_ID_GRAMMAR_QUERY =
             "SELECT IdGrammar\n" +
                     "FROM GRAMMAR\n" +
@@ -51,7 +55,30 @@ public class GrammarDAO{
         }
         return false;
     }
-    public void update(Grammar entity){
+    public boolean update(Grammar entity){
+        Connection connection = MySQLconnection.getConnection();
+        if (connection != null) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_GRAMMAR_QUERY)) {
+                preparedStatement.setString(1, entity.getTitle());
+                preparedStatement.setString(2, entity.getContent());
+                preparedStatement.setString(3, entity.getRule());
+                preparedStatement.setBytes(4, entity.getImage());
+                preparedStatement.setString(5, entity.getExample());
+                preparedStatement.setString(6, entity.getIdGrammar());
+
+                int rowsAffected = preparedStatement.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("Update successful.");
+                    return true;
+                } else {
+                    System.out.println("Update failed.");
+                    return false;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
     }
     public void delete(String id){
     }
