@@ -102,7 +102,7 @@
                                  <children>
                                     <Pane fx:id="pnTitleNewLesson" prefHeight="45.0" prefWidth="674.0" style="-fx-border-color: black;">
                                        <children>
-                                          <Label layoutX="249.0" layoutY="5.0" text="Điều chỉnh bài học ">
+                                          <Label layoutX="249.0" layoutY="5.0" text="Edit lesson">
                                              <font>
                                                 <Font name="System Bold" size="24.0" />
                                              </font>
@@ -111,17 +111,17 @@
                                     </Pane>
                                     <Pane fx:id="pnLessonContent" prefHeight="294.0" prefWidth="674.0" style="-fx-border-color: black;">
                                        <children>
-                                          <Label layoutX="25.0" layoutY="27.0" text="Tên bài học ">
+                                          <Label layoutX="25.0" layoutY="27.0" text="Name">
                                              <font>
                                                 <Font size="17.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="25.0" layoutY="108.0" text="Mô tả">
+                                          <Label layoutX="25.0" layoutY="108.0" text="Description">
                                              <font>
                                                 <Font size="17.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="25.0" layoutY="225.0" text="Trạng thái ">
+                                          <Label layoutX="25.0" layoutY="225.0" text="Status">
                                              <font>
                                                 <Font size="17.0" />
                                              </font>
@@ -129,17 +129,17 @@
                                           <TextField fx:id="txtNameLesson" layoutX="153.0" layoutY="23.0" prefHeight="34.0" prefWidth="484.0" style="-fx-background-radius: 50; -fx-border-color: black; -fx-border-radius: 50;" />
                                           <Region layoutX="153.0" layoutY="66.0" prefHeight="142.0" prefWidth="484.0" style="-fx-border-color: black; -fx-border-radius: 15; -fx-background-color: white; -fx-background-radius: 15;" />
                                           <TextArea fx:id="txtareaDescription" layoutX="163.0" layoutY="68.0" prefHeight="135.0" prefWidth="467.0" style="-fx-background-color: white; -fx-border-color: white; -fx-background-radius: 15; -fx-border-radius: 15;" />
-                                          <RadioButton fx:id="rdbOpenLesson" layoutX="153.0" layoutY="230.0" text="Mở bài học">
+                                          <RadioButton fx:id="rdbOpenLesson" layoutX="153.0" layoutY="230.0" text="Open">
                                              <font>
                                                 <Font name="Arial" size="16.0" />
                                              </font>
                                           </RadioButton>
-                                          <RadioButton fx:id="rdbLockLesson" layoutX="276.0" layoutY="230.0" text="Khóa bài học">
+                                          <RadioButton fx:id="rdbLockLesson" layoutX="276.0" layoutY="230.0" text="Lock">
                                              <font>
                                                 <Font name="Arial" size="16.0" />
                                              </font>
                                           </RadioButton>
-                                          <Label layoutX="492.0" layoutY="228.0" text="STT:">
+                                          <Label layoutX="492.0" layoutY="228.0" text="No:">
                                              <font>
                                                 <Font size="17.0" />
                                              </font>
@@ -149,12 +149,12 @@
                                     </Pane>
                                     <Pane prefHeight="82.0" prefWidth="674.0" style="-fx-border-color: black; -fx-background-color: #A968ED;">
                                        <children>
-                                          <MFXButton fx:id="btnCancel" alignment="CENTER" contentDisplay="CENTER" layoutX="378.0" layoutY="19.0" onAction="#CancelLesson_editB1" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #FCA4C7; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Hủy" textAlignment="CENTER">
+                                          <MFXButton fx:id="btnCancel" alignment="CENTER" contentDisplay="CENTER" layoutX="378.0" layoutY="19.0" onAction="#CancelLesson_editB1" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #FCA4C7; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Cancel" textAlignment="CENTER">
                                              <font>
                                                 <Font name="Arial Bold" size="16.0" />
                                              </font>
                                           </MFXButton>
-                                          <MFXButton fx:id="btnNext" alignment="CENTER" contentDisplay="CENTER" layoutX="522.0" layoutY="19.0" onAction="#Lesson_editB2Screen" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #80CD7B; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Tiếp theo" textAlignment="CENTER">
+                                          <MFXButton fx:id="btnNext" alignment="CENTER" contentDisplay="CENTER" layoutX="522.0" layoutY="19.0" onAction="#Lesson_editB2Screen" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #80CD7B; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Next" textAlignment="CENTER">
                                              <font>
                                                 <Font name="Arial Bold" size="16.0" />
                                              </font>

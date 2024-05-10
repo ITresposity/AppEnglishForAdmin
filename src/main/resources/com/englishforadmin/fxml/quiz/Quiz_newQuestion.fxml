@@ -80,7 +80,7 @@
                                  <children>
                                     <Pane fx:id="pnTitleNewLesson" prefHeight="45.0" prefWidth="674.0" style="-fx-border-color: black;">
                                        <children>
-                                          <Label layoutX="249.0" layoutY="5.0" text="Tạo mới câu hỏi Quiz">
+                                          <Label layoutX="249.0" layoutY="5.0" text="Add new Question Quiz">
                                              <font>
                                                 <Font name="System Bold" size="19.0" />
                                              </font>
@@ -89,12 +89,12 @@
                                     </Pane>
                                     <Pane fx:id="pnQuizContent" prefHeight="297.0" prefWidth="706.0" style="-fx-border-color: black;">
                                        <children>
-                                          <Label layoutX="12.0" layoutY="14.0" prefHeight="26.0" prefWidth="94.0" text="Câu hỏi số ">
+                                          <Label layoutX="12.0" layoutY="14.0" prefHeight="26.0" prefWidth="94.0" text="Number ">
                                              <font>
                                                 <Font size="17.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="12.0" layoutY="80.0" text="Nội dung">
+                                          <Label layoutX="12.0" layoutY="80.0" text="Content">
                                              <font>
                                                 <Font size="17.0" />
                                              </font>
@@ -111,7 +111,7 @@
                                                 <Font size="17.0" />
                                              </font>
                                           </Label>
-                                          <MFXButton fx:id="btnChooseImgQuiz" alignment="CENTER" contentDisplay="CENTER" layoutX="441.0" layoutY="17.0" onAction="#chooseImageAction" prefHeight="34.0" prefWidth="251.0" style="-fx-background-color: #F9AE81; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 5);" text="Chọn hình ảnh" textAlignment="CENTER">
+                                          <MFXButton fx:id="btnChooseImgQuiz" alignment="CENTER" contentDisplay="CENTER" layoutX="441.0" layoutY="17.0" onAction="#chooseImageAction" prefHeight="34.0" prefWidth="251.0" style="-fx-background-color: #F9AE81; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 5);" text="Choose image" textAlignment="CENTER">
                                              <font>
                                                 <Font name="Arial Bold" size="15.0" />
                                              </font>
@@ -134,17 +134,17 @@
                                     </Pane>
                                     <Pane prefHeight="74.0" prefWidth="674.0" style="-fx-border-color: black; -fx-background-color: #97DFFC;">
                                        <children>
-                                          <MFXButton fx:id="btnCancelNewQuizQuestion" alignment="CENTER" contentDisplay="CENTER" layoutX="95.0" layoutY="17.0" onAction="#CancelQuiz_newQuestion" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #FCA4C7; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Hủy" textAlignment="CENTER">
+                                          <MFXButton fx:id="btnCancelNewQuizQuestion" alignment="CENTER" contentDisplay="CENTER" layoutX="95.0" layoutY="17.0" onAction="#CancelQuiz_newQuestion" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #FCA4C7; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Cancel" textAlignment="CENTER">
                                              <font>
                                                 <Font name="Arial Bold" size="16.0" />
                                              </font>
                                           </MFXButton>
-                                          <MFXButton fx:id="btnNext" alignment="CENTER" contentDisplay="CENTER" layoutX="548.0" layoutY="17.0" onAction="#Quiz_newAnswerScreen" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #80CD7B; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Tiếp theo" textAlignment="CENTER">
+                                          <MFXButton fx:id="btnNext" alignment="CENTER" contentDisplay="CENTER" layoutX="548.0" layoutY="17.0" onAction="#Quiz_newAnswerScreen" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #80CD7B; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="next " textAlignment="CENTER">
                                              <font>
                                                 <Font name="Arial Bold" size="16.0" />
                                              </font>
                                           </MFXButton>
-                                          <MFXButton fx:id="btnSubmitNewQuestion" alignment="CENTER" contentDisplay="CENTER" layoutX="387.0" layoutY="17.0" onAction="#newQuestionButton" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #F9AE81; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Tạo mới" textAlignment="CENTER">
+                                          <MFXButton fx:id="btnSubmitNewQuestion" alignment="CENTER" contentDisplay="CENTER" layoutX="387.0" layoutY="17.0" onAction="#newQuestionButton" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #F9AE81; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="add new" textAlignment="CENTER">
                                              <font>
                                                 <Font name="Arial Bold" size="16.0" />
                                              </font>

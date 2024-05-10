@@ -83,7 +83,7 @@
                                     <children>
                                         <Pane layoutY="9.0" prefHeight="47.0" prefWidth="519.0" style="-fx-background-color: #80CD7B; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 5);">
                                             <children>
-                                                <Label layoutX="187.0" layoutY="10.0" text="Chỉnh sửa Quiz">
+                                                <Label layoutX="187.0" layoutY="10.0" text="Edit Quiz">
                                                     <font>
                                                         <Font name="Arial Bold" size="23.0" />
                                                     </font>
@@ -117,12 +117,12 @@
                                         </RadioButton>
                                         <Pane layoutY="258.0" prefHeight="81.0" prefWidth="519.0" style="-fx-background-color: #C2B3D7; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 5);">
                                             <children>
-                                                <MFXButton fx:id="btnCancelEditQuiz" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="20.0" onAction="#CancelQuiz_edit" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #FCA4C7; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Hủy" textAlignment="CENTER">
+                                                <MFXButton fx:id="btnCancelEditQuiz" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="20.0" onAction="#CancelQuiz_edit" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #FCA4C7; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="cancel" textAlignment="CENTER">
                                                     <font>
                                                         <Font name="Arial Bold" size="16.0" />
                                                     </font>
                                                 </MFXButton>
-                                                <MFXButton fx:id="btnSubmitEditQuiz" alignment="CENTER" contentDisplay="CENTER" layoutX="371.0" layoutY="20.0" onAction="#SubmitQuiz_edit" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #80CD7B; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Chỉnh sửa" textAlignment="CENTER">
+                                                <MFXButton fx:id="btnSubmitEditQuiz" alignment="CENTER" contentDisplay="CENTER" layoutX="371.0" layoutY="20.0" onAction="#SubmitQuiz_edit" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #80CD7B; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="edit" textAlignment="CENTER">
                                                     <font>
                                                         <Font name="Arial Bold" size="16.0" />
                                                     </font>
@@ -144,7 +144,7 @@
                                 </Pane>
                                 <Pane layoutX="529.0" layoutY="13.0" prefHeight="482.0" prefWidth="172.0" style="-fx-background-color: #C2B3D7; -fx-border-color: black;">
                                     <children>
-                                        <MFXButton fx:id="btnEdit_CreateQuizQuestion" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="7.0" onAction="#AddNewQuestionScreen" prefHeight="60.0" prefWidth="152.0" style="-fx-background-color: #7CCABF; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Tạo câu hỏi" textAlignment="CENTER">
+                                        <MFXButton fx:id="btnEdit_CreateQuizQuestion" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="7.0" onAction="#AddNewQuestionScreen" prefHeight="60.0" prefWidth="152.0" style="-fx-background-color: #7CCABF; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="add question" textAlignment="CENTER">
                                             <font>
                                                 <Font name="Arial Bold" size="16.0" />
                                             </font>
