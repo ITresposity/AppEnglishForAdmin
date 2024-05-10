@@ -29,6 +29,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class Quiz_listController implements Initializable {
@@ -202,10 +203,23 @@ public class Quiz_listController implements Initializable {
 
     }
 
-    private  void deleteQuiz(Quiz quiz)
-    {
+    private void deleteQuiz(Quiz quiz) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Xác nhận xóa");
+        alert.setHeaderText(null);
+        alert.setContentText("Bạn có chắc chắn muốn xóa quiz này không?");
 
+        Optional<ButtonType> action = alert.showAndWait();
+
+        if (action.get() == ButtonType.OK) {
+            // Gọi phương thức xóa quiz từ database
+            quizDAOimpl.deleteQuiz(quiz.getIdQuiz());
+            // Xóa quiz khỏi TableView
+            tableViewQuiz.getItems().remove(quiz);
+        }
+        loadQuizs();
     }
+
     private void modifyQuiz(Quiz quiz) throws IOException {
         Quiz quizModify = quizDAOimpl.getQuizById( quiz.getIdQuiz());
         StateManager.setCurrentQuiz(quizModify);

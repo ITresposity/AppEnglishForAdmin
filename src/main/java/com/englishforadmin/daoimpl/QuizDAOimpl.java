@@ -86,5 +86,71 @@ public class QuizDAOimpl implements QuizDAO {
 
         return result;
     }
+    @Override
+    public boolean addNewQuiz(Quiz quiz) {
+        boolean result = false;
+        Connection connection = MySQLconnection.getConnection();
+
+        try {
+            // SQL query for inserting a new quiz without specifying IdQuiz
+            String sql = "INSERT INTO quiz (Title, Status) VALUES (?, ?)";
+
+            // Create a PreparedStatement object for the SQL query
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            // Set the parameters for the PreparedStatement
+            statement.setString(1, quiz.getTitle());
+            statement.setString(2, quiz.getStatus().toString().toLowerCase());
+
+            // Execute the query to insert the new quiz
+            int rowsInserted = statement.executeUpdate();
+
+            // Check if the quiz was inserted successfully
+            if (rowsInserted > 0) {
+                result = true;
+                System.out.println("A new quiz was added successfully.");
+            } else {
+                System.out.println("Failed to add the new quiz.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+    @Override
+    public boolean deleteQuiz(String idQuiz) {
+        boolean result = false;
+        Connection connection = MySQLconnection.getConnection();
+
+        try {
+            // SQL query for deleting a quiz by IdQuiz
+            String sql = "DELETE FROM quiz WHERE IdQuiz = ?";
+
+            // Create a PreparedStatement object for the SQL query
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            // Set the parameter for the PreparedStatement
+            statement.setString(1, idQuiz);
+
+            // Execute the query to delete the quiz
+            int rowsDeleted = statement.executeUpdate();
+
+            // Check if the quiz was deleted successfully
+            if (rowsDeleted > 0) {
+                result = true;
+                System.out.println("The quiz was deleted successfully.");
+            } else {
+                System.out.println("Failed to delete the quiz.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+
+
 
 }

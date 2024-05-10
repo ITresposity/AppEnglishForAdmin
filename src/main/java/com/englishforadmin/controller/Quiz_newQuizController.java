@@ -1,6 +1,8 @@
 package com.englishforadmin.controller;
 import com.englishforadmin.MainApplication;
 import com.englishforadmin.NavigationManager;
+import com.englishforadmin.daoimpl.QuizDAOimpl;
+import com.englishforadmin.myconnection.MySQLconnection;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXRadioButton;
 import javafx.event.ActionEvent;
@@ -15,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import model.Quiz;
 
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -103,16 +106,7 @@ public class Quiz_newQuizController {
             e.printStackTrace();
         }
     }
-    @FXML
-    void SubmitQuiz_new(ActionEvent event ) throws IOException
-    {
-        // load quiz list  + add quiz
-        try {
-            MainApplication.loadForm("/quiz", "Quiz_list.fxml");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
 
     @FXML
     void CancelQuiz_new(ActionEvent event ) throws IOException
@@ -137,8 +131,58 @@ public class Quiz_newQuizController {
 
 
     //
+    //_____________________________main function ________________________________________
+
+    // Hàm này để lấy trạng thái của RadioButton được chọn
+    private String getStatusFromRadioButton() {
+        if (rdbHiddenQuiz.isSelected()) {
+            return "hidden";
+        } else if (rdbLockQuiz.isSelected()) {
+            return "lock";
+        } else if (rdbOpenQuiz.isSelected()) {
+            return "unlock";
+        } else {
+            return "";
+        }
+    }
+    @FXML
+    void SubmitQuiz_new(ActionEvent event ) throws IOException {
+        // Lấy dữ liệu từ các trường nhập liệu trên giao diện
+        String title = txtTitleQuiz.getText();
+        String status = getStatusFromRadioButton();
+
+        // Kiểm tra xem các trường nhập liệu có trống không
+        if (title.isEmpty() || status.isEmpty()) {
+            // Hiển thị thông báo lỗi nếu có trường nào đó không được nhập
+            // Ví dụ: Thông báo lỗi bằng cách hiển thị một hộp thoại hoặc gắn một label vào giao diện
+            System.out.println("Please fill in all fields!");
+            return;
+        }
+
+        // Gọi hàm DAO để thêm bài kiểm tra mới
+        QuizDAOimpl quizDAO = new QuizDAOimpl(MySQLconnection.getConnection());
+        Quiz newQuiz = new Quiz();
+        newQuiz.setTitle(title);
+        newQuiz.setStatus(Quiz.QuizStatus.valueOf(status));
+
+        boolean success = quizDAO.addNewQuiz(newQuiz);
+
+        // Kiểm tra xem việc thêm mới bài kiểm tra có thành công hay không
+        if (success) {
+            // Nếu thành công, chuyển hướng về giao diện danh sách bài kiểm tra
+            try {
+                MainApplication.loadForm("/quiz", "Quiz_list.fxml");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Failed to add new quiz! ");
+        }
+    }
+
     @FXML
     public void initialize() {
+
 
     }
 }
