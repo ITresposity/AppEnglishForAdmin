@@ -9,7 +9,6 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -25,11 +24,12 @@ import model.GrammarPart;
 import model.Lesson;
 import model.LessonPart;
 
-import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 
@@ -93,8 +93,10 @@ public class Grammar_newController {
 
     @FXML
     private TextArea txtareaTitle;
+    @FXML
+    private Label lblSrc;
 
-    byte[] imgData;
+    byte[] dataImage;
     GrammarDAO grammarDAO;
     List<Grammar> lstGrammar;
     Lesson lesson;
@@ -104,18 +106,13 @@ public class Grammar_newController {
     void SubmitGrammar_new(ActionEvent event ) throws IOException
     {
 
-        if(checkMissData()){
+        if(isMissData()){
             MessageBox.show("Lỗi","Hãy điền đầy đủ thông tin trước khi tiếp tục", Alert.AlertType.ERROR);
             return;
         }
         if(addNewGrammar()){
-            // nhảy lại form trước
-            // load lại list grammar + số lượng grammar
-            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene previousScene = MainApplication.getPreviousScene();
-            if (previousScene != null) {
-                currentStage.setScene(previousScene);
-            }
+            loadData();
+            clearField();
         } else {
             MessageBox.show("Lỗi","Thêm ngữ pháp không thành công", Alert.AlertType.ERROR);
             return;
@@ -150,8 +147,7 @@ public class Grammar_newController {
     public void initialize() {
         lesson = StateManager.getCurrentLesson();
         grammarDAO = new GrammarDAO();
-        lstGrammar = grammarDAO.selectBySql(GrammarDAO.SELECT_ALL_GRAMMAR_IN_LESSON_QUERY, lesson.getIdLesson());
-        loadGridPane();
+        loadData();
         btnChooseImg.setOnAction(event1 -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Select Image File");
@@ -159,7 +155,7 @@ public class Grammar_newController {
 
             if (selectedFile != null) {
                 try {
-                    imgData = convertImageToBase64(selectedFile);
+                    dataImage = convertImageToBase64(selectedFile);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -178,10 +174,10 @@ public class Grammar_newController {
         for (int row = 0; row < rowCount; row++) {
             for (int col = 0; col < maxColumns; col++) {
                 if (index < numGrammar) {
-                    Grammar grammar = lstGrammar.get(index);
                     MFXButton button = new MFXButton(String.valueOf(index));
+                    int currentIndex = index;
                     button.setOnAction(e -> {
-
+                        loadDataToFeild(currentIndex);
                     });
 
                     GridPane.setRowIndex(button, row);
@@ -194,15 +190,14 @@ public class Grammar_newController {
         }
     }
 
-    private boolean checkMissData(){
+    private boolean isMissData(){
         return txtareaTitle.getText().isEmpty() || txtareaContent.getText().isEmpty()
                 || txtareaRule.getText().isEmpty() || txtareaExample.getText().isEmpty();
     }
 
     private byte[] convertImageToBase64(File file) throws IOException {
-        try (InputStream inputStream = new FileInputStream(file)) {
-            return inputStream.readAllBytes();
-        }
+        byte[] fileContent = Files.readAllBytes(file.toPath());
+        return Base64.getEncoder().encode(fileContent);
     }
 
     private boolean addNewGrammar(){
@@ -211,7 +206,7 @@ public class Grammar_newController {
         grammar.setContent(txtareaContent.getText());
         grammar.setExample(txtareaExample.getText());
         grammar.setRule(txtareaRule.getText());
-        grammar.setImage(imgData);
+        grammar.setImage(dataImage);
         if(!grammarDAO.insert(grammar)){
             return false;
         }
@@ -230,5 +225,29 @@ public class Grammar_newController {
         part.setIdLessonPart(lessonPartDAO.getLastestId());
         GrammarPartDAO dao = new GrammarPartDAO();
         return dao.insert(part);
+    }
+
+    private void loadDataToFeild(int index){
+        curGrammar = lstGrammar.get(index);
+
+        txtareaTitle.setText(curGrammar.getTitle());
+        txtareaContent.setText(curGrammar.getContent());
+        txtareaRule.setText(curGrammar.getRule());
+        txtareaExample.setText(curGrammar.getExample());
+        dataImage = curGrammar.getImage();
+        if(dataImage!=null){
+            lblSrc.setText(Arrays.toString(Base64.getDecoder().decode(dataImage)));
+        }
+    }
+    private void loadData(){
+        lstGrammar = grammarDAO.selectBySql(GrammarDAO.SELECT_ALL_GRAMMAR_IN_LESSON_QUERY, lesson.getIdLesson());
+        loadGridPane();
+    }
+    private void clearField(){
+        txtareaTitle.setText("");
+        txtareaContent.setText("");
+        txtareaRule.setText("");
+        txtareaExample.setText("");
+        dataImage = null;
     }
 }
