@@ -111,8 +111,7 @@
                                                 <Font size="17.0" />
                                              </font>
                                           </Label>
-                                          <MFXButton fx:id="btnChooseImgQuiz" alignment="CENTER" contentDisplay="CENTER" layoutX="400.0" layoutY="17.0" prefHeight="34.0" prefWidth="251.0" style="-fx-background-color: #F9AE81; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 5);" text="Chọn hình ảnh" textAlignment="CENTER"
-                                          onAction="#chooseImageAction">
+                                          <MFXButton fx:id="btnChooseImgQuiz" alignment="CENTER" contentDisplay="CENTER" layoutX="400.0" layoutY="17.0" onAction="#chooseImageAction" prefHeight="34.0" prefWidth="251.0" style="-fx-background-color: #F9AE81; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 5);" text="Chọn hình ảnh" textAlignment="CENTER">
                                              <font>
                                                 <Font name="Arial Bold" size="15.0" />
                                              </font>
@@ -135,12 +134,19 @@
                                     </Pane>
                                     <Pane prefHeight="74.0" prefWidth="674.0" style="-fx-border-color: black; -fx-background-color: #97DFFC;">
                                        <children>
-                                          <MFXButton fx:id="btnCancelEditQuizQuestion" alignment="CENTER" contentDisplay="CENTER" layoutX="404.0" layoutY="17.0" onAction="#CancelQuizAnswer_edit" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #FCA4C7; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Hủy" textAlignment="CENTER">
+                                          <MFXButton fx:id="btnCancelEditQuizQuestion" alignment="CENTER" contentDisplay="CENTER" layoutX="151.0" layoutY="17.0" onAction="#CancelQuizAnswer_edit" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #FCA4C7; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Hủy" textAlignment="CENTER">
                                              <font>
                                                 <Font name="Arial Bold" size="16.0" />
                                              </font>
                                           </MFXButton>
                                           <MFXButton fx:id="btnNext" alignment="CENTER" contentDisplay="CENTER" layoutX="548.0" layoutY="17.0" onAction="#Quiz_editAnswerScreen" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #80CD7B; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Tiếp theo" textAlignment="CENTER">
+                                             <font>
+                                                <Font name="Arial Bold" size="16.0" />
+                                             </font>
+                                          </MFXButton>
+                                          <MFXButton fx:id="btnEditQuestion"  alignment="CENTER"
+                                                     contentDisplay="CENTER" layoutX="397.0" layoutY="17.0"
+                                                     onAction="#SubmitQuiz_editQuestion" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #F9AE81; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Điều chỉnh" textAlignment="CENTER">
                                              <font>
                                                 <Font name="Arial Bold" size="16.0" />
                                              </font>

@@ -70,6 +70,22 @@ public class AnswerQuizDAOimpl implements AnswerQuizDAO {
             return false;
         }
     }
+    @Override
+    public boolean editAnswer(String idAnswerQuiz, String content, boolean isCorrect, String idQuestionQuiz) {
+        String sql = "UPDATE answerquiz SET Content = ?, IsCorrect = ? WHERE IdAnswerQuiz = ? AND IdQuestionQuiz = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, content);
+            statement.setBoolean(2, isCorrect);
+            statement.setString(3, idAnswerQuiz);
+            statement.setString(4, idQuestionQuiz);
+
+            int rowsUpdated = statement.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 
     @Override

@@ -1,7 +1,10 @@
 package com.englishforadmin.controller;
 
 import com.englishforadmin.MainApplication;
+import com.englishforadmin.NavigationManager;
 import com.englishforadmin.StateManager;
+import com.englishforadmin.daoimpl.AnswerQuizDAOimpl;
+import com.englishforadmin.myconnection.MySQLconnection;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXRadioButton;
 import javafx.event.ActionEvent;
@@ -121,10 +124,23 @@ public class Quiz_editAnswerController {
     // fixing
     @FXML
     void SubmitQuizAnswer_edit(ActionEvent event) throws IOException {
-        try {
-            MainApplication.loadForm("/quiz", "Quiz_editQuiz.fxml");
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        String questionQuizID =  StateManager.getQuestionID();
+        editAnswerByQuestionID(questionQuizID);
+
+        NavigationManager navigationManager = NavigationManager.getInstance();
+        Scene previousScene = navigationManager.getPreviousScene(); // Lấy scene trước đó
+        if (previousScene != null && previousScene.getRoot().getId() != null) {
+            if (previousScene.getRoot().getId().equals("Quiz_editQuiz")) {
+                navigationManager.loadForm("/quiz", "Quiz_editQuiz.fxml");
+            } else if (previousScene.getRoot().getId().equals("Quiz_newQuiz")) {
+                navigationManager.loadForm("/quiz", "Quiz_newQuiz.fxml");
+            } else {
+                System.out.println("Cannot determine previous page.");
+                System.out.println(previousScene.getRoot().getId());
+            }
+        } else {
+            System.out.println("Root ID is null.");
         }
     }
 
@@ -151,8 +167,66 @@ public class Quiz_editAnswerController {
 
     // ----------------------------main function -----------------------------------------------------------------
 
+    private AnswerQuizDAOimpl answerQuizDAOimpl;
+    private String idAnswer01 ;
+    private String idAnswer02 ;
+    private String idAnswer03 ;
+    private String idAnswer04 ;
+    private void displayQuestionAndAnswers() {
+        QuestionQuiz question = StateManager.getCurrentQuestion();
+        if (question != null) {
+            List<AnswerQuiz> answerList = question.getLstAnswers();
+            if (answerList != null && !answerList.isEmpty()) {
+                lblQuestionNumber.setText(String.valueOf(question.getSerial()));
+                txtareaAnswer01.setText(answerList.get(0).getContent());
+                idAnswer01 = answerList.get(0).getIdAnswerQuiz();
+                txtareaAnswer02.setText(answerList.get(1).getContent());
+                idAnswer02 = answerList.get(1).getIdAnswerQuiz();
+                txtareaAnswer03.setText(answerList.get(2).getContent());
+                idAnswer03 = answerList.get(2).getIdAnswerQuiz();
+                txtareaAnswer04.setText(answerList.get(3).getContent());
+                idAnswer04 = answerList.get(3).getIdAnswerQuiz();
+
+                // Xử lý giá trị của RadioButton dựa trên đối tượng AnswerQuiz
+                handleRadioButtonValues(answerList);
+            }
+        }
+    }
+
+    @FXML
+    private void editAnswerByQuestionID(String questionQuizID) {
+        String contentAnswer01 = txtareaAnswer01.getText();
+        boolean isCorrect01 = rdb01_Yes.isSelected();
+
+        String contentAnswer02 = txtareaAnswer02.getText();
+        boolean isCorrect02 = rdb02_Yes.isSelected();
+
+        String contentAnswer03 = txtareaAnswer03.getText();
+        boolean isCorrect03 = rdb03_Yes.isSelected();
+
+        String contentAnswer04 = txtareaAnswer04.getText();
+        boolean isCorrect04 = rdb04_Yes.isSelected();
+
+        // Thực hiện chỉnh sửa các câu trả lời sử dụng hàm editAnswer
+        editAnswer(idAnswer01, contentAnswer01, isCorrect01, questionQuizID);
+        editAnswer(idAnswer02, contentAnswer02, isCorrect02, questionQuizID);
+        editAnswer(idAnswer03, contentAnswer03, isCorrect03, questionQuizID);
+        editAnswer(idAnswer04, contentAnswer04, isCorrect04, questionQuizID);
+    }
+
+    private void editAnswer(String idAnswerQuiz, String content, boolean isCorrect, String idQuestionQuiz) {
+        boolean success = answerQuizDAOimpl.editAnswer(idAnswerQuiz, content, isCorrect, idQuestionQuiz);
+        if (success) {
+            System.out.println("Answer edited successfully: " + idAnswerQuiz);
+        } else {
+            System.out.println("Failed to edit answer: " + idAnswerQuiz);
+        }
+    }
+
+
     @FXML
     public void initialize() {
+        answerQuizDAOimpl = new AnswerQuizDAOimpl(MySQLconnection.getConnection());
 
         rdb01_Yes.setToggleGroup(IsCorrectGroupAnswer1);
         rdb01_No.setToggleGroup(IsCorrectGroupAnswer1);
@@ -166,28 +240,10 @@ public class Quiz_editAnswerController {
         rdb04_Yes.setToggleGroup(IsCorrectGroupAnswer4);
         rdb04_No.setToggleGroup(IsCorrectGroupAnswer4);
         displayQuestionAndAnswers();
-
-
-
     }
 
 
-    private void displayQuestionAndAnswers() {
-        QuestionQuiz question = StateManager.getCurrentQuestion();
-        if (question != null) {
-            List<AnswerQuiz> answerList = question.getLstAnswers();
-            if (answerList != null && !answerList.isEmpty()) {
-                lblQuestionNumber.setText(String.valueOf(question.getSerial()));
-                txtareaAnswer01.setText(answerList.get(0).getContent());
-                txtareaAnswer02.setText(answerList.get(1).getContent());
-                txtareaAnswer03.setText(answerList.get(2).getContent());
-                txtareaAnswer04.setText(answerList.get(3).getContent());
 
-                // Xử lý giá trị của RadioButton dựa trên đối tượng AnswerQuiz
-                handleRadioButtonValues(answerList);
-            }
-        }
-    }
 
     private void handleRadioButtonValues(List<AnswerQuiz> answerList) {
         setSelectedRadioButton(IsCorrectGroupAnswer1, answerList.get(0).isCorrect());

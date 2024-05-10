@@ -1,6 +1,7 @@
 package com.englishforadmin.controller;
 
 import com.englishforadmin.MainApplication;
+import com.englishforadmin.NavigationManager;
 import com.englishforadmin.StateManager;
 import com.englishforadmin.daoimpl.QuestionQuizDAOimpl;
 import com.englishforadmin.myconnection.MySQLconnection;
@@ -33,6 +34,7 @@ import java.util.Arrays;
 
 public class Quiz_editQuestionController {
     public ImageView imgView;
+    public MFXButton btnEditQuestion;
     @FXML
     private MFXButton btnCancelEditQuizQuestion;
 
@@ -93,8 +95,13 @@ public class Quiz_editQuestionController {
     // fixing
     @FXML
     void Quiz_editAnswerScreen(ActionEvent event) throws IOException {
-        editQuestion();
-        // next
+
+        NavigationManager navigationManager = NavigationManager.getInstance();
+        Scene previousScene = MainApplication.getPreviousScene();
+        System.out.println(previousScene.getRoot().getId());
+        navigationManager.setPreviousScene(previousScene);
+
+        StateManager.setQuestionID(question.getIdQuestionQuiz());
         try {
             MainApplication.loadForm("/quiz", "Quiz_editAnswer.fxml");
         } catch (IOException e) {
@@ -174,6 +181,10 @@ public class Quiz_editQuestionController {
         } else {
             System.out.println("Dữ liệu gặp lỗi");
         }
+    }
+    @FXML
+    void SubmitQuiz_editQuestion(ActionEvent event) throws IOException {
+        editQuestion();
     }
 
     @FXML
