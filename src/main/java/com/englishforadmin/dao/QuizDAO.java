@@ -10,9 +10,9 @@ public interface QuizDAO {
 
     Quiz getQuizById(String quizId);
 
-    //void addQuiz(Quiz quiz);
+    boolean addNewQuiz(Quiz quiz);
 
     boolean updateQuiz(Quiz quiz);
 
-    //void deleteQuiz(int quizId);
+    boolean deleteQuiz(String idQuiz);
 }
