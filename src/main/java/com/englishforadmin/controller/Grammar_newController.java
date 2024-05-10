@@ -167,13 +167,13 @@ public class Grammar_newController {
         gridpnGrammar.getChildren().clear();
         if(lstGrammar.isEmpty())
             return;
-        int numGrammar = lstGrammar.size();
+        int numEntity = lstGrammar.size();
         int maxColumns = 2;
-        int rowCount = (int) Math.ceil((double) numGrammar / maxColumns);
+        int rowCount = (int) Math.ceil((double) numEntity / maxColumns);
         int index = 0;
         for (int row = 0; row < rowCount; row++) {
             for (int col = 0; col < maxColumns; col++) {
-                if (index < numGrammar) {
+                if (index < numEntity) {
                     MFXButton button = new MFXButton(String.valueOf(index));
                     int currentIndex = index;
                     button.setOnAction(e -> {
