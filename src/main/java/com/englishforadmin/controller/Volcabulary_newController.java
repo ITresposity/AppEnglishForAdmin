@@ -2,7 +2,10 @@ package com.englishforadmin.controller;
 import com.englishforadmin.GetResourceController;
 import com.englishforadmin.MainApplication;
 import com.englishforadmin.StateManager;
+import com.englishforadmin.daoimpl.LessonPartDAO;
 import com.englishforadmin.daoimpl.VocabularyDAO;
+import com.englishforadmin.daoimpl.VocabularyPartDAO;
+import com.englishforadmin.feature.MessageBox;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,18 +13,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.Lesson;
-import model.Vocabulary;
+import model.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -106,10 +105,16 @@ public class Volcabulary_newController {
     @FXML
     void SubmitVolcabulary_new(ActionEvent event ) throws IOException
     {
-        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene previousScene = MainApplication.getPreviousScene();
-        if (previousScene != null) {
-            currentStage.setScene(previousScene);
+        if(isMissData()){
+            MessageBox.show("Lỗi","Hãy điền đầy đủ thông tin trước khi tiếp tục", Alert.AlertType.ERROR);
+            return;
+        }
+        if(addNewVocabulary()){
+            loadData();
+            clearField();
+            MessageBox.show("Thành công","Thêm từ vựng thành công", Alert.AlertType.CONFIRMATION);
+        }else {
+            MessageBox.show("Lỗi","Thêm từ vựng không thành công", Alert.AlertType.ERROR);
         }
     }
 
@@ -210,7 +215,20 @@ public class Volcabulary_newController {
     }
 
     private void loadDataToFeild(int index){
-
+        curVocabulary = lstVocabulary.get(index);
+        txtWord.setText(curVocabulary.getWord());
+        txtMeaning.setText(curVocabulary.getMean());
+        txtPhonetic.setText(curVocabulary.getPhonetic());
+        dataImage = curVocabulary.getImage();
+        if(dataImage!=null){
+            lblSrc.setText(Arrays.toString(Base64.getDecoder().decode(dataImage)));
+        }
+        String id = curVocabulary.getIdVocabulary();
+        curVocabulary.setSynonyms(vocabularyDAO.selectBySql(VocabularyDAO.SELECT_ALL_SYNONYMS_VOCABULARY_QUERY, id,id));
+        curVocabulary.setAntonyms(vocabularyDAO.selectBySql(VocabularyDAO.SELECT_ALL_ANTONYMS_VOCABULARY_QUERY, id,id));
+        lstAntonyms = curVocabulary.getAntonyms();
+        lstSynonyms = curVocabulary.getSynonyms();
+        updateSynonymsAntonyms();
     }
 
     private void showSynonymsAntonymsForm(boolean isSynonyms){
@@ -261,6 +279,58 @@ public class Volcabulary_newController {
             }
             txtareaAntonyms.setText(stringBuilder2.toString());
         }
+    }
+    private boolean isMissData(){
+        return txtWord.getText().isEmpty()
+                || txtMeaning.getText().isEmpty()
+                || txtPhonetic.getText().isEmpty();
+    }
 
+    private boolean addNewVocabulary(){
+        Vocabulary vocabulary = new Vocabulary();
+        vocabulary.setWord(txtWord.getText());
+        vocabulary.setMean(txtMeaning.getText());
+        vocabulary.setPhonetic(txtPhonetic.getText());
+        if(lstSynonyms != null && !lstSynonyms.isEmpty()){
+            vocabulary.setSynonyms(lstSynonyms);
+        }
+        if(lstAntonyms != null && !lstAntonyms.isEmpty()){
+            vocabulary.setAntonyms(lstAntonyms);
+        }
+        if(dataImage!=null){
+            vocabulary.setImage(dataImage);
+        }
+
+        if (!vocabularyDAO.insert(vocabulary)){
+            return false;
+        }
+        vocabulary.setIdVocabulary(vocabularyDAO.getLastestId());
+        LessonPart lessonPart = new LessonPart();
+        lessonPart.setIdLesson(StateManager.getCurrentLesson().getIdLesson());
+        lessonPart.setType(LessonPart.LessonPartType.VOCABULARY);
+        LessonPartDAO lessonPartDAO = new LessonPartDAO();
+        if (!lessonPartDAO.insert(lessonPart)){
+            return false;
+        }
+        VocabularyPart part = new VocabularyPart();
+        part.setIdVocabulary(vocabulary.getIdVocabulary());
+        part.setIdLessonPart(lessonPartDAO.getLastestId());
+        VocabularyPartDAO dao = new VocabularyPartDAO();
+        return dao.insert(part);
+    }
+
+    private void clearField(){
+        txtWord.setText("");
+        txtMeaning.setText("");
+        txtPhonetic.setText("");
+        txtareaSynonyms.setText("");
+        txtareaAntonyms.setText("");
+        if(lstAntonyms != null){
+            lstAntonyms.clear();
+        }
+        if(lstSynonyms != null){
+            lstSynonyms.clear();
+        }
+        dataImage = null;
     }
 }
