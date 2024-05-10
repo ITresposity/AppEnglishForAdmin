@@ -84,7 +84,7 @@ public class Store_listController  implements Initializable {
     @FXML
     void EditVolcabularyScreen() {
         try {
-            MainApplication.loadForm("/store", "Store_editVolcabulary.fxml");
+            MainApplication.loadForm("/volcabularyStore", "store_editVolcabulary.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -112,7 +112,7 @@ public class Store_listController  implements Initializable {
     @FXML
     void AddNewVolcabularyScreen(ActionEvent event) throws IOException {
         try {
-            MainApplication.loadForm("/volcabulary", "Volcabulary_new.fxml");
+            MainApplication.loadForm("/volcabularyStore", "store_newVolcabulary.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -166,7 +166,7 @@ public class Store_listController  implements Initializable {
         columnPhoneticVocabulary.setCellValueFactory(new PropertyValueFactory<>("Phonetic"));
 
         // Cài đặt CellFactory cho cột Modify
-        columnModifyButton.setCellFactory(col -> new TableCell<Vocabulary, Vocabulary>() {
+        columnModifyButton.setCellFactory(col -> new TableCell<>() {
             private final Button btn = new Button("Modify");
 
             {
@@ -181,16 +181,12 @@ public class Store_listController  implements Initializable {
             @Override
             protected void updateItem(Vocabulary vocabulary, boolean empty) {
                 super.updateItem(vocabulary, empty);
-                if (empty || vocabulary == null) {
-                    setGraphic(null);
-                } else {
-                    setGraphic(btn);
-                }
+                setGraphic(empty ? null : btn);
             }
         });
 
 // Cài đặt CellFactory cho cột Delete
-        columnDeleteButton.setCellFactory(col -> new TableCell<Vocabulary, Vocabulary>() {
+        columnDeleteButton.setCellFactory(col -> new TableCell<>() {
             private final Button btn = new Button("Delete");
 
             {
@@ -203,16 +199,11 @@ public class Store_listController  implements Initializable {
             }
 
             @Override
-            protected void updateItem(Vocabulary vocabulary, boolean empty) {
-                super.updateItem(vocabulary, empty);
-                if (empty || vocabulary == null) {
-                    setGraphic(null);
-                } else {
-                    setGraphic(btn);
-                }
+            protected void updateItem(Vocabulary item, boolean empty) {
+                super.updateItem(item, empty);
+                setGraphic(empty ? null : btn);
             }
         });
-
 
         loadStore();
     }
@@ -228,8 +219,7 @@ public class Store_listController  implements Initializable {
         }
     }
     private void modifyVocabulary(Vocabulary vocabulary) {
-        // Add your logic to modify the vocabulary item
-        // For example:
+
         System.out.println("Modify vocabulary: " + vocabulary);
         EditVolcabularyScreen();
 

@@ -157,7 +157,6 @@ public class Quiz_listController implements Initializable {
         columnTitleQuiz.setCellValueFactory(new PropertyValueFactory<>("Title"));
         columnStatus.setCellValueFactory(new PropertyValueFactory<>("Status"));
         // Cài đặt CellFactory cho cột Modify
-        // Cài đặt CellFactory cho cột Modify
         columnModifyButton.setCellFactory(col -> new TableCell<Quiz, Quiz>() {
             private final Button btn = new Button("Modify");
             {

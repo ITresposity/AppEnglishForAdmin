@@ -122,14 +122,14 @@
                               </Pane>
                            </content>
                         </ScrollPane>
-                        <TableView fx:id="tableViewVocabulary" layoutX="26.0" layoutY="75.0" prefHeight="365.0" prefWidth="657.0" style="-fx-border-color: black; fx-font-size: 23;">
+                        <TableView fx:id="tableViewVocabulary" layoutX="26.0" layoutY="75.0" prefHeight="365.0" prefWidth="657.0" style="-fx-border-color: black; fx-font-size: 19;">
                            <columns>
-                              <TableColumn fx:id="columnIDVocabulary" prefWidth="80.80000591278076" style="-fx-font-family: &quot;Arial&quot;; -fx-font-size: 14; -fx-background-color: #CEB5E8;" text="ID" />
-                              <TableColumn fx:id="columnWordVocabulary" prefWidth="138.0" style="-fx-font-family: &quot;Arial&quot;; -fx-font-size: 16;" text="Word" />
-                              <TableColumn fx:id="columnMeanVocabulary" prefWidth="108.0" style="-fx-font-family: &quot;Arial&quot;; -fx-font-size: 16;" text="Mean" />
-                              <TableColumn fx:id="columnPhoneticVocabulary" prefWidth="139.0" style="-fx-font-family: &quot;Arial&quot;; -fx-font-size: 16;" text="Phonetic" />
-                              <TableColumn fx:id="columnModifyButton" prefWidth="95.0" style="-fx-font-family: &quot;Arial&quot;; -fx-font-size: 16;" text="Modify" />
-                              <TableColumn fx:id="columnDeleteButton" prefWidth="89.0" style="-fx-font-family: &quot;Arial&quot;; -fx-font-size: 16;" text="Delete" />
+                              <TableColumn fx:id="columnIDVocabulary" prefWidth="80.80000591278076" style="-fx-font-family: &quot;Arial&quot;; -fx-font-size: 13; -fx-background-color: #CEB5E8;" text="ID" />
+                              <TableColumn fx:id="columnWordVocabulary" prefWidth="138.0" style="-fx-font-family: &quot;Arial&quot;; -fx-font-size: 13;" text="Word" />
+                              <TableColumn fx:id="columnMeanVocabulary" prefWidth="108.0" style="-fx-font-family: &quot;Arial&quot;; -fx-font-size: 13;" text="Mean" />
+                              <TableColumn fx:id="columnPhoneticVocabulary" minWidth="8.0" prefWidth="104.79998779296875" style="-fx-font-family: &quot;Arial&quot;; -fx-font-size: 13;" text="Phonetic" />
+                              <TableColumn fx:id="columnModifyButton" prefWidth="106.4000244140625" style="-fx-font-family: &quot;Arial&quot;; -fx-font-size: 13;" text="Modify" />
+                              <TableColumn fx:id="columnDeleteButton" prefWidth="114.4000244140625" style="-fx-font-family: &quot;Arial&quot;; -fx-font-size: 13;" text="Delete" />
                            </columns>
                         </TableView>
                      </children>
