@@ -174,7 +174,11 @@ public class Store_listController  implements Initializable {
                 btn.setOnAction(event -> {
                     Vocabulary vocabulary = getTableView().getItems().get(getIndex());
                     // Hành động khi nút Modify được nhấn
-                    modifyVocabulary(vocabulary);
+                    try {
+                        modifyVocabulary(vocabulary);
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
                 });
             }
 
@@ -218,11 +222,12 @@ public class Store_listController  implements Initializable {
             System.out.println("Không thể tải danh sách bài học: " + e.getMessage());
         }
     }
-    private void modifyVocabulary(Vocabulary vocabulary) {
+    private void modifyVocabulary(Vocabulary vocabulary) throws SQLException {
 
-        System.out.println("Modify vocabulary: " + vocabulary);
+        //System.out.println("Modify vocabulary: " + vocabulary);
+        Vocabulary vocabularyEdit = vocabularyDAOimpl.getVocabularyById(vocabulary.getIdVocabulary());
+        StateManager.setCurrentVocabulary(vocabulary);
         EditVolcabularyScreen();
-
     }
 
     private void deleteVocabulary(Vocabulary vocabulary) {

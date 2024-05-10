@@ -3,6 +3,7 @@ package com.englishforadmin;
 import model.Lesson;
 import model.QuestionQuiz;
 import model.Quiz;
+import model.Vocabulary;
 
 public class StateManager {
     private static Lesson currentLesson;
@@ -10,6 +11,9 @@ public class StateManager {
     private static QuestionQuiz currentQuestion;
 
     private static String questionID;
+
+    private  static Vocabulary currentVocabulary;
+
 
     public static String getQuestionID() {
         return questionID;
@@ -39,5 +43,13 @@ public class StateManager {
 
     public static QuestionQuiz getCurrentQuestion() {
         return currentQuestion;
+    }
+
+    public static Vocabulary getCurrentVocabulary() {
+        return currentVocabulary;
+    }
+
+    public static void setCurrentVocabulary(Vocabulary currentVocabulary) {
+        StateManager.currentVocabulary = currentVocabulary;
     }
 }

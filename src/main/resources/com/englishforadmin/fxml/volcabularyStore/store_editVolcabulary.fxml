@@ -70,6 +70,9 @@
                            <effect>
                               <Blend />
                            </effect>
+                           <children>
+                              <ImageView fx:id="ImgViewVocabulary" fitHeight="114.0" fitWidth="174.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
                         </Pane>
                      </children>
                   </Pane>
@@ -140,7 +143,7 @@
                                              </font>
                                           </Label>
                                           <TextArea fx:id="txtareaSynonyms" layoutX="18.0" layoutY="257.0" prefHeight="103.0" prefWidth="312.0" style="-fx-background-color: white; -fx-border-color: white; -fx-background-radius: 15; -fx-border-radius: 15;" />
-                                          <TextField layoutX="9.0" layoutY="55.0" prefHeight="34.0" prefWidth="328.0" style="-fx-background-color: white; -fx-border-color: black; -fx-background-radius: 50; -fx-border-radius: 50;" />
+                                          <TextField fx:id="txtword" layoutX="9.0" layoutY="55.0" prefHeight="34.0" prefWidth="328.0" style="-fx-background-color: white; -fx-border-color: black; -fx-background-radius: 50; -fx-border-radius: 50;" />
                                           <TextField fx:id="txtPhonetic" layoutX="349.0" layoutY="157.0" prefHeight="34.0" prefWidth="301.0" style="-fx-background-color: white; -fx-border-color: black; -fx-background-radius: 50; -fx-border-radius: 50;" />
                                        </children>
                                     </Pane>
