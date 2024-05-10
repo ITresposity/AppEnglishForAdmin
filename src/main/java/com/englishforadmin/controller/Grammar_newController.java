@@ -148,13 +148,13 @@ public class Grammar_newController {
         lesson = StateManager.getCurrentLesson();
         grammarDAO = new GrammarDAO();
         loadData();
-        btnChooseImg.setOnAction(event1 -> {
+        btnChooseImg.setOnAction(event -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Select Image File");
             List<String> imageExtensions = Arrays.asList("*.jpg", "*.jpeg", "*.png", "*.gif");
             FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image Files", imageExtensions);
             fileChooser.getExtensionFilters().add(extFilter);
-            File selectedFile = fileChooser.showOpenDialog((Stage) ((Node) event1.getSource()).getScene().getWindow());
+            File selectedFile = fileChooser.showOpenDialog((Stage) ((Node) event.getSource()).getScene().getWindow());
 
             if (selectedFile != null) {
                 try {
