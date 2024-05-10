@@ -305,6 +305,12 @@ public class Volcabulary_newController {
             return false;
         }
         vocabulary.setIdVocabulary(vocabularyDAO.getLastestId());
+        for (Vocabulary antonym : vocabulary.getAntonyms()) {
+            vocabularyDAO.insertAntonyms(vocabulary.getIdVocabulary(), antonym.getIdVocabulary());
+        }
+        for (Vocabulary synonyms : lstSynonyms) {
+            vocabularyDAO.insertSynonyms(vocabulary.getIdVocabulary(), synonyms.getIdVocabulary());
+        }
         LessonPart lessonPart = new LessonPart();
         lessonPart.setIdLesson(StateManager.getCurrentLesson().getIdLesson());
         lessonPart.setType(LessonPart.LessonPartType.VOCABULARY);
