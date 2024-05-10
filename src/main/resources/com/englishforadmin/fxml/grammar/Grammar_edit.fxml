@@ -96,7 +96,7 @@
                            <children>
                               <Pane layoutX="12.0" layoutY="3.0" prefHeight="435.0" prefWidth="149.0" style="-fx-background-color: #C2B3D7; -fx-border-color: black;">
                                  <children>
-                                    <GridPane fx:id="gridpnGrammar_edit" layoutX="13.0" layoutY="14.0" prefHeight="408.0" prefWidth="123.0" style="-fx-background-color: pink;">
+                                    <GridPane fx:id="gridpnGrammar" layoutX="13.0" layoutY="14.0" prefHeight="408.0" prefWidth="123.0" style="-fx-background-color: pink;">
                                       <columnConstraints>
                                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="60.0" minWidth="10.0" prefWidth="60.0" />
                                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="56.8" minWidth="10.0" prefWidth="56.8" />
@@ -175,6 +175,11 @@
                                                       <Font name="Arial" size="14.0" />
                                                    </font>
                                                 </Label>
+                                                <Label fx:id="lblSrc" layoutX="75.0" layoutY="8.0" prefHeight="17.0" prefWidth="225.0">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
                                              </children>
                                           </Pane>
                                           <Label layoutX="362.0" layoutY="94.0" text="Rule">
@@ -195,12 +200,17 @@
                                     </Pane>
                                     <Pane prefHeight="74.0" prefWidth="674.0" style="-fx-border-color: black; -fx-background-color: #A968ED;">
                                        <children>
+
                                           <MFXButton fx:id="btnCancelEditGrammar" alignment="CENTER" contentDisplay="CENTER" layoutX="404.0" layoutY="17.0" onAction="#CancelGrammar_edit" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #FCA4C7; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="cancel" textAlignment="CENTER">
+
+
                                              <font>
                                                 <Font name="Arial Bold" size="16.0" />
                                              </font>
                                           </MFXButton>
                                           <MFXButton fx:id="btnSubmitEditGrammar" alignment="CENTER" contentDisplay="CENTER" layoutX="548.0" layoutY="17.0" onAction="#SubmitGrammar_edit" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #80CD7B; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="edit" textAlignment="CENTER">
+
+
                                              <font>
                                                 <Font name="Arial Bold" size="16.0" />
                                              </font>

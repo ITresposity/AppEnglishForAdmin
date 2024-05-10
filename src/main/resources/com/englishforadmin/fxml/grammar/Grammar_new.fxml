@@ -180,6 +180,11 @@
                                                       <Font name="Arial" size="14.0" />
                                                    </font>
                                                 </Label>
+                                                <Label fx:id="lblSrc" layoutX="74.0" layoutY="8.0" prefHeight="17.0" prefWidth="225.0">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
                                              </children>
                                           </Pane>
                                           <Label layoutX="362.0" layoutY="94.0" text="Rule">

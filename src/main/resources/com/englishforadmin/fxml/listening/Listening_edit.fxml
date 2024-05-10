@@ -157,7 +157,7 @@
                                           <Region layoutX="53.0" layoutY="14.0" prefHeight="68.0" prefWidth="290.0" style="-fx-border-color: black; -fx-border-radius: 15; -fx-background-color: white; -fx-background-radius: 15;" />
                                           <TextArea fx:id="txtareaTitle" layoutX="59.0" layoutY="15.0" prefHeight="60.0" prefWidth="277.0" style="-fx-background-color: white; -fx-border-color: white; -fx-background-radius: 15; -fx-border-radius: 15;" />
                                           <Region layoutX="9.0" layoutY="123.0" prefHeight="246.0" prefWidth="336.0" style="-fx-border-color: black; -fx-border-radius: 15; -fx-background-color: white; -fx-background-radius: 15;" />
-                                          <TextArea fx:id="txtareaDescription" layoutX="18.0" layoutY="125.0" prefHeight="237.0" prefWidth="319.0" style="-fx-background-color: white; -fx-border-color: white; -fx-background-radius: 15; -fx-border-radius: 15;" />
+                                          <TextArea fx:id="txtareaDescription" layoutX="18.0" layoutY="125.0" prefHeight="237.0" prefWidth="319.0" style="-fx-background-color: white; -fx-border-color: white; -fx-background-radius: 15; -fx-border-radius: 15;" wrapText="true" />
                                           <Label layoutX="362.0" layoutY="14.0" prefHeight="26.0" prefWidth="60.0" text="Video">
                                              <font>
                                                 <Font size="17.0" />
@@ -175,6 +175,11 @@
                                                       <Font name="Arial" size="14.0" />
                                                    </font>
                                                 </Label>
+                                                <Label fx:id="lblSrc" layoutX="71.0" layoutY="7.0" maxWidth="230.0" prefHeight="20.0" prefWidth="230.0">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
                                              </children>
                                           </Pane>
                                           <Label layoutX="362.0" layoutY="94.0" text="Script">
@@ -183,17 +188,21 @@
                                              </font>
                                           </Label>
                                           <Region layoutX="362.0" layoutY="123.0" prefHeight="246.0" prefWidth="336.0" style="-fx-border-color: black; -fx-border-radius: 15; -fx-background-color: white; -fx-background-radius: 15;" />
-                                          <TextArea fx:id="txtareaScript" layoutX="371.0" layoutY="125.0" prefHeight="237.0" prefWidth="319.0" style="-fx-background-color: white; -fx-border-color: white; -fx-background-radius: 15; -fx-border-radius: 15;" />
+                                          <TextArea fx:id="txtareaScript" layoutX="371.0" layoutY="125.0" prefHeight="237.0" prefWidth="319.0" style="-fx-background-color: white; -fx-border-color: white; -fx-background-radius: 15; -fx-border-radius: 15;" wrapText="true" />
                                        </children>
                                     </Pane>
                                     <Pane prefHeight="74.0" prefWidth="674.0" style="-fx-border-color: black; -fx-background-color: #A968ED;">
                                        <children>
+
                                           <MFXButton fx:id="btnCancelEditListening" alignment="CENTER" contentDisplay="CENTER" layoutX="404.0" layoutY="17.0" onAction="#CancelListening_edit" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #FCA4C7; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="cancel" textAlignment="CENTER">
+
                                              <font>
                                                 <Font name="Arial Bold" size="16.0" />
                                              </font>
                                           </MFXButton>
+
                                           <MFXButton fx:id="btnSubmitEditListening" alignment="CENTER" contentDisplay="CENTER" layoutX="548.0" layoutY="17.0" onAction="#SubmitListening_edit" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #80CD7B; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="edit" textAlignment="CENTER">
+
                                              <font>
                                                 <Font name="Arial Bold" size="16.0" />
                                              </font>
