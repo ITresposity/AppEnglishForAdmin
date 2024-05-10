@@ -18,10 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="640.0" prefWidth="899.0" xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1"
-         fx:controller="com.englishforadmin.controller.Speaking_editController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="899.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.englishforadmin.controller.Speaking_editController">
    <children>
       <ImageView fitHeight="640.0" fitWidth="914.0" layoutX="-1.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
          <Image url="@../../assets/wallpaper_content.png" />
@@ -33,11 +30,7 @@
                   <ImageView fitHeight="103.0" fitWidth="906.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="false" smooth="false">
                      <Image url="@../../assets/wallpaper_header.png" />
                   </ImageView>
-                  <MFXButton fx:id="btnUserInformation" layoutX="40.0" layoutY="15.0"
-                             prefHeight="60.0" prefWidth="195.0"
-                             style="-fx-background-radius: 80; -fx-background-color: #8FC6C3; -fx-border-color: black; -fx-border-width: 2px; -fx-border-radius: 80;" text="User : Tham"
-                             textFill="WHITE"
-                           onAction="#ProfileUserScreen">
+                  <MFXButton fx:id="btnUserInformation" layoutX="40.0" layoutY="15.0" onAction="#ProfileUserScreen" prefHeight="60.0" prefWidth="195.0" style="-fx-background-radius: 80; -fx-background-color: #8FC6C3; -fx-border-color: black; -fx-border-width: 2px; -fx-border-radius: 80;" text="User : Tham" textFill="WHITE">
                      <font>
                         <Font name="Arial Bold" size="16.0" />
                      </font></MFXButton>
@@ -160,7 +153,7 @@
                                  <children>
                                     <Pane fx:id="pnTitleNewLesson" prefHeight="45.0" prefWidth="674.0" style="-fx-border-color: black;">
                                        <children>
-                                          <Label layoutX="249.0" layoutY="5.0" text="Điều chỉnh Speaking">
+                                          <Label layoutX="249.0" layoutY="5.0" text="Edit Speaking">
                                              <font>
                                                 <Font name="System Bold" size="19.0" />
                                              </font>
@@ -194,20 +187,12 @@
                                     </Pane>
                                     <Pane prefHeight="74.0" prefWidth="674.0" style="-fx-border-color: black; -fx-background-color: #A968ED;">
                                        <children>
-                                          <MFXButton fx:id="btnCancelEditSpeaking" alignment="CENTER" contentDisplay="CENTER"
-                                                     layoutX="404.0" layoutY="17.0" prefHeight="41.0" prefWidth="123.0"
-                                                     style="-fx-background-color: #FCA4C7; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Hủy"
-                                                     textAlignment="CENTER"
-                                                   onAction="#CancelSpeaking_edit">
+                                          <MFXButton fx:id="btnCancelEditSpeaking" alignment="CENTER" contentDisplay="CENTER" layoutX="404.0" layoutY="17.0" onAction="#CancelSpeaking_edit" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #FCA4C7; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Cancel" textAlignment="CENTER">
                                              <font>
                                                 <Font name="Arial Bold" size="16.0" />
                                              </font>
                                           </MFXButton>
-                                          <MFXButton fx:id="btnSubmitEditSpeaking" alignment="CENTER"
-                                                     contentDisplay="CENTER" layoutX="548.0" layoutY="17.0" prefHeight="41.0"
-                                                     prefWidth="123.0" style="-fx-background-color: #80CD7B; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Điều chỉnh"
-                                                     textAlignment="CENTER"
-                                                      onAction="#SubmitSpeaking_edit">
+                                          <MFXButton fx:id="btnSubmitEditSpeaking" alignment="CENTER" contentDisplay="CENTER" layoutX="548.0" layoutY="17.0" onAction="#SubmitSpeaking_edit" prefHeight="41.0" prefWidth="123.0" style="-fx-background-color: #80CD7B; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Edit" textAlignment="CENTER">
                                              <font>
                                                 <Font name="Arial Bold" size="16.0" />
                                              </font>

@@ -86,22 +86,22 @@
                      <children>
                         <Pane layoutX="-3.0" layoutY="-4.0" prefHeight="550.0" prefWidth="152.0" style="-fx-background-color: #8FC6C3;">
                            <children>
-                              <MFXButton fx:id="btnManageLesson" alignment="CENTER" contentDisplay="CENTER" layoutX="-51.0" layoutY="29.0" onAction="#ManageLessonScreen" prefHeight="47.0" prefWidth="237.0" style="-fx-background-color: #D9D9D9; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text=" Quản lý bài học " textAlignment="CENTER">
+                              <MFXButton fx:id="btnManageLesson" alignment="CENTER" contentDisplay="CENTER" layoutX="-51.0" layoutY="29.0" onAction="#ManageLessonScreen" prefHeight="47.0" prefWidth="237.0" style="-fx-background-color: #D9D9D9; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Manage Lesson" textAlignment="CENTER">
                                  <font>
                                     <Font name="Arial Bold" size="16.0" />
                                  </font>
                               </MFXButton>
-                              <MFXButton fx:id="btnManageVolcabularyStore" layoutX="-51.0" layoutY="119.0" onAction="#ManageStoreVocabularyScreen" prefHeight="47.0" prefWidth="237.0" style="-fx-background-color: #D9D9D9; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Quản lý kho từ">
+                              <MFXButton fx:id="btnManageVolcabularyStore" layoutX="-51.0" layoutY="119.0" onAction="#ManageStoreVocabularyScreen" prefHeight="47.0" prefWidth="237.0" style="-fx-background-color: #D9D9D9; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Manage Store">
                               <font>
                                     <Font name="Arial Bold" size="16.0" />
                                  </font>
                               </MFXButton>
-                              <MFXButton fx:id="btnManageQuiz" layoutX="-51.0" layoutY="211.0" onAction="#ManageQuizScreen" prefHeight="47.0" prefWidth="237.0" style="-fx-background-color: #D9D9D9; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Quản lý Quiz">
+                              <MFXButton fx:id="btnManageQuiz" layoutX="-51.0" layoutY="211.0" onAction="#ManageQuizScreen" prefHeight="47.0" prefWidth="237.0" style="-fx-background-color: #D9D9D9; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Manage Quiz">
                                  <font>
                                     <Font name="System Bold" size="16.0" />
                                  </font>
                               </MFXButton>
-                              <MFXButton fx:id="btnLogout" layoutX="-51.0" layoutY="310.0" prefHeight="47.0" prefWidth="237.0" style="-fx-background-color: #FF8A54; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Đăng xuất">
+                              <MFXButton fx:id="btnLogout" layoutX="-51.0" layoutY="310.0" prefHeight="47.0" prefWidth="237.0" style="-fx-background-color: #FF8A54; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Logout">
                                  <font>
                                     <Font name="Arial Bold" size="16.0" />
                                  </font>
@@ -115,7 +115,7 @@
                   </Pane>
                   <Pane fx:id="pnMain" prefHeight="543.0" prefWidth="715.0">
                      <children>
-                        <MFXButton fx:id="btnAddNewLesson" layoutX="524.0" layoutY="465.0" onAction="#AddNewLessonScreen" prefHeight="41.0" prefWidth="166.0" style="-fx-border-width: 1px; -fx-background-color: #80DE7A; -fx-border-color: black;" text="Thêm mới">
+                        <MFXButton fx:id="btnAddNewLesson" layoutX="524.0" layoutY="465.0" onAction="#AddNewLessonScreen" prefHeight="41.0" prefWidth="166.0" style="-fx-border-width: 1px; -fx-background-color: #80DE7A; -fx-border-color: black;" text="Add new lesson">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
