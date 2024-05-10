@@ -10,7 +10,7 @@ public interface QuizDAO {
 
     Quiz getQuizById(String quizId);
 
-    boolean addNewQuiz(Quiz quiz);
+    boolean  addNewQuiz(Quiz quiz);
 
     boolean updateQuiz(Quiz quiz);
 
