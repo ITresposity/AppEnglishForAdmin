@@ -5,7 +5,6 @@ public class Speaking {
     private String title;
     private String content;
     private byte[] example;
-    private String idLessonPart;
 
     public String getIdSpeaking() {
         return idSpeaking;
@@ -39,11 +38,4 @@ public class Speaking {
         this.example = example;
     }
 
-    public String getIdLessonPart() {
-        return idLessonPart;
-    }
-
-    public void setIdLessonPart(String idLessonPart) {
-        this.idLessonPart = idLessonPart;
-    }
 }
