@@ -102,7 +102,6 @@ public class Listening_newController {
             MessageBox.show("Thành công","Thêm bài nghe thành công", Alert.AlertType.CONFIRMATION);
         }else {
             MessageBox.show("Lỗi","Thêm bài nghe không thành công", Alert.AlertType.ERROR);
-            return;
         }
     }
 

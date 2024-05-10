@@ -104,14 +104,7 @@ public class Grammar_editController {
             return;
         }
         if(isUpdateData()){
-            Grammar grammar = new Grammar();
-            grammar.setIdGrammar(curGrammar.getIdGrammar());
-            grammar.setTitle(txtareaTitle.getText());
-            grammar.setImage(dataImage);
-            grammar.setRule(txtareaRuleGrammar.getText());
-            grammar.setContent(txtareaContent.getText());
-            grammar.setExample(txtareaExampleGrammar.getText());
-            if (!grammarDAO.update(grammar)){
+            if (!updateGrammar()){
                 MessageBox.show("Lỗi","Cập nhật ngữ pháp thất bại", Alert.AlertType.ERROR);
                 return;
             }
@@ -231,6 +224,16 @@ public class Grammar_editController {
                 || !curGrammar.getRule().equals(txtareaRuleGrammar.getText())
                 || !curGrammar.getExample().equals(txtareaExampleGrammar.getText())
                 || !Arrays.equals(curGrammar.getImage(), dataImage);
+    }
+    private boolean updateGrammar(){
+        Grammar grammar = new Grammar();
+        grammar.setIdGrammar(curGrammar.getIdGrammar());
+        grammar.setTitle(txtareaTitle.getText());
+        grammar.setImage(dataImage);
+        grammar.setRule(txtareaRuleGrammar.getText());
+        grammar.setContent(txtareaContent.getText());
+        grammar.setExample(txtareaExampleGrammar.getText());
+        return grammarDAO.update(grammar);
     }
     private void clearField(){
         txtareaTitle.setText("");
