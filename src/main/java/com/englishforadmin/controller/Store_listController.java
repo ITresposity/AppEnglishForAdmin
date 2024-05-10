@@ -12,11 +12,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import io.github.palexdev.materialfx.controls.MFXButton;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
@@ -25,7 +28,7 @@ import model.Lesson;
 import model.Quiz;
 import model.Vocabulary;
 
-public class Store_listController {
+public class Store_listController  implements Initializable {
 
     public TableColumn columnPhoneticVocabulary;
     @FXML
@@ -78,6 +81,15 @@ public class Store_listController {
             e.printStackTrace();
         }
     }
+    @FXML
+    void EditVolcabularyScreen() {
+        try {
+            MainApplication.loadForm("/volcabularyStore", "store_editVolcabulary.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @FXML
     void ManageStoreVocabularyScreen(ActionEvent event) throws IOException {
@@ -100,7 +112,7 @@ public class Store_listController {
     @FXML
     void AddNewVolcabularyScreen(ActionEvent event) throws IOException {
         try {
-            MainApplication.loadForm("/volcabulary", "Volcabulary_new.fxml");
+            MainApplication.loadForm("/volcabularyStore", "store_newVolcabulary.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -144,7 +156,7 @@ public class Store_listController {
     private VocabularyDAOimpl vocabularyDAOimpl;
 
     @FXML
-    public void initialize() {
+    public void initialize(URL location, ResourceBundle resources) {
         Connection connection = MySQLconnection.getConnection();
         this.vocabularyDAOimpl = new VocabularyDAOimpl(connection);
 
@@ -153,14 +165,15 @@ public class Store_listController {
         columnMeanVocabulary.setCellValueFactory(new PropertyValueFactory<>("Mean"));
         columnPhoneticVocabulary.setCellValueFactory(new PropertyValueFactory<>("Phonetic"));
 
-        columnModifyButton.setCellFactory(col -> new TableCell<Vocabulary, Vocabulary>() {
+        // Cài đặt CellFactory cho cột Modify
+        columnModifyButton.setCellFactory(col -> new TableCell<>() {
             private final Button btn = new Button("Modify");
 
             {
                 btn.getStyleClass().add("modify-button");
                 btn.setOnAction(event -> {
                     Vocabulary vocabulary = getTableView().getItems().get(getIndex());
-                    // Call the method to modify the vocabulary item
+                    // Hành động khi nút Modify được nhấn
                     modifyVocabulary(vocabulary);
                 });
             }
@@ -168,41 +181,33 @@ public class Store_listController {
             @Override
             protected void updateItem(Vocabulary vocabulary, boolean empty) {
                 super.updateItem(vocabulary, empty);
-                if (empty || vocabulary == null) {
-                    setGraphic(null);
-                } else {
-                    setGraphic(btn);
-                }
+                setGraphic(empty ? null : btn);
             }
         });
 
-// Similarly, do the same for the columnDeleteButton
-        columnDeleteButton.setCellFactory(col -> new TableCell<Vocabulary, Vocabulary>() {
+// Cài đặt CellFactory cho cột Delete
+        columnDeleteButton.setCellFactory(col -> new TableCell<>() {
             private final Button btn = new Button("Delete");
 
             {
                 btn.getStyleClass().add("delete-button");
                 btn.setOnAction(event -> {
                     Vocabulary vocabulary = getTableView().getItems().get(getIndex());
-                    // Call the method to delete the vocabulary item
+                    // Hành động khi nút Delete được nhấn
                     deleteVocabulary(vocabulary);
                 });
             }
 
             @Override
-            protected void updateItem(Vocabulary vocabulary, boolean empty) {
-                super.updateItem(vocabulary, empty);
-                if (empty || vocabulary == null) {
-                    setGraphic(null);
-                } else {
-                    setGraphic(btn);
-                }
+            protected void updateItem(Vocabulary item, boolean empty) {
+                super.updateItem(item, empty);
+                setGraphic(empty ? null : btn);
             }
         });
 
         loadStore();
-
     }
+
 
     private void loadStore() {
         try {
@@ -214,15 +219,17 @@ public class Store_listController {
         }
     }
     private void modifyVocabulary(Vocabulary vocabulary) {
-        // Add your logic to modify the vocabulary item
-        // For example:
+
         System.out.println("Modify vocabulary: " + vocabulary);
+        EditVolcabularyScreen();
+
     }
 
     private void deleteVocabulary(Vocabulary vocabulary) {
         // Add your logic to delete the vocabulary item
         // For example:
         System.out.println("Delete vocabulary: " + vocabulary);
+
     }
 
 }

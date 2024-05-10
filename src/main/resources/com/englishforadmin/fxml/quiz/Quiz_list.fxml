@@ -77,7 +77,7 @@
                                     <Font name="Arial Bold" size="16.0" />
                                  </font>
                               </MFXButton>
-                              <MFXButton fx:id="btnManageQuiz" layoutX="-51.0" layoutY="211.0" onAction="#ManageQuizScreen" prefHeight="47.0" prefWidth="237.0" style="-fx-background-color: #D9D9D9; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Manage">
+                              <MFXButton fx:id="btnManageQuiz" layoutX="-51.0" layoutY="211.0" onAction="#ManageQuizScreen" prefHeight="47.0" prefWidth="237.0" style="-fx-background-color: #D9D9D9; -fx-background-radius: 80; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 10);" text="Manage Quiz">
                                  <font>
                                     <Font name="System Bold" size="16.0" />
                                  </font>
