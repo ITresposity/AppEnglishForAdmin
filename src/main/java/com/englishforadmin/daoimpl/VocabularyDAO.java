@@ -53,6 +53,14 @@ public class VocabularyDAO{
                     "FROM VOCABULARY\n" +
                     "ORDER BY IdVocabulary DESC\n" +
                     "LIMIT 1;";
+    private final static String INSERT_ANTONYMS_QUERY =
+            "INSERT INTO ANTONYMS (IdVocabulary, IdAntonyms) VALUES (?,?);";
+    private final static String INSERT_SYNONYMS_QUERY =
+            "INSERT INTO SYNONYMS (IdVocabulary, IdSynonyms) VALUES (?,?);";
+    private final static String DELETE_ANTONYMS_QUERY =
+            "DELETE FROM ANTONYMS WHERE IdVocabulary = ? AND IdAntonyms = ?;";
+    private final static String DELETE_SYNONYMS_QUERY =
+            "DELETE FROM SYNONYMS WHERE IdVocabulary = ? AND IdSynonyms = ?;";
     public boolean insert(Vocabulary entity){
         Connection connection = MySQLconnection.getConnection();
         if (connection != null) {
@@ -172,5 +180,93 @@ public class VocabularyDAO{
         if (id.isEmpty())
             id = "V000000001";
         return id;
+    }
+
+    public boolean insertAntonyms(String idVocabulary, String idAntonyms){
+        Connection connection = MySQLconnection.getConnection();
+        if (connection != null) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_ANTONYMS_QUERY)) {
+                preparedStatement.setString(1, idVocabulary);
+                preparedStatement.setString(2, idAntonyms);
+
+                int rowsAffected = preparedStatement.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("Insertion successful.");
+                    return true;
+                } else {
+                    System.out.println("Insertion failed.");
+                    return false;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    public boolean deleteAntonyms(String idVocabulary, String idAntonyms){
+        Connection connection = MySQLconnection.getConnection();
+        if (connection != null) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE_ANTONYMS_QUERY)) {
+                preparedStatement.setString(1, idVocabulary);
+                preparedStatement.setString(2, idAntonyms);
+
+                int rowsAffected = preparedStatement.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("Delete successful.");
+                    return true;
+                } else {
+                    System.out.println("Delete failed.");
+                    return false;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    public boolean insertSynonyms(String idVocabulary, String idSynonyms){
+        Connection connection = MySQLconnection.getConnection();
+        if (connection != null) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_SYNONYMS_QUERY)) {
+                preparedStatement.setString(1, idVocabulary);
+                preparedStatement.setString(2, idSynonyms);
+
+                int rowsAffected = preparedStatement.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("Insertion successful.");
+                    return true;
+                } else {
+                    System.out.println("Insertion failed.");
+                    return false;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    public boolean deleteSynonyms(String idVocabulary, String idSynonyms){
+        Connection connection = MySQLconnection.getConnection();
+        if (connection != null) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE_SYNONYMS_QUERY)) {
+                preparedStatement.setString(1, idVocabulary);
+                preparedStatement.setString(2, idSynonyms);
+
+                int rowsAffected = preparedStatement.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("Delete successful.");
+                    return true;
+                } else {
+                    System.out.println("Delete failed.");
+                    return false;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
     }
 }
